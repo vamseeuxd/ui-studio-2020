@@ -1,0 +1,61 @@
+<ul
+  class="list-group shadow p-2 bg-white"
+  style="min-width: 200px"
+  role="button"
+  (mousedown)="$event.stopPropagation()"
+>
+  <li
+    *ngFor="let menuItem of menu"
+    (click)="menuItem?.action && onItemClick(menuItem)"
+    class="py-1 list-group-item list-group-item-action"
+  >
+    <i *ngIf="menuItem?.icon" [class]="menuItem?.icon + ' mr-2'"></i>
+    {{ menuItem["label"] }}
+    <ul
+      *ngIf="menuItem.menu"
+      class="list-group sub-menu shadow p-2 bg-white"
+      style="min-width: 200px"
+    >
+      <li
+        (click)="subMenuItem?.action && onItemClick(menuItem)"
+        *ngFor="let subMenuItem of menuItem['menu']"
+        class="py-1 list-group-item list-group-item-action"
+      >
+        <i *ngIf="subMenuItem?.icon" [class]="subMenuItem?.icon + ' mr-2'"></i>
+        {{ subMenuItem["label"] }}
+        <ul
+          *ngIf="subMenuItem.menu"
+          class="list-group sub-menu shadow p-2 bg-white"
+          style="min-width: 200px"
+        >
+          <li
+            (mousedown)="$event.stopPropagation()"
+            (click)="onItemClick(item)"
+            class="py-1 list-group-item list-group-item-action"
+            [class.active]="item && item.label && isActive(item.label)"
+            *ngFor="let item of subMenuItem['menu']"
+          >
+            <i *ngIf="item?.icon" [class]="item?.icon + ' mr-2'"></i>
+            {{ item["label"] }}
+            <ul
+              *ngIf="item.menu"
+              class="list-group sub-menu shadow p-2 bg-white"
+              style="min-width: 200px"
+            >
+              <li
+                (mousedown)="$event.stopPropagation()"
+                (click)="onItemClick(subItem)"
+                class="py-1 list-group-item list-group-item-action"
+                [class.active]="subItem && subItem.label && isActive(subItem.label)"
+                *ngFor="let subItem of item['menu']"
+              >
+                <i *ngIf="subItem?.icon" [class]="subItem?.icon + ' mr-2'"></i>
+                {{ subItem["label"] }}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>

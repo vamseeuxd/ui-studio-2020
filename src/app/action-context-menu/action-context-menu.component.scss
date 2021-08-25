@@ -1,0 +1,17 @@
+:host {
+  .list-group-item {
+    &:hover {
+      >.sub-menu {
+        display: block;
+      }
+    }
+    .sub-menu {
+      display: none;
+      min-width: 200px;
+      position: absolute;
+      right: -85%;
+      z-index: 1000;
+      top: -1px;
+    }
+  }
+}
