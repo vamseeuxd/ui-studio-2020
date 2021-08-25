@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ActionContextMenuComponent implements OnInit {
   @Input() component: IComponent | undefined;
+  @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 
   menu: any[] = [
@@ -250,22 +251,32 @@ export class ActionContextMenuComponent implements OnInit {
     { icon: 'fa fa-clone', action: 'copy', label: 'Copy' },
     {
       icon: 'fa fa-clipboard',
+      lastCopiedOrCutted: true,
       label: 'Paste',
       menu: [
         {
+          lastCopiedOrCutted: true,
           icon: 'fa fa-arrow-left',
           action: 'paste-before',
           label: 'Paste Before',
         },
         {
+          lastCopiedOrCutted: true,
           icon: 'fa fa-arrow-right',
           action: 'paste-after',
           label: 'Paste After',
         },
         {
+          lastCopiedOrCutted: true,
           icon: 'fa fa-arrow-down',
           action: 'paste-inside',
           label: 'Paste Inside',
+        },
+        {
+          lastCopiedOrCutted: true,
+          icon: 'fa fa-close',
+          action: 'paste-cancel',
+          label: 'Cancel Paste',
         },
       ],
     },

@@ -14,6 +14,7 @@ import {
 export class AppComponent {
   headerHeight = '60px';
   activePageId = 'page_140';
+  lastCopiedOrCuttedComponent: IComponent | undefined;
   // Institutional Trade Processing
   app: IApplication = {
     name: 'Institutional Trade Processing',
@@ -28,6 +29,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_4],
             id: '1',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_PRIMARY,
             components: [],
           },
@@ -35,6 +38,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_4],
             id: '2',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_SECONDARY,
             components: [],
           },
@@ -42,6 +47,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_4],
             id: '3',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_SUCCESS,
             components: [],
           },
@@ -49,6 +56,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_4],
             id: '4',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_DANGER,
             components: [],
           },
@@ -56,6 +65,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_4],
             id: '5',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_WARNING,
             components: [],
           },
@@ -63,6 +74,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_4],
             id: '6',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_INFO,
             components: [],
           },
@@ -70,6 +83,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_4],
             id: '7',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_LIGHT,
             components: [],
           },
@@ -77,6 +92,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_4],
             id: '8',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_DARK,
             components: [],
           },
@@ -84,6 +101,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_4],
             id: '9',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_PRIMARY,
             components: [],
           },
@@ -91,6 +110,8 @@ export class AppComponent {
             offset: [],
             col: [COL.MD_12],
             id: '10',
+            isCopied: false,
+            isCutted: false,
             type: COMPONENT_TYPE.ALERT_PRIMARY,
             components: [],
           },
@@ -101,19 +122,39 @@ export class AppComponent {
   getActivePage(): any {
     return this.app.pages.find((page) => page.id === this.activePageId);
   }
+
   copy($event: IComponent): void {
-    console.log('copy', $event);
+    if (this.lastCopiedOrCuttedComponent) {
+      this.lastCopiedOrCuttedComponent.isCopied = false;
+    }
+    $event.isCopied = true;
+    this.lastCopiedOrCuttedComponent = $event;
   }
   cut($event: IComponent): void {
-    console.log('cut', $event);
+    if (this.lastCopiedOrCuttedComponent) {
+      this.lastCopiedOrCuttedComponent.isCopied = false;
+      this.lastCopiedOrCuttedComponent.isCutted = false;
+    }
+    $event.isCutted = true;
+    this.lastCopiedOrCuttedComponent = $event;
   }
   pasteBefore($event: IComponent): void {
     console.log('pasteBefore', $event);
+    // this.pasteCancel($event);
   }
   pasteAfter($event: IComponent): void {
     console.log('pasteAfter', $event);
+    // this.pasteCancel($event);
   }
   pasteInside($event: IComponent): void {
     console.log('pasteInside', $event);
+    this.pasteCancel($event);
+  }
+  pasteCancel($event: IComponent): void {
+    if (this.lastCopiedOrCuttedComponent) {
+      this.lastCopiedOrCuttedComponent.isCopied = false;
+      this.lastCopiedOrCuttedComponent.isCutted = false;
+      this.lastCopiedOrCuttedComponent = undefined;
+    }
   }
 }

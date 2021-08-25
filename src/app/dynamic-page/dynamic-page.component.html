@@ -1,12 +1,14 @@
 <div class="container-fluid">
   <div class="row">
     <app-dynamic-component
+      [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
       [component]="component"
       (copy)="copy.emit($event)"
       (cut)="cut.emit($event)"
       (pasteBefore)="pasteBefore.emit($event)"
       (pasteAfter)="pasteAfter.emit($event)"
       (pasteInside)="pasteInside.emit($event)"
+      (pasteCancel)="pasteCancel.emit($event)"
       *ngFor="let component of activePage?.components"
     ></app-dynamic-component>
   </div>

@@ -1,11 +1,16 @@
-
 <!--
   <pre>{{ component | json }}</pre>
 -->
 
 <div [class]="'mt-3 alert ' + component?.type" role="alert">
-  A simple primary alert—check it out!
+  A simple primary alert—check it out! {{ component && component.isCopied }}
 </div>
 
-
-<app-action-context-menu [component]="component" (action)="onAction($event)" [style.top.px]="contextMenuPageY" [style.left.px]="contextMenuPageX" *ngIf="showContextMenu"></app-action-context-menu>
+<app-action-context-menu
+  [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+  [component]="component"
+  (action)="onAction($event)"
+  [style.top.px]="contextMenuPageY"
+  [style.left.px]="contextMenuPageX"
+  *ngIf="showContextMenu"
+></app-action-context-menu>

@@ -12,10 +12,12 @@
   style="overflow-y: auto; padding-bottom: 15px"
 >
   <app-dynamic-page
+    [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
     (copy)="copy($event)"
     (cut)="cut($event)"
     (pasteBefore)="pasteBefore($event)"
     (pasteAfter)="pasteAfter($event)"
+    (pasteCancel)="pasteCancel($event)"
     (pasteInside)="pasteInside($event)"
     [activePage]="getActivePage()"
   ></app-dynamic-page>

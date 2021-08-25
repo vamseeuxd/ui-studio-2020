@@ -30,11 +30,24 @@ export class DynamicComponentComponent implements OnInit {
     this.cssClass = this.getColClasses();
   }
 
+  // tslint:disable-next-line:variable-name
+  private _lastCopiedOrCuttedComponent: IComponent | undefined;
+  public get lastCopiedOrCuttedComponent(): IComponent | undefined {
+    return this._lastCopiedOrCuttedComponent;
+  }
+  @Input()
+  public set lastCopiedOrCuttedComponent(value: IComponent | undefined) {
+    this._lastCopiedOrCuttedComponent = value;
+    this.cssClass = this.getColClasses();
+  }
+
+  // @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Output() copy: EventEmitter<IComponent> = new EventEmitter<IComponent>();
   @Output() cut: EventEmitter<IComponent> = new EventEmitter<IComponent>();
   @Output() pasteBefore: EventEmitter<IComponent> = new EventEmitter<IComponent>();
   @Output() pasteAfter: EventEmitter<IComponent> = new EventEmitter<IComponent>();
   @Output() pasteInside: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() pasteCancel: EventEmitter<IComponent> = new EventEmitter<IComponent>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -62,14 +75,10 @@ export class DynamicComponentComponent implements OnInit {
 
   getColClasses(): string {
     return (
-      (this.component && this.component.col.join(' ')) +
-      ' ' +
-      (this.component && this.component.offset.join(' ')) +
-      ' ' +
-      (this.showContextMenu
-        ? 'shadow border-danger'
-        : 'border-light border-top-0 border-right-0') +
-      ' ' +
+      (this.component && this.component.col.join(' ')) + ' ' +
+      (this.component && this.component.offset.join(' ')) + ' ' +
+      ((this.lastCopiedOrCuttedComponent && this.component?.id == this.lastCopiedOrCuttedComponent.id) ? ' ants ' : '') + ' ' +
+      (this.showContextMenu ? 'shadow border-danger' : 'border-light border-top-0 border-right-0') + ' ' +
       ' border position-relative'
     );
   }
@@ -101,6 +110,10 @@ export class DynamicComponentComponent implements OnInit {
       case 'paste-inside':
         // paste functionality
         this.pasteInside.emit(this.component);
+        break;
+      case 'paste-cancel':
+        // paste functionality
+        this.pasteCancel.emit(this.component);
         break;
 
       default:
