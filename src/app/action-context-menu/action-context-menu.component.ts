@@ -254,17 +254,17 @@ export class ActionContextMenuComponent implements OnInit {
       menu: [
         {
           icon: 'fa fa-arrow-left',
-          action: 'add-component',
+          action: 'paste-before',
           label: 'Paste Before',
         },
         {
           icon: 'fa fa-arrow-right',
-          action: 'add-component',
-          label: 'Paste Before',
+          action: 'paste-after',
+          label: 'Paste After',
         },
         {
           icon: 'fa fa-arrow-down',
-          action: 'add-component',
+          action: 'paste-inside',
           label: 'Paste Inside',
         },
       ],

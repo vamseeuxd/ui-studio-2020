@@ -1,5 +1,6 @@
+import { IComponent } from './../interfaces/component.interface';
 import { IPage } from './../interfaces/page.interface';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dynamic-page',
@@ -8,6 +9,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DynamicPageComponent implements OnInit {
   @Input() activePage: IPage | undefined;
+
+  @Output() copy: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() cut: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() pasteBefore: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() pasteAfter: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() pasteInside: EventEmitter<IComponent> = new EventEmitter<IComponent>();
 
   constructor() {}
 

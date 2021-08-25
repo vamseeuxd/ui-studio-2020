@@ -1,10 +1,12 @@
 import { COL, IComponent } from './../interfaces/component.interface';
 import {
   Component,
+  EventEmitter,
   HostBinding,
   HostListener,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 
 @Component({
@@ -27,6 +29,12 @@ export class DynamicComponentComponent implements OnInit {
     this._component = value;
     this.cssClass = this.getColClasses();
   }
+
+  @Output() copy: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() cut: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() pasteBefore: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() pasteAfter: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() pasteInside: EventEmitter<IComponent> = new EventEmitter<IComponent>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -76,18 +84,29 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'copy':
         // copy functionality
+        this.copy.emit(this.component);
         break;
       case 'cut':
         // cut functionality
+        this.cut.emit(this.component);
         break;
-      case 'paste':
+      case 'paste-before':
         // paste functionality
+        this.pasteBefore.emit(this.component);
+        break;
+      case 'paste-after':
+        // paste functionality
+        this.pasteAfter.emit(this.component);
+        break;
+      case 'paste-inside':
+        // paste functionality
+        this.pasteInside.emit(this.component);
         break;
 
       default:
         break;
     }
-    console.log(action);
+    // console.log(action);
     this.showContextMenu = false;
     this.component = this.component;
   }

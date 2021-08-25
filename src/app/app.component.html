@@ -1,8 +1,26 @@
-<nav class="navbar fixed-top navbar-dark bg-dark shadow" *ngIf="app.name.length > 0">
-  <a class="navbar-brand">{{app.name}}</a>
+<nav
+  class="navbar fixed-top navbar-dark bg-dark shadow"
+  *ngIf="app.name.length > 0"
+>
+  <a class="navbar-brand">{{ app.name }}</a>
 </nav>
-<div *ngIf="app.name.length > 0" [style.marginTop]="headerHeight" [style.height]="'calc(100vh - {{headerHeight}})'" class="container-fluid" style="overflow-y: auto;padding-bottom: 15px;">
-  <app-dynamic-page [activePage]="getActivePage()"></app-dynamic-page>
+<div
+  *ngIf="app.name.length > 0"
+  [style.marginTop]="headerHeight"
+  [style.height]="'calc(100vh - {{headerHeight}})'"
+  class="container-fluid"
+  style="overflow-y: auto; padding-bottom: 15px"
+>
+  <app-dynamic-page
+    (copy)="copy($event)"
+    (cut)="cut($event)"
+    (pasteBefore)="pasteBefore($event)"
+    (pasteAfter)="pasteAfter($event)"
+    (pasteInside)="pasteInside($event)"
+    [activePage]="getActivePage()"
+  ></app-dynamic-page>
 </div>
-<app-create-or-import-application [show]="app.name.length < 1" (create)="app = $event;activePageId = $event.pages[0].id"></app-create-or-import-application>
-
+<app-create-or-import-application
+  [show]="app.name.length < 1"
+  (create)="app = $event; activePageId = $event.pages[0].id"
+></app-create-or-import-application>

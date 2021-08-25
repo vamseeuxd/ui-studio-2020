@@ -1,5 +1,13 @@
 <div class="container-fluid">
   <div class="row">
-    <app-dynamic-component [component]="component" *ngFor="let component of activePage?.components"></app-dynamic-component>
+    <app-dynamic-component
+      [component]="component"
+      (copy)="copy.emit($event)"
+      (cut)="cut.emit($event)"
+      (pasteBefore)="pasteBefore.emit($event)"
+      (pasteAfter)="pasteAfter.emit($event)"
+      (pasteInside)="pasteInside.emit($event)"
+      *ngFor="let component of activePage?.components"
+    ></app-dynamic-component>
   </div>
 </div>
