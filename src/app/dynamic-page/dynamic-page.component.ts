@@ -13,10 +13,10 @@ export class DynamicPageComponent implements OnInit {
 
   @Output() copy: EventEmitter<IComponent> = new EventEmitter<IComponent>();
   @Output() cut: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() pasteBefore: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() pasteAfter: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() pasteInside: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() pasteCancel: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() pasteBefore: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteAfter: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteCancel: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
 
   constructor() {}
 

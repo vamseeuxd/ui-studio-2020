@@ -27,7 +27,7 @@ export class AppComponent {
         components: [
           {
             offset: [],
-            col: [COL.MD_4],
+            col: [COL.MD_1],
             id: '1',
             isCopied: false,
             isCutted: false,
@@ -36,7 +36,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_4],
+            col: [COL.MD_1],
             id: '2',
             isCopied: false,
             isCutted: false,
@@ -45,7 +45,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_4],
+            col: [COL.MD_1],
             id: '3',
             isCopied: false,
             isCutted: false,
@@ -54,7 +54,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_4],
+            col: [COL.MD_1],
             id: '4',
             isCopied: false,
             isCutted: false,
@@ -63,7 +63,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_4],
+            col: [COL.MD_1],
             id: '5',
             isCopied: false,
             isCutted: false,
@@ -72,7 +72,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_4],
+            col: [COL.MD_1],
             id: '6',
             isCopied: false,
             isCutted: false,
@@ -81,7 +81,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_4],
+            col: [COL.MD_1],
             id: '7',
             isCopied: false,
             isCutted: false,
@@ -90,7 +90,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_4],
+            col: [COL.MD_1],
             id: '8',
             isCopied: false,
             isCutted: false,
@@ -99,7 +99,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_4],
+            col: [COL.MD_1],
             id: '9',
             isCopied: false,
             isCutted: false,
@@ -108,7 +108,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_12],
+            col: [COL.MD_1],
             id: '10',
             isCopied: false,
             isCutted: false,
@@ -138,19 +138,27 @@ export class AppComponent {
     $event.isCutted = true;
     this.lastCopiedOrCuttedComponent = $event;
   }
-  pasteBefore($event: IComponent): void {
-    console.log('pasteBefore', $event);
+  pasteBefore({component,parent}:{component:IComponent,parent:IComponent[]}): void {
+    const index = parent.findIndex(data=>(data.id === component.id));
+    if(index >= 0){
+      const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
+      cloned.id = 'component_'+new Date().getTime();
+      parent.splice(index,0,cloned);
+    }
+  }
+  pasteAfter({component,parent}:{component:IComponent,parent:IComponent[]}): void {
+    const index = parent.findIndex(data=>(data.id === component.id));
+    if(index >= 0){
+      const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
+      cloned.id = 'component_'+new Date().getTime();
+      parent.splice(index + 1,0,cloned);
+    }
+  }
+  pasteInside({component,parent}:{component:IComponent,parent:IComponent[]}): void {
+    console.log('pasteInside', component, parent);
     // this.pasteCancel($event);
   }
-  pasteAfter($event: IComponent): void {
-    console.log('pasteAfter', $event);
-    // this.pasteCancel($event);
-  }
-  pasteInside($event: IComponent): void {
-    console.log('pasteInside', $event);
-    this.pasteCancel($event);
-  }
-  pasteCancel($event: IComponent): void {
+  pasteCancel({component,parent}:{component:IComponent,parent:IComponent[]}): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;
       this.lastCopiedOrCuttedComponent.isCutted = false;

@@ -41,13 +41,15 @@ export class DynamicComponentComponent implements OnInit {
     this.cssClass = this.getColClasses();
   }
 
+  @Input() parentList: IComponent[] = [];
+
   // @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Output() copy: EventEmitter<IComponent> = new EventEmitter<IComponent>();
   @Output() cut: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() pasteBefore: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() pasteAfter: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() pasteInside: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() pasteCancel: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() pasteBefore: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteAfter: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteCancel: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -75,10 +77,19 @@ export class DynamicComponentComponent implements OnInit {
 
   getColClasses(): string {
     return (
-      (this.component && this.component.col.join(' ')) + ' ' +
-      (this.component && this.component.offset.join(' ')) + ' ' +
-      ((this.lastCopiedOrCuttedComponent && this.component?.id == this.lastCopiedOrCuttedComponent.id) ? ' ants ' : '') + ' ' +
-      (this.showContextMenu ? 'shadow border-danger' : 'border-light border-top-0 border-right-0') + ' ' +
+      (this.component && this.component.col.join(' ')) +
+      ' ' +
+      (this.component && this.component.offset.join(' ')) +
+      ' ' +
+      (this.lastCopiedOrCuttedComponent &&
+      this.component?.id == this.lastCopiedOrCuttedComponent.id
+        ? ' ants '
+        : '') +
+      ' ' +
+      (this.showContextMenu
+        ? 'shadow border-danger'
+        : 'border-light border-top-0 border-right-0') +
+      ' ' +
       ' border position-relative'
     );
   }
@@ -101,19 +112,19 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'paste-before':
         // paste functionality
-        this.pasteBefore.emit(this.component);
+        this.component && this.pasteBefore.emit({component:this.component,parent: this.parentList});
         break;
       case 'paste-after':
         // paste functionality
-        this.pasteAfter.emit(this.component);
+        this.component && this.pasteAfter.emit({component:this.component,parent: this.parentList});
         break;
       case 'paste-inside':
         // paste functionality
-        this.pasteInside.emit(this.component);
+        this.component && this.pasteInside.emit({component:this.component,parent: this.parentList});
         break;
       case 'paste-cancel':
         // paste functionality
-        this.pasteCancel.emit(this.component);
+        this.component && this.pasteCancel.emit({component:this.component,parent: this.parentList});
         break;
 
       default:
