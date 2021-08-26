@@ -11,8 +11,8 @@ export class DynamicPageComponent implements OnInit {
   @Input() activePage: IPage | undefined;
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
 
-  @Output() copy: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() cut: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() copy: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() cut: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteBefore: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteAfter: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();

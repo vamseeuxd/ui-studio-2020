@@ -42,10 +42,11 @@ export class DynamicComponentComponent implements OnInit {
   }
 
   @Input() parentList: IComponent[] = [];
+  @Input() isChild = false;
 
   // @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
-  @Output() copy: EventEmitter<IComponent> = new EventEmitter<IComponent>();
-  @Output() cut: EventEmitter<IComponent> = new EventEmitter<IComponent>();
+  @Output() copy: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() cut: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteBefore: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteAfter: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
@@ -87,10 +88,10 @@ export class DynamicComponentComponent implements OnInit {
         : '') +
       ' ' +
       (this.showContextMenu
-        ? 'shadow border-danger'
-        : 'border-light border-top-0 border-right-0') +
+        ? 'border shadow border-danger'
+        : '') +
       ' ' +
-      ' border position-relative'
+      ' position-relative d-block'
     );
   }
 
@@ -104,11 +105,12 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'copy':
         // copy functionality
-        this.copy.emit(this.component);
+        this.component && this.copy.emit({component:this.component,parent: this.parentList});
         break;
       case 'cut':
         // cut functionality
-        this.cut.emit(this.component);
+        debugger;
+        this.component && this.cut.emit({component:this.component,parent: this.parentList});
         break;
       case 'paste-before':
         // paste functionality

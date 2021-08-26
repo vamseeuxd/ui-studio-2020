@@ -1,9 +1,25 @@
 <!--
   <pre>{{ component | json }}</pre>
 -->
-
 <div [class]="'mt-3 alert ' + component?.type" role="alert">
   A simple primary alert—check it out! {{ component && component.isCopied }}
+  <ng-container *ngIf="component && component.components && component.components.length > 0">
+    <div class="p-1 w-100">
+      <app-dynamic-component
+      [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+      [component]="childComponent"
+      [isChild]="true"
+      [parentList]="component.components"
+      (copy)="copy.emit($event)"
+      (cut)="cut.emit($event)"
+      (pasteBefore)="pasteBefore.emit($event)"
+      (pasteAfter)="pasteAfter.emit($event)"
+      (pasteInside)="pasteInside.emit($event)"
+      (pasteCancel)="pasteCancel.emit($event)"
+      *ngFor="let childComponent of component.components"
+      ></app-dynamic-component>
+    </div>
+  </ng-container>
 </div>
 
 <app-action-context-menu
