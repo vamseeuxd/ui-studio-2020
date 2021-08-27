@@ -26,7 +26,6 @@ export class DynamicPageComponent implements OnInit {
   contextmenu($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
-    console.log('window:contextmenu');
     this.showContextMenu = true;
     this.contextMenuPageX = $event.pageX;
     this.contextMenuPageY = $event.pageY;
@@ -51,7 +50,6 @@ export class DynamicPageComponent implements OnInit {
       default:
         break;
     }
-    // console.log(action);
     this.showContextMenu = false;
   }
 }
