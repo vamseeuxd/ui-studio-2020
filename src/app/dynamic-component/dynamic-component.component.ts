@@ -63,7 +63,6 @@ export class DynamicComponentComponent implements OnInit {
   @HostListener('contextmenu', ['$event'])
   // tslint:disable-next-line:typedef
   contextmenu($event: MouseEvent) {
-    // console.log($event);
     // To prevent browser's default contextmenu
     $event.preventDefault();
     $event.stopPropagation();
@@ -133,7 +132,6 @@ export class DynamicComponentComponent implements OnInit {
       default:
         break;
     }
-    // console.log(action);
     this.showContextMenu = false;
     this.component = this.component;
   }
