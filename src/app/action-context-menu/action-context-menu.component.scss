@@ -1,10 +1,15 @@
 :host {
+  .list-group {
+    max-width: 250px;
+  }
+
   .list-group-item {
     &:hover {
       >.sub-menu {
         display: block;
       }
     }
+
     .sub-menu {
       display: none;
       min-width: 200px;
@@ -12,6 +17,17 @@
       right: -85%;
       z-index: 1000;
       top: -1px;
+
+      &.left {
+        right: auto;
+        left: -100%;
+      }
     }
+
+    /* &:first-child {
+      .sub-menu {
+        display: block !important;
+      }
+    } */
   }
 }

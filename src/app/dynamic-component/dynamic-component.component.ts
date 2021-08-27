@@ -19,6 +19,7 @@ export class DynamicComponentComponent implements OnInit {
   showContextMenu = false;
   contextMenuPageX = 884;
   contextMenuPageY = 187;
+  contextMenuLeftAlign = false;
   // tslint:disable-next-line:variable-name
   private _component: IComponent | undefined;
   public get component(): IComponent | undefined {
@@ -68,7 +69,8 @@ export class DynamicComponentComponent implements OnInit {
     $event.stopPropagation();
     this.showContextMenu = true;
     this.cssClass = this.getColClasses();
-    this.contextMenuPageX = $event.pageX;
+    this.contextMenuLeftAlign = $event.pageX + (250 * 3) > document.body.clientWidth;
+    this.contextMenuPageX = $event.pageX + (250 * 1) > document.body.clientWidth ? (document.body.clientWidth - 260) :  $event.pageX;
     this.contextMenuPageY = $event.pageY;
   }
 

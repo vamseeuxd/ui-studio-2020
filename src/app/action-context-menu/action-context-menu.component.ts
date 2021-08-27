@@ -10,6 +10,7 @@ export class ActionContextMenuComponent implements OnInit {
   @Input() component: IComponent | undefined;
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() isPage = false;
+  @Input() leftAlign = false;
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 
   menu: any[] = [
@@ -302,7 +303,12 @@ export class ActionContextMenuComponent implements OnInit {
       label: 'Cancel Paste',
     },
     { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages' },
-    { hideMenuIspage: true, icon: 'fa fa-book', action: 'manage-event', label: 'Manage Event' },
+    {
+      hideMenuIspage: true,
+      icon: 'fa fa-book',
+      action: 'manage-event',
+      label: 'Manage Event',
+    },
     { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' },
     {
       icon: 'fa fa-plus',
@@ -313,42 +319,74 @@ export class ActionContextMenuComponent implements OnInit {
           icon: 'fa fa-arrow-left',
           hideMenuIspage: true,
           action: 'add-component',
-          label: 'Add Component Before',
+          label: 'Add Before',
           menu: [
             { icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
             { icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
             { icon: 'fa fa-address-card-o', action: 'add-form', label: 'Form' },
-            { icon: 'fa fa-table', action: 'add-data-grid', label: 'Data Grid', },
+            {
+              icon: 'fa fa-table',
+              action: 'add-data-grid',
+              label: 'Data Grid',
+            },
           ],
         },
         {
           icon: 'fa fa-arrow-right',
           hideMenuIspage: true,
           action: 'add-component',
-          label: 'Add Component After',
+          label: 'Add After',
           menu: [
             { icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
             { icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
             { icon: 'fa fa-address-card-o', action: 'add-form', label: 'Form' },
-            { icon: 'fa fa-table', action: 'add-data-grid', label: 'Data Grid', },
+            {
+              icon: 'fa fa-table',
+              action: 'add-data-grid',
+              label: 'Data Grid',
+            },
           ],
         },
         {
           icon: 'fa fa-arrow-down',
           hideMenuIspage: true,
           action: 'add-component',
-          label: 'Add Component Inside',
+          label: 'Add Inside',
           menu: [
             { icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
             { icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
             { icon: 'fa fa-address-card-o', action: 'add-form', label: 'Form' },
-            { icon: 'fa fa-table', action: 'add-data-grid', label: 'Data Grid', },
+            {
+              icon: 'fa fa-table',
+              action: 'add-data-grid',
+              label: 'Data Grid',
+            },
           ],
         },
-        { showIfOnlyComponent:true, icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
-        { showIfOnlyComponent:true, icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
-        { showIfOnlyComponent:true, icon: 'fa fa-address-card-o', action: 'add-form', label: 'Form' },
-        { showIfOnlyComponent:true, icon: 'fa fa-table', action: 'add-data-grid', label: 'Data Grid', },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-list',
+          action: 'add-accordion',
+          label: 'Accordion',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-ellipsis-h',
+          action: 'add-tab',
+          label: 'Tab',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-address-card-o',
+          action: 'add-form',
+          label: 'Form',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-table',
+          action: 'add-data-grid',
+          label: 'Data Grid',
+        },
       ],
     },
   ];
@@ -383,6 +421,9 @@ export class ActionContextMenuComponent implements OnInit {
   }
 
   isMenuHidden(data: any): boolean {
-    return (data?.hideMenuIspage && this.isPage) || (data?.showIfOnlyComponent && !this.isPage);
+    return (
+      (data?.hideMenuIspage && this.isPage) ||
+      (data?.showIfOnlyComponent && !this.isPage)
+    );
   }
 }

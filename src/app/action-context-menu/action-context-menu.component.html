@@ -1,7 +1,12 @@
 <ng-container *ngTemplateOutlet="menuTemplateRef; context: {$implicit : menu, isSubMenu : false}"></ng-container>
 
 <ng-template #menuTemplateRef let-dataProvider let-isSubMenu="isSubMenu">
-  <ul  class="list-group shadow p-2 bg-white" [class.sub-menu]="isSubMenu"  style="min-width: 200px"  (mousedown)="$event.stopPropagation()">
+  <ul class="list-group shadow p-2 bg-white"
+      [class.sub-menu]="isSubMenu"
+      [class.left]="leftAlign"
+      style="min-width: 200px;"
+      #menuRef
+      (mousedown)="$event.stopPropagation()">
     <li role="button"
        [class.text-disabled]="isMenuDisabled(data)"
        [class.disabled]="isMenuDisabled(data)"
@@ -17,3 +22,25 @@
   </ul>
 </ng-template>
 
+
+<!--
+<ng-container *ngTemplateOutlet="menuTemplateRef; context: {$implicit : menu, isSubMenu : false}"></ng-container>
+
+<ng-template #menuTemplateRef let-dataProvider let-isSubMenu="isSubMenu">
+  <ul  class="list-group shadow p-2 bg-white" [class.sub-menu]="isSubMenu"  style="min-width: 200px;"  (mousedown)="$event.stopPropagation()">
+    <li role="button"
+       [class.text-disabled]="isMenuDisabled(data)"
+       [class.disabled]="isMenuDisabled(data)"
+       [class.d-none]="isMenuHidden(data)"
+       *ngFor="let data of dataProvider" (click)="data?.action && onItemClick(data)"
+       class="py-1 list-group-item list-group-item-action">
+      <i *ngIf="data?.icon" [class]="data?.icon + ' mr-2'"></i>
+      {{ data["label"] }}
+      <ng-container *ngIf="data.menu">
+        <ng-container *ngTemplateOutlet="menuTemplateRef; context: {$implicit: data.menu, isSubMenu : true}"></ng-container>
+      </ng-container>
+    </li>
+  </ul>
+</ng-template>
+
+ -->
