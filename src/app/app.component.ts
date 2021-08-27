@@ -152,29 +152,33 @@ export class AppComponent {
     this.lastCopiedOrCuttedParent = parent;
   }
   pasteBefore({component,parent,}: {component: IComponent;parent: IComponent[];}): void {
-    const index = parent.findIndex((data) => data.id === component.id);
-    if (index >= 0) {
-      const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
-      cloned.id = this.lastCopiedOrCuttedComponent?.isCopied ? 'component_' + new Date().getTime() : this.lastCopiedOrCuttedComponent?.id;
-      parent.splice(index, 0, cloned);
+    const addIndex = parent.findIndex((data) => data.id === component.id);
+    const oldId = this.lastCopiedOrCuttedComponent?.id;
+    const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
+    if (addIndex >= 0) {
+      cloned.id = 'component_' + new Date().getTime();
+      parent.splice(addIndex, 0, cloned);
     }
     if(this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent?.isCutted && this.lastCopiedOrCuttedParent){
       const removeIndex = this.lastCopiedOrCuttedParent.findIndex((data) => data.id === (this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent.id));
       this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
+      cloned.id = oldId;
       this.lastCopiedOrCuttedComponent = undefined;
       this.lastCopiedOrCuttedParent = undefined;
     }
   }
   pasteAfter({component,parent,}: {component: IComponent;parent: IComponent[];}): void {
-    const index = parent.findIndex((data) => data.id === component.id);
-    if (index >= 0) {
-      const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
-      cloned.id = this.lastCopiedOrCuttedComponent?.isCopied ? 'component_' + new Date().getTime() : this.lastCopiedOrCuttedComponent?.id;
-      parent.splice(index + 1, 0, cloned);
+    const addIndex = parent.findIndex((data) => data.id === component.id);
+    const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
+    const oldId = this.lastCopiedOrCuttedComponent?.id;
+    if (addIndex >= 0) {
+      cloned.id = 'component_' + new Date().getTime();
+      parent.splice(addIndex + 1, 0, cloned);
     }
     if(this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent?.isCutted && this.lastCopiedOrCuttedParent){
       const removeIndex = this.lastCopiedOrCuttedParent.findIndex((data) => data.id === (this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent.id));
       this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
+      cloned.id = oldId;
       this.lastCopiedOrCuttedComponent = undefined;
       this.lastCopiedOrCuttedParent = undefined;
     }
