@@ -1,10 +1,12 @@
 import { COL, IComponent } from './../interfaces/component.interface';
 import {
   Component,
+  EventEmitter,
   HostBinding,
   HostListener,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 
 @Component({
@@ -17,6 +19,7 @@ export class DynamicComponentComponent implements OnInit {
   showContextMenu = false;
   contextMenuPageX = 884;
   contextMenuPageY = 187;
+  contextMenuLeftAlign = false;
   // tslint:disable-next-line:variable-name
   private _component: IComponent | undefined;
   public get component(): IComponent | undefined {
@@ -27,6 +30,28 @@ export class DynamicComponentComponent implements OnInit {
     this._component = value;
     this.cssClass = this.getColClasses();
   }
+
+  // tslint:disable-next-line:variable-name
+  private _lastCopiedOrCuttedComponent: IComponent | undefined;
+  public get lastCopiedOrCuttedComponent(): IComponent | undefined {
+    return this._lastCopiedOrCuttedComponent;
+  }
+  @Input()
+  public set lastCopiedOrCuttedComponent(value: IComponent | undefined) {
+    this._lastCopiedOrCuttedComponent = value;
+    this.cssClass = this.getColClasses();
+  }
+
+  @Input() parentList: IComponent[] = [];
+  @Input() isChild = false;
+
+  // @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
+  @Output() copy: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() cut: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteBefore: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteAfter: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() pasteCancel: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -44,7 +69,8 @@ export class DynamicComponentComponent implements OnInit {
     $event.stopPropagation();
     this.showContextMenu = true;
     this.cssClass = this.getColClasses();
-    this.contextMenuPageX = $event.pageX;
+    this.contextMenuLeftAlign = $event.pageX + (250 * 3) > document.body.clientWidth;
+    this.contextMenuPageX = $event.pageX + (250 * 1) > document.body.clientWidth ? (document.body.clientWidth - 260) :  $event.pageX;
     this.contextMenuPageY = $event.pageY;
   }
 
@@ -58,11 +84,16 @@ export class DynamicComponentComponent implements OnInit {
       ' ' +
       (this.component && this.component.offset.join(' ')) +
       ' ' +
-      (this.showContextMenu
-        ? 'shadow border-danger'
-        : 'border-light border-top-0 border-right-0') +
+      (this.lastCopiedOrCuttedComponent &&
+      this.component?.id == this.lastCopiedOrCuttedComponent.id
+        ? ' ants '
+        : '') +
       ' ' +
-      ' border position-relative'
+      (this.showContextMenu
+        ? 'border shadow border-danger'
+        : '') +
+      ' ' +
+      ' position-relative d-block'
     );
   }
 
@@ -76,18 +107,33 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'copy':
         // copy functionality
+        this.component && this.copy.emit({component:this.component,parent: this.parentList});
         break;
       case 'cut':
         // cut functionality
+        this.component && this.cut.emit({component:this.component,parent: this.parentList});
         break;
-      case 'paste':
+      case 'paste-before':
         // paste functionality
+        this.component && this.pasteBefore.emit({component:this.component,parent: this.parentList});
+        break;
+      case 'paste-after':
+        // paste functionality
+        this.component && this.pasteAfter.emit({component:this.component,parent: this.parentList});
+        break;
+      case 'paste-inside':
+        // paste functionality
+        this.component && this.pasteInside.emit({component:this.component,parent: this.parentList});
+        break;
+      case 'paste-cancel':
+        // paste functionality
+        this.component && this.pasteCancel.emit({component:this.component,parent: this.parentList});
         break;
 
       default:
         break;
     }
-    console.log(action);
+    // console.log(action);
     this.showContextMenu = false;
     this.component = this.component;
   }

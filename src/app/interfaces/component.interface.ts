@@ -149,5 +149,7 @@ export interface IComponent {
   col: COL[];
   offset: OFFSET[];
   id: string;
+  isCopied: boolean;
+  isCutted: boolean;
   components: any[];
 }

@@ -1,5 +1,26 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="activePage">
   <div class="row">
-    <app-dynamic-component [component]="component" *ngFor="let component of activePage?.components"></app-dynamic-component>
+    <app-dynamic-component
+      [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+      [component]="component"
+      [parentList]="activePage.components"
+      (copy)="copy.emit($event)"
+      (cut)="cut.emit($event)"
+      (pasteBefore)="pasteBefore.emit($event)"
+      (pasteAfter)="pasteAfter.emit($event)"
+      (pasteInside)="pasteInside.emit($event)"
+      (pasteCancel)="pasteCancel.emit($event)"
+      *ngFor="let component of activePage.components"
+    ></app-dynamic-component>
   </div>
 </div>
+
+
+<app-action-context-menu
+  [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+  (action)="onAction($event)"
+  [isPage]="true"
+  [style.top.px]="contextMenuPageY"
+  [style.left.px]="contextMenuPageX"
+  *ngIf="showContextMenu"
+></app-action-context-menu>
