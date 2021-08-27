@@ -12,7 +12,6 @@
        [class.disabled]="isMenuDisabled(data)"
        [class.d-none]="isMenuHidden(data)"
        [class.active]="isActive(data['label'])"
-       [class.disabled]="isActive(data['label'])"
        *ngFor="let data of dataProvider" (click)="data?.action && onItemClick(data)"
        class="py-1 list-group-item list-group-item-action">
       <i *ngIf="data?.icon" [class]="data?.icon + ' mr-2'"></i>
