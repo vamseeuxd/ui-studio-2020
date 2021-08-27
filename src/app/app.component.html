@@ -26,3 +26,12 @@
   [show]="app.name.length < 1"
   (create)="app = $event; activePageId = $event.pages[0].id"
 ></app-create-or-import-application>
+
+<div class="device-name-watermark">
+  <h1 class="d-block d-sm-none">Extra Small</h1>
+  <h1 class="d-none d-sm-block d-md-none">Small</h1>
+  <h1 class="d-none d-md-block d-lg-none">Medium</h1>
+  <h1 class="d-none d-lg-block d-xl-none">Large</h1>
+  <h1 class="d-none d-xl-block d-xxl-none">Extra Large</h1>
+  <h1 class="d-none d-xxl-block">Extra Extra Large</h1>
+</div>
