@@ -247,8 +247,13 @@ export class ActionContextMenuComponent implements OnInit {
         },
       ],
     },
-    { icon: 'fa fa-scissors', action: 'cut', label: 'Cut' },
-    { icon: 'fa fa-clone', action: 'copy', label: 'Copy' },
+    {
+      alwaysEnabled: true,
+      icon: 'fa fa-scissors',
+      action: 'cut',
+      label: 'Cut',
+    },
+    { alwaysEnabled: true, icon: 'fa fa-clone', action: 'copy', label: 'Copy' },
     {
       icon: 'fa fa-clipboard',
       lastCopiedOrCutted: true,
@@ -280,6 +285,7 @@ export class ActionContextMenuComponent implements OnInit {
         },
       ],
     },
+    { lastCopiedOrCutted: true, icon: 'fa fa-close', action: 'paste-cancel', label: 'Cancel Paste'},
     { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage pages' },
     { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' },
     {

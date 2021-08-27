@@ -4,7 +4,7 @@
   <ul  class="list-group shadow p-2 bg-white" [class.sub-menu]="isSubMenu"  style="min-width: 200px"  (mousedown)="$event.stopPropagation()">
     <li role="button"
        [class.text-light]="!!data.lastCopiedOrCutted ? !lastCopiedOrCuttedComponent : (lastCopiedOrCuttedComponent ? true : false)"
-       [class.disabled]="!!data.lastCopiedOrCutted ? !lastCopiedOrCuttedComponent : (lastCopiedOrCuttedComponent ? true : false)"
+       [class.disabled]="((!!data.lastCopiedOrCutted) ? !lastCopiedOrCuttedComponent : (lastCopiedOrCuttedComponent ? true : false))"
        *ngFor="let data of dataProvider" (click)="data?.action && onItemClick(data)"
        class="py-1 list-group-item list-group-item-action">
       <i *ngIf="data?.icon" [class]="data?.icon + ' mr-2'"></i>

@@ -109,7 +109,6 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'cut':
         // cut functionality
-        debugger;
         this.component && this.cut.emit({component:this.component,parent: this.parentList});
         break;
       case 'paste-before':
