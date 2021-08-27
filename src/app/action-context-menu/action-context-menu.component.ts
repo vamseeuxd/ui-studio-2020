@@ -285,7 +285,12 @@ export class ActionContextMenuComponent implements OnInit {
         },
       ],
     },
-    { lastCopiedOrCutted: true, icon: 'fa fa-close', action: 'paste-cancel', label: 'Cancel Paste'},
+    {
+      lastCopiedOrCutted: true,
+      icon: 'fa fa-close',
+      action: 'paste-cancel',
+      label: 'Cancel Paste',
+    },
     { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage pages' },
     { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' },
     {
@@ -359,5 +364,15 @@ export class ActionContextMenuComponent implements OnInit {
         ? this.component.offset.indexOf(value) >= 0
         : false)
     );
+  }
+
+  isMenuDisabled(data: any): boolean {
+    return !data?.alwaysEnabled
+      ? !!data.lastCopiedOrCutted
+        ? !this.lastCopiedOrCuttedComponent
+        : this.lastCopiedOrCuttedComponent
+        ? true
+        : false
+      : false;
   }
 }
