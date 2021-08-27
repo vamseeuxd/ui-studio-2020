@@ -8,11 +8,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ActionContextMenuComponent implements OnInit {
   @Input() component: IComponent | undefined;
+  @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
+  @Input() isPage = false;
+  @Input() leftAlign = false;
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 
   menu: any[] = [
     {
       icon: 'fa fa-align-center',
+      hideMenuIspage: true,
       label: 'Layout',
       menu: [
         {
@@ -246,30 +250,65 @@ export class ActionContextMenuComponent implements OnInit {
         },
       ],
     },
-    { icon: 'fa fa-scissors', action: 'cut', label: 'Cut' },
-    { icon: 'fa fa-clone', action: 'copy', label: 'Copy' },
     {
+      alwaysEnabled: true,
+      hideMenuIspage: true,
+      icon: 'fa fa-scissors',
+      action: 'cut',
+      label: 'Cut',
+    },
+    {
+      alwaysEnabled: true,
+      hideMenuIspage: true,
+      icon: 'fa fa-clone',
+      action: 'copy',
+      label: 'Copy',
+    },
+    {
+      hideMenuIspage: true,
       icon: 'fa fa-clipboard',
+      lastCopiedOrCutted: true,
       label: 'Paste',
       menu: [
         {
+          lastCopiedOrCutted: true,
           icon: 'fa fa-arrow-left',
-          action: 'add-component',
+          action: 'paste-before',
           label: 'Paste Before',
         },
         {
+          lastCopiedOrCutted: true,
           icon: 'fa fa-arrow-right',
-          action: 'add-component',
-          label: 'Paste Before',
+          action: 'paste-after',
+          label: 'Paste After',
         },
         {
+          lastCopiedOrCutted: true,
           icon: 'fa fa-arrow-down',
-          action: 'add-component',
+          action: 'paste-inside',
           label: 'Paste Inside',
+        },
+        {
+          lastCopiedOrCutted: true,
+          icon: 'fa fa-close',
+          action: 'paste-cancel',
+          label: 'Cancel Paste',
         },
       ],
     },
-    { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage pages' },
+    {
+      lastCopiedOrCutted: true,
+      icon: 'fa fa-close',
+      action: 'paste-cancel',
+      label: 'Cancel Paste',
+    },
+    { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages' },
+    {
+      hideMenuIspage: true,
+      icon: 'fa fa-book',
+      action: 'manage-event',
+      label: 'Manage Event',
+    },
     { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' },
     {
       icon: 'fa fa-plus',
@@ -278,8 +317,9 @@ export class ActionContextMenuComponent implements OnInit {
       menu: [
         {
           icon: 'fa fa-arrow-left',
+          hideMenuIspage: true,
           action: 'add-component',
-          label: 'Add Component Before',
+          label: 'Add Before',
           menu: [
             { icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
             { icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
@@ -293,8 +333,9 @@ export class ActionContextMenuComponent implements OnInit {
         },
         {
           icon: 'fa fa-arrow-right',
+          hideMenuIspage: true,
           action: 'add-component',
-          label: 'Add Component After',
+          label: 'Add After',
           menu: [
             { icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
             { icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
@@ -308,8 +349,9 @@ export class ActionContextMenuComponent implements OnInit {
         },
         {
           icon: 'fa fa-arrow-down',
+          hideMenuIspage: true,
           action: 'add-component',
-          label: 'Add Component Inside',
+          label: 'Add Inside',
           menu: [
             { icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
             { icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
@@ -320,6 +362,30 @@ export class ActionContextMenuComponent implements OnInit {
               label: 'Data Grid',
             },
           ],
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-list',
+          action: 'add-accordion',
+          label: 'Accordion',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-ellipsis-h',
+          action: 'add-tab',
+          label: 'Tab',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-address-card-o',
+          action: 'add-form',
+          label: 'Form',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-table',
+          action: 'add-data-grid',
+          label: 'Data Grid',
         },
       ],
     },
@@ -341,6 +407,23 @@ export class ActionContextMenuComponent implements OnInit {
       (this.component && this.component.offset
         ? this.component.offset.indexOf(value) >= 0
         : false)
+    );
+  }
+
+  isMenuDisabled(data: any): boolean {
+    return !data?.alwaysEnabled
+      ? !!data.lastCopiedOrCutted
+        ? !this.lastCopiedOrCuttedComponent
+        : this.lastCopiedOrCuttedComponent
+        ? true
+        : false
+      : false;
+  }
+
+  isMenuHidden(data: any): boolean {
+    return (
+      (data?.hideMenuIspage && this.isPage) ||
+      (data?.showIfOnlyComponent && !this.isPage)
     );
   }
 }
