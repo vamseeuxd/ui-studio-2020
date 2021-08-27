@@ -9,11 +9,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ActionContextMenuComponent implements OnInit {
   @Input() component: IComponent | undefined;
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
+  @Input() isPage = false;
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 
   menu: any[] = [
     {
       icon: 'fa fa-align-center',
+      hideMenuIspage: true,
       label: 'Layout',
       menu: [
         {
@@ -249,12 +251,20 @@ export class ActionContextMenuComponent implements OnInit {
     },
     {
       alwaysEnabled: true,
+      hideMenuIspage: true,
       icon: 'fa fa-scissors',
       action: 'cut',
       label: 'Cut',
     },
-    { alwaysEnabled: true, icon: 'fa fa-clone', action: 'copy', label: 'Copy' },
     {
+      alwaysEnabled: true,
+      hideMenuIspage: true,
+      icon: 'fa fa-clone',
+      action: 'copy',
+      label: 'Copy',
+    },
+    {
+      hideMenuIspage: true,
       icon: 'fa fa-clipboard',
       lastCopiedOrCutted: true,
       label: 'Paste',
@@ -374,5 +384,9 @@ export class ActionContextMenuComponent implements OnInit {
         ? true
         : false
       : false;
+  }
+
+  isMenuHidden(data: any): boolean {
+    return data?.hideMenuIspage && this.isPage;
   }
 }

@@ -196,7 +196,7 @@ export class AppComponent {
       this.lastCopiedOrCuttedParent = undefined;
     }
   }
-  pasteCancel({component,parent,}: {component: IComponent;parent: IComponent[];}): void {
+  pasteCancel({component,parent,}: {component: IComponent | null;parent: IComponent[] | null;}): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;
       this.lastCopiedOrCuttedComponent.isCutted = false;

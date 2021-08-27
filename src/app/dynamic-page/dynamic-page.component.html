@@ -14,3 +14,13 @@
     ></app-dynamic-component>
   </div>
 </div>
+
+
+<app-action-context-menu
+  [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+  (action)="onAction($event)"
+  [isPage]="true"
+  [style.top.px]="contextMenuPageY"
+  [style.left.px]="contextMenuPageX"
+  *ngIf="showContextMenu"
+></app-action-context-menu>
