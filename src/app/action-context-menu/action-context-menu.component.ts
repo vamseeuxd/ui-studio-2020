@@ -139,6 +139,7 @@ export class ActionContextMenuComponent implements OnInit {
           icon: 'fa fa-globe',
           label: 'All',
           menu: [
+            { action: 'offset-size', label: 'offset-0' },
             { action: 'offset-size', label: 'offset-1' },
             { action: 'offset-size', label: 'offset-2' },
             { action: 'offset-size', label: 'offset-3' },
@@ -157,6 +158,7 @@ export class ActionContextMenuComponent implements OnInit {
           icon: 'fa fa-film',
           label: 'Extra Large',
           menu: [
+            { action: 'offset-size', label: 'offset-xl-0' },
             { action: 'offset-size', label: 'offset-xl-1' },
             { action: 'offset-size', label: 'offset-xl-2' },
             { action: 'offset-size', label: 'offset-xl-3' },
@@ -175,6 +177,8 @@ export class ActionContextMenuComponent implements OnInit {
           icon: 'fa fa-desktop',
           label: 'Large',
           menu: [
+            { action: 'offset-size', label: 'offset-lg-0' },
+            { action: 'offset-size', label: 'offset-lg-1' },
             { action: 'offset-size', label: 'offset-lg-1' },
             { action: 'offset-size', label: 'offset-lg-2' },
             { action: 'offset-size', label: 'offset-lg-3' },
@@ -193,6 +197,7 @@ export class ActionContextMenuComponent implements OnInit {
           icon: 'fa fa-laptop',
           label: 'Medium',
           menu: [
+            { action: 'offset-size', label: 'offset-md-0' },
             { action: 'offset-size', label: 'offset-md-1' },
             { action: 'offset-size', label: 'offset-md-2' },
             { action: 'offset-size', label: 'offset-md-3' },
@@ -211,6 +216,7 @@ export class ActionContextMenuComponent implements OnInit {
           icon: 'fa fa-tablet',
           label: 'Small',
           menu: [
+            { action: 'offset-size', label: 'offset-sm-0' },
             { action: 'offset-size', label: 'offset-sm-1' },
             { action: 'offset-size', label: 'offset-sm-2' },
             { action: 'offset-size', label: 'offset-sm-3' },
@@ -229,6 +235,7 @@ export class ActionContextMenuComponent implements OnInit {
           icon: 'fa fa-mobile',
           label: 'Extra Small',
           menu: [
+            { action: 'offset-size', label: 'offset-xs-0' },
             { action: 'offset-size', label: 'offset-xs-1' },
             { action: 'offset-size', label: 'offset-xs-2' },
             { action: 'offset-size', label: 'offset-xs-3' },
