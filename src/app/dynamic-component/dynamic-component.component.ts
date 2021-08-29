@@ -1,6 +1,7 @@
 import { COL, IComponent } from './../interfaces/component.interface';
 import {
   Component,
+  ElementRef,
   EventEmitter,
   HostBinding,
   HostListener,
@@ -55,27 +56,49 @@ export class DynamicComponentComponent implements OnInit {
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
-  windowClick($event: MouseEvent) {
+  windowMousedown($event: MouseEvent) {
     this.showContextMenu = false;
     this.cssClass = this.getColClasses();
+  }
+
+  @HostListener('window:pointerdown', ['$event'])
+  // tslint:disable-next-line:typedef
+  windowPointerdown($event: MouseEvent) {
+    const hostElement:HTMLElement = this.hostElement.nativeElement.getElementsByTagName('app-action-context-menu')[0];
+    if(!($event && $event.target && hostElement && hostElement.contains($event.target as HTMLElement))){
+      this.showContextMenu = false;
+      this.cssClass = this.getColClasses();
+    }
+  }
+
+  @HostListener('dblclick', ['$event'])
+  // tslint:disable-next-line:typedef
+  onDblclick($event: MouseEvent) {
+    // To prevent browser's default contextmenu
+    this.updateContextMenuPosition($event);
   }
 
   @HostListener('contextmenu', ['$event'])
   // tslint:disable-next-line:typedef
   contextmenu($event: MouseEvent) {
     // To prevent browser's default contextmenu
+    this.updateContextMenuPosition($event);
+  }
+
+  constructor(private hostElement: ElementRef) {}
+
+  ngOnInit(): void {}
+
+  updateContextMenuPosition($event: MouseEvent){
     $event.preventDefault();
     $event.stopPropagation();
     this.showContextMenu = true;
     this.cssClass = this.getColClasses();
     this.contextMenuLeftAlign = $event.pageX + (250 * 3) > document.body.clientWidth;
-    this.contextMenuPageX = $event.pageX + (250 * 1) > document.body.clientWidth ? (document.body.clientWidth - 260) :  $event.pageX;
-    this.contextMenuPageY = $event.pageY;
+    this.contextMenuPageX = $event.pageX;
+    this.contextMenuPageY = $event.pageY - 44;
+    // this.contextMenuPageX = $event.pageX + (250 * 1) > document.body.clientWidth ? (document.body.clientWidth - 260) :  $event.pageX;
   }
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   getColClasses(): string {
     return (

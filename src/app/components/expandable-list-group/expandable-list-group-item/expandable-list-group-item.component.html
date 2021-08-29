@@ -1,0 +1,25 @@
+<span [class.mb-3]="isOpen"
+      class="d-flex justify-content-between align-items-center mb-3">
+  <span>
+    <i style="font-size: 12px;"
+    *ngIf="menu?.icon"
+    [class]="menu?.icon + ' mr-2'"></i>
+    {{ menu["label"] }}
+  </span>
+    <i style="font-size: 12px;"
+       *ngIf="menu.menu"
+       [class.fa-chevron-up]="isOpen"
+       [class.fa-chevron-down]="!isOpen"
+       class="fa"></i>
+</span>
+<div *ngIf="menu.menu && isOpen">
+  <app-expandable-list-group [component]="component"
+                             [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+                             [level]="level + 1"
+                             [menu]="menu.menu"
+                             [isPage]="isPage"
+                             [isSubMenu]="menu.menu"
+                             (itemClick)="itemClick.emit($event)"
+                             [isRootMenu]="false"
+                             ></app-expandable-list-group>
+</div>

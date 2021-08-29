@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "directive": "ng g directive directives/keep-element-in-viewport/keep-element-in-viewport",
+    "component": "ng g c components/expandable-list-group/expandable-list-group-item"
   },
   "private": true,
   "dependencies": {

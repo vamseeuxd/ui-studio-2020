@@ -1,20 +1,37 @@
-import { IComponent } from './../interfaces/component.interface';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IComponent, COL, COMPONENT_TYPE } from './../../interfaces/component.interface';
+import {
+  Component,
+  OnInit,
+  HostBinding,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
-  selector: 'app-action-context-menu',
-  templateUrl: './action-context-menu.component.html',
-  styleUrls: ['./action-context-menu.component.scss'],
+  selector: 'app-expandable-list-group',
+  templateUrl: './expandable-list-group.component.html',
+  styleUrls: ['./expandable-list-group.component.scss'],
 })
-export class ActionContextMenuComponent implements OnInit {
-  @Input() component: IComponent | undefined;
+export class ExpandableListGroupComponent implements OnInit {
+  @HostBinding('class') cssClassName = 'list-group';
+  @Input() isRootMenu = true;
+  @Input() isSubMenu = true;
+  @Input() isPage = true;
+  @Input() level = 1;
+  @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
-  @Input() isPage = false;
-  @Input() leftAlign = false;
-  @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  @Input() component: IComponent | undefined = {
+    offset: [],
+    col: [COL.LG_12],
+    id: '1.1',
+    isCopied: false,
+    isCutted: false,
+    type: COMPONENT_TYPE.ALERT_PRIMARY,
+    components: [],
+  };
   activeMenu = '';
-
-  menu: any[] = [
+  @Input() menu: any[] = [
     {
       icon: 'fa fa-arrows-h',
       hideMenuIspage: true,
@@ -385,40 +402,34 @@ export class ActionContextMenuComponent implements OnInit {
       ],
     },
   ];
-
   constructor() {}
 
-  ngOnInit(): void {}
-
-  onItemClick(item: any): void {
-    this.action.emit(item);
+  ngOnInit(): void {
+    this.cssClassName = `list-group shadow-sm border p-1 bg-light level-${this.level}`
   }
 
-  isActive(value: any): boolean {
-    return (
-      (this.component && this.component.col
-        ? this.component.col.indexOf(value) >= 0
-        : false) ||
-      (this.component && this.component.offset
-        ? this.component.offset.indexOf(value) >= 0
-        : false)
-    );
+  onMenuOpenChange($event: string) {
+    this.activeMenu = this.activeMenu == $event ? '' : $event;
   }
-
-  isMenuDisabled(data: any): boolean {
-    return !data?.alwaysEnabled
-      ? !!data.lastCopiedOrCutted
-        ? !this.lastCopiedOrCuttedComponent
-        : this.lastCopiedOrCuttedComponent
-        ? true
-        : false
-      : false;
+  onSubItemClick($event: any): void {
+    this.itemClick.emit($event);
+    /* if (this.isRootMenu) {
+      console.log($event);
+    } */
   }
-
   isMenuHidden(data: any): boolean {
     return (
       (data?.hideMenuIspage && this.isPage) ||
       (data?.showIfOnlyComponent && !this.isPage)
     );
+  }
+  isMenuDisabled(data: any): boolean {
+    return !data?.alwaysEnabled
+      ? !!data?.lastCopiedOrCutted
+        ? !this.lastCopiedOrCuttedComponent
+        : this.lastCopiedOrCuttedComponent
+        ? true
+        : false
+      : false;
   }
 }
