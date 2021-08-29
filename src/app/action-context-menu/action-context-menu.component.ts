@@ -248,6 +248,13 @@ export class ActionContextMenuComponent implements OnInit {
     {
       alwaysEnabled: true,
       hideMenuIspage: true,
+      icon: 'fa fa-trash',
+      action: 'delete',
+      label: 'Delete Component',
+    },
+    {
+      alwaysEnabled: true,
+      hideMenuIspage: true,
       icon: 'fa fa-scissors',
       action: 'cut',
       label: 'Cut',

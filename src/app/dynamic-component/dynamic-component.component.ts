@@ -53,6 +53,7 @@ export class DynamicComponentComponent implements OnInit {
   @Output() pasteAfter: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteCancel: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() deleteComponent: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -150,6 +151,10 @@ export class DynamicComponentComponent implements OnInit {
       case 'paste-cancel':
         // paste functionality
         this.component && this.pasteCancel.emit({component:this.component,parent: this.parentList});
+        break;
+      case 'delete':
+        // delete functionality
+        this.component && this.deleteComponent.emit({component:this.component,parent: this.parentList});
         break;
 
       default:

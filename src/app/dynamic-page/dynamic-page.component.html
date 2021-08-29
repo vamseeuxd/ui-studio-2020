@@ -10,6 +10,7 @@
       (pasteAfter)="pasteAfter.emit($event)"
       (pasteInside)="pasteInside.emit($event)"
       (pasteCancel)="pasteCancel.emit($event)"
+      (deleteComponent)="deleteComponent.emit($event)"
       *ngFor="let component of activePage.components"
     ></app-dynamic-component>
   </div>

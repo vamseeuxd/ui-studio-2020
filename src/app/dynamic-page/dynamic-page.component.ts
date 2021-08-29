@@ -17,6 +17,7 @@ export class DynamicPageComponent implements OnInit {
   @Output() pasteAfter: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteCancel: EventEmitter<{component:IComponent | null,parent:IComponent[] | null}> = new EventEmitter<{component:IComponent | null,parent:IComponent[] | null}>();
+  @Output() deleteComponent: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
 
   showContextMenu = false;
   contextMenuPageX = 884;

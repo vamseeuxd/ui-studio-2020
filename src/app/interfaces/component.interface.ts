@@ -142,6 +142,19 @@ export enum COL {
   XS_10 = 'col-xs-10',
   XS_11 = 'col-xs-11',
   XS_12 = 'col-xs-12',
+
+  ALL_1 = 'col-1',
+  ALL_2 = 'col-2',
+  ALL_3 = 'col-3',
+  ALL_4 = 'col-4',
+  ALL_5 = 'col-5',
+  ALL_6 = 'col-6',
+  ALL_7 = 'col-7',
+  ALL_8 = 'col-8',
+  ALL_9 = 'col-9',
+  ALL_10 = 'col-10',
+  ALL_11 = 'col-11',
+  ALL_12 = 'col-12',
 }
 
 export interface IComponent {
