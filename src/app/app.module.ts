@@ -25,9 +25,12 @@ import { FormsModule } from '@angular/forms';
 import { DynamicPageComponent } from './dynamic-page/dynamic-page.component';
 import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
 import { ActionContextMenuComponent } from './action-context-menu/action-context-menu.component';
-
+import { KeepElementInViewportDirective } from './directives/keep-element-in-viewport/keep-element-in-viewport.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExpandableListGroupComponent } from './components/expandable-list-group/expandable-list-group.component';
+import { ExpandableListGroupItemComponent } from './components/expandable-list-group/expandable-list-group-item/expandable-list-group-item.component';
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent],
   imports: [
     FormsModule,
     BrowserModule,
@@ -49,6 +52,7 @@ import { ActionContextMenuComponent } from './action-context-menu/action-context
     TooltipModule.forRoot(),
     TypeaheadModule.forRoot(),
     TimepickerModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
