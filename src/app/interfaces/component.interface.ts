@@ -155,6 +155,7 @@ export enum COL {
   ALL_10 = 'col-10',
   ALL_11 = 'col-11',
   ALL_12 = 'col-12',
+
 }
 
 export interface IComponent {
