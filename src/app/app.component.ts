@@ -28,7 +28,7 @@ export class AppComponent {
         components: [
           {
             offset: [],
-            col: [COL.MD_12],
+            col: [COL.ALL_12],
             id: '1',
             isCopied: false,
             isCutted: false,
@@ -36,7 +36,7 @@ export class AppComponent {
             components: [
               {
                 offset: [],
-                col: [COL.MD_4],
+                col: [COL.ALL_4],
                 id: '1.1',
                 isCopied: false,
                 isCutted: false,
@@ -47,7 +47,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_1],
+            col: [COL.ALL_4],
             id: '2',
             isCopied: false,
             isCutted: false,
@@ -56,7 +56,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_1],
+            col: [COL.ALL_4],
             id: '3',
             isCopied: false,
             isCutted: false,
@@ -65,7 +65,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_1],
+            col: [COL.ALL_4],
             id: '4',
             isCopied: false,
             isCutted: false,
@@ -74,7 +74,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_1],
+            col: [COL.ALL_4],
             id: '5',
             isCopied: false,
             isCutted: false,
@@ -83,7 +83,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_1],
+            col: [COL.ALL_4],
             id: '6',
             isCopied: false,
             isCutted: false,
@@ -92,16 +92,7 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_1],
-            id: '7',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_LIGHT,
-            components: [],
-          },
-          {
-            offset: [],
-            col: [COL.MD_1],
+            col: [COL.ALL_4],
             id: '8',
             isCopied: false,
             isCutted: false,
@@ -110,17 +101,8 @@ export class AppComponent {
           },
           {
             offset: [],
-            col: [COL.MD_1],
+            col: [COL.ALL_4],
             id: '9',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_PRIMARY,
-            components: [],
-          },
-          {
-            offset: [],
-            col: [COL.MD_1],
-            id: '10',
             isCopied: false,
             isCutted: false,
             type: COMPONENT_TYPE.ALERT_PRIMARY,
@@ -206,5 +188,19 @@ export class AppComponent {
       this.lastCopiedOrCuttedComponent.isCutted = false;
       this.lastCopiedOrCuttedComponent = undefined;
     }
+  }
+  deleteComponent({component,parent,}: {component: IComponent | null;parent: IComponent[];}): void {
+    setTimeout(()=>{
+      const isConfirmed = confirm('Are you sure! Do you want to delete the Component?');
+      if(isConfirmed){
+        const removeIndex = parent.findIndex((data) => data.id === component?.id);
+        parent.splice(removeIndex, 1);
+        if (this.lastCopiedOrCuttedComponent) {
+          this.lastCopiedOrCuttedComponent.isCopied = false;
+          this.lastCopiedOrCuttedComponent.isCutted = false;
+          this.lastCopiedOrCuttedComponent = undefined;
+        }
+      }
+    },50);
   }
 }
