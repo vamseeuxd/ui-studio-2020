@@ -284,7 +284,6 @@ export class AppComponent {
     where: String;
     componentName: string;
   }): void {
-    console.log(value);
     switch (value.componentName) {
       case 'ALERT':
         this.addNewComponent(value, {
@@ -326,6 +325,24 @@ export class AppComponent {
             details.component.components = [];
             details.component.components.push(newComponent);
           }
+        }
+        break;
+      case 'before-component':
+        if (details.component && details.parent) {
+          const addIndex = details.parent.findIndex(
+            (data) => data.id === (details.component && details.component.id)
+          );
+          newComponent.col = [...details.component.col];
+          details.parent.splice(addIndex, 0, newComponent);
+        }
+        break;
+      case 'after-component':
+        if (details.component && details.parent) {
+          const addIndex = details.parent.findIndex(
+            (data) => data.id === (details.component && details.component.id)
+          );
+          newComponent.col = [...details.component.col];
+          details.parent.splice(addIndex + 1, 0, newComponent);
         }
         break;
 
