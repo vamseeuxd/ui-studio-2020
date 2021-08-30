@@ -10,6 +10,7 @@
                   (pasteInside)="pasteInside.emit($event)"
                   (pasteCancel)="pasteCancel.emit($event)"
                   (deleteComponent)="deleteComponent.emit($event)"
+                  (editComponent)="editComponent.emit($event)"
                   (addComponent)="addComponent.emit($event)"
                   *ngIf="component?.type === component_type.ALERT"></app-alert-wraper>
 

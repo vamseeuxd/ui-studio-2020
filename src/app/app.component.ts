@@ -17,6 +17,7 @@ export class AppComponent {
   activePageId = 'page_140';
   lastCopiedOrCuttedComponent: IComponent | undefined;
   lastCopiedOrCuttedParent: IComponent[] | undefined;
+  componentToEdit: IComponent | null = null;
   // Institutional Trade Processing
   app: IApplication = {
     name: 'Institutional Trade Processing',
@@ -197,6 +198,9 @@ export class AppComponent {
       }
     }, 50);
   }
+  editComponent({ component }: { component: IComponent | null }): void {
+    this.componentToEdit = component;
+  }
   addComponent(value: {
     component: IComponent | null;
     parent: IComponent[] | null;
@@ -219,6 +223,8 @@ export class AppComponent {
               name: 'alertType',
               value: 'alert-success',
               propType: PROP_TYPE.LIST,
+              min:0,
+              max:0,
               dataProvider: [
                 { label: 'Alert Danger', value: 'alert-danger' },
                 { label: 'Alert Success', value: 'alert-success' },
@@ -227,6 +233,22 @@ export class AppComponent {
                 { label: 'Alert Info', value: 'alert-info' },
                 { label: 'Alert Secondary', value: 'alert-secondary' },
               ],
+            },
+            {
+              label: 'Innter Text',
+              name: 'innterText',
+              min:0,
+              max:0,
+              value: 'simple danger alert',
+              propType: PROP_TYPE.STRING
+            },
+            {
+              label: 'Width in %',
+              name: 'width',
+              value: 100,
+              min:5,
+              max:100,
+              propType: PROP_TYPE.NUMBER
             },
           ],
         };

@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "directive": "ng g directive directives/keep-element-in-viewport/keep-element-in-viewport",
-    "component": "ng g c components/expandable-list-group/expandable-list-group-item",
+    "component": "ng g c components/component-editor/component-editor",
     "wraperComponent": "ng g c wraper-components/alert-wraper"
   },
   "private": true,

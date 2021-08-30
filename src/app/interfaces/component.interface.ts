@@ -162,9 +162,11 @@ export interface IComponent {
 }
 
 export interface IProp {
-  value: string;
+  value: any;
   name: string;
   label: string;
+  min: number;
+  max: number;
   propType: PROP_TYPE;
   dataProvider?: { label: string; value: any }[];
 }

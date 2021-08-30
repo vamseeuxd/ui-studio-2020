@@ -364,6 +364,13 @@ export class ActionContextMenuComponent implements OnInit {
     {
       alwaysEnabled: true,
       hideMenuIspage: true,
+      icon: 'fa fa-edit',
+      action: 'edit',
+      label: 'Edit Component',
+    },
+    {
+      alwaysEnabled: true,
+      hideMenuIspage: true,
       icon: 'fa fa-scissors',
       action: 'cut',
       label: 'Cut',
