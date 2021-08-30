@@ -285,5 +285,52 @@ export class AppComponent {
     componentName: string;
   }): void {
     console.log(value);
+    switch (value.componentName) {
+      case 'ALERT':
+        this.addNewComponent(value, {
+          offset: [],
+          col: [],
+          id: 'component_' + new Date().getTime(),
+          isCopied: false,
+          isCutted: false,
+          type: COMPONENT_TYPE.ALERT_DANGER,
+          components: [],
+        });
+        break;
+
+      default:
+        break;
+    }
+  }
+  addNewComponent(
+    details: {
+      component: IComponent | null;
+      parent: IComponent[] | null;
+      where: String;
+      componentName: string;
+    },
+    newComponent: any
+  ) {
+    switch (details.where) {
+      case 'inside-page':
+        newComponent.col = [COL.ALL_4];
+        this.getActivePage().components.push(newComponent);
+        break;
+      case 'inside-component':
+        if (details.component) {
+          if (details.component.components) {
+            newComponent.col = [COL.ALL_12];
+            details.component.components.push(newComponent);
+          } else {
+            newComponent.col = [COL.ALL_12];
+            details.component.components = [];
+            details.component.components.push(newComponent);
+          }
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 }
