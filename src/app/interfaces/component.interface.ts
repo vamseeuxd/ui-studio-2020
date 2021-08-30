@@ -1,12 +1,5 @@
 export enum COMPONENT_TYPE {
-  ALERT_PRIMARY = 'alert-primary',
-  ALERT_SECONDARY = 'alert-secondary',
-  ALERT_SUCCESS = 'alert-success',
-  ALERT_DANGER = 'alert-danger',
-  ALERT_WARNING = 'alert-warning',
-  ALERT_INFO = 'alert-info',
-  ALERT_LIGHT = 'alert-light',
-  ALERT_DARK = 'alert-dark',
+  ALERT = 'ALERT',
 }
 
 export enum OFFSET {
@@ -155,7 +148,6 @@ export enum COL {
   ALL_10 = 'col-10',
   ALL_11 = 'col-11',
   ALL_12 = 'col-12',
-
 }
 
 export interface IComponent {
@@ -165,5 +157,22 @@ export interface IComponent {
   id: string;
   isCopied: boolean;
   isCutted: boolean;
+  props?: IProp[];
   components: any[];
+}
+
+export interface IProp {
+  value: any;
+  name: string;
+  label: string;
+  min: number;
+  max: number;
+  propType: PROP_TYPE;
+  dataProvider?: { label: string; value: any }[];
+}
+
+export enum PROP_TYPE {
+  STRING = 'STRING',
+  NUMBER = 'NUMBER',
+  LIST = 'LIST',
 }
