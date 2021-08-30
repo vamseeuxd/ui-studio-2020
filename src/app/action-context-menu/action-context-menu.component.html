@@ -1,4 +1,5 @@
 <app-expandable-list-group
+  ngDraggable
   [isPage]="isPage"
   [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
   (itemClick)="onItemClick($event)"
@@ -6,5 +7,5 @@
   [component]="component"
   [menu]="menu"
   style="width: 260px"
-  class="shadow p-2"
+  class="shadow p-2 border-top"
 ></app-expandable-list-group>

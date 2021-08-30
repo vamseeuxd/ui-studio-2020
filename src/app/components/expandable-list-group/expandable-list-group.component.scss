@@ -1,9 +1,11 @@
 :host {
   overflow-y: auto;
   overflow-x: hidden;
-  &.level-1{
+
+  &.level-1 {
     max-height: 400px;
   }
+
   /* &.level-2{
     max-height: 270px;
   }

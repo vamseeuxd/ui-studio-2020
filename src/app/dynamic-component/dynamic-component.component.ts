@@ -178,7 +178,6 @@ export class DynamicComponentComponent implements OnInit {
   addOrRemove(array: string[], value: string): void {
     let removeIndex = -1;
     let oldValue = '';
-    debugger;
     array.forEach((val, index) => {
       if (val.split('-').slice(0, -1).join('-') === value.split('-').slice(0, -1).join('-')) {
         removeIndex = index;

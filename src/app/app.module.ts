@@ -30,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExpandableListGroupComponent } from './components/expandable-list-group/expandable-list-group.component';
 import { ExpandableListGroupItemComponent } from './components/expandable-list-group/expandable-list-group-item/expandable-list-group-item.component';
 import { AlertWraperComponent } from './wraper-components/alert-wraper/alert-wraper.component';
+import { AngularDraggableModule } from 'angular2-draggable';
 @NgModule({
   declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent],
   imports: [
@@ -54,6 +55,7 @@ import { AlertWraperComponent } from './wraper-components/alert-wraper/alert-wra
     TypeaheadModule.forRoot(),
     TimepickerModule.forRoot(),
     BrowserAnimationsModule,
+    AngularDraggableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
