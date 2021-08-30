@@ -1,4 +1,4 @@
-import { COL, IComponent } from './../interfaces/component.interface';
+import { COL, IComponent, COMPONENT_TYPE } from './../interfaces/component.interface';
 import {
   Component,
   ElementRef,
@@ -16,6 +16,7 @@ import {
   styleUrls: ['./dynamic-component.component.scss'],
 })
 export class DynamicComponentComponent implements OnInit {
+  readonly component_type = COMPONENT_TYPE;
   @HostBinding('class') cssClass = '';
   showContextMenu = false;
   contextMenuPageX = 884;

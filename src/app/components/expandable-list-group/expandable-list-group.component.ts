@@ -27,7 +27,7 @@ export class ExpandableListGroupComponent implements OnInit {
     id: '1.1',
     isCopied: false,
     isCutted: false,
-    type: COMPONENT_TYPE.ALERT_PRIMARY,
+    type: COMPONENT_TYPE.ALERT,
     components: [],
   };
   activeMenu = '';

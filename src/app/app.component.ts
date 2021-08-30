@@ -25,93 +25,11 @@ export class AppComponent {
       {
         name: 'Dashboard',
         id: 'page_140',
-        components: [
-          {
-            offset: [],
-            col: [COL.ALL_4],
-            id: '1',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_PRIMARY,
-            components: [
-              /* {
-                offset: [],
-                col: [COL.ALL_4],
-                id: '1.1',
-                isCopied: false,
-                isCutted: false,
-                type: COMPONENT_TYPE.ALERT_PRIMARY,
-                components: [],
-              }, */
-            ],
-          },
-          {
-            offset: [],
-            col: [COL.ALL_4],
-            id: '2',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_SECONDARY,
-            components: [],
-          },
-          {
-            offset: [],
-            col: [COL.ALL_4],
-            id: '3',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_SUCCESS,
-            components: [],
-          },
-          {
-            offset: [],
-            col: [COL.ALL_4],
-            id: '4',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_DANGER,
-            components: [],
-          },
-          {
-            offset: [],
-            col: [COL.ALL_4],
-            id: '5',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_WARNING,
-            components: [],
-          },
-          {
-            offset: [],
-            col: [COL.ALL_4],
-            id: '6',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_INFO,
-            components: [],
-          },
-          {
-            offset: [],
-            col: [COL.ALL_4],
-            id: '8',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_DARK,
-            components: [],
-          },
-          {
-            offset: [],
-            col: [COL.ALL_4],
-            id: '9',
-            isCopied: false,
-            isCutted: false,
-            type: COMPONENT_TYPE.ALERT_PRIMARY,
-            components: [],
-          },
-        ],
+        components: [],
       },
     ],
   };
+  constructor(){}
   getActivePage(): any {
     return this.app.pages.find((page) => page.id === this.activePageId);
   }
@@ -292,7 +210,7 @@ export class AppComponent {
           id: 'component_' + new Date().getTime(),
           isCopied: false,
           isCutted: false,
-          type: COMPONENT_TYPE.ALERT_DANGER,
+          type: COMPONENT_TYPE.ALERT,
           components: [],
         });
         break;
