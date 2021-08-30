@@ -20,4 +20,15 @@ export class AlertWraperComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  getPropValueByName(propName:string):any{
+    if(this.component && this.component.props && this.component.props.length > 0){
+      let returnValue: any = '';
+      this.component.props.forEach( prop => {
+        returnValue = prop.name == propName ? prop.value : null;
+      });
+      return returnValue;
+    }
+    return null;
+  }
 }

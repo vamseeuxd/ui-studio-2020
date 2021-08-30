@@ -4,6 +4,7 @@ import {
   COL,
   COMPONENT_TYPE,
   IComponent,
+  PROP_TYPE,
 } from './interfaces/component.interface';
 
 @Component({
@@ -29,7 +30,7 @@ export class AppComponent {
       },
     ],
   };
-  constructor(){}
+  constructor() {}
   getActivePage(): any {
     return this.app.pages.find((page) => page.id === this.activePageId);
   }
@@ -204,7 +205,7 @@ export class AppComponent {
   }): void {
     switch (value.componentName) {
       case 'ALERT':
-        this.addNewComponent(value, {
+        const config: IComponent = {
           offset: [],
           col: [],
           id: 'component_' + new Date().getTime(),
@@ -212,7 +213,24 @@ export class AppComponent {
           isCutted: false,
           type: COMPONENT_TYPE.ALERT,
           components: [],
-        });
+          props: [
+            {
+              label: 'Alert Type',
+              name: 'alertType',
+              value: 'alert-success',
+              propType: PROP_TYPE.LIST,
+              dataProvider: [
+                { label: 'Alert Danger', value: 'alert-danger' },
+                { label: 'Alert Success', value: 'alert-success' },
+                { label: 'Alert Warning', value: 'alert-warning' },
+                { label: 'Alert Primary', value: 'alert-primary' },
+                { label: 'Alert Info', value: 'alert-info' },
+                { label: 'Alert Secondary', value: 'alert-secondary' },
+              ],
+            },
+          ],
+        };
+        this.addNewComponent(value, config);
         break;
 
       default:

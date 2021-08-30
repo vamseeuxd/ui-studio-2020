@@ -148,7 +148,6 @@ export enum COL {
   ALL_10 = 'col-10',
   ALL_11 = 'col-11',
   ALL_12 = 'col-12',
-
 }
 
 export interface IComponent {
@@ -158,5 +157,20 @@ export interface IComponent {
   id: string;
   isCopied: boolean;
   isCutted: boolean;
+  props?: IProp[];
   components: any[];
+}
+
+export interface IProp {
+  value: string;
+  name: string;
+  label: string;
+  propType: PROP_TYPE;
+  dataProvider?: { label: string; value: any }[];
+}
+
+export enum PROP_TYPE {
+  STRING = 'STRING',
+  NUMBER = 'NUMBER',
+  LIST = 'LIST',
 }
