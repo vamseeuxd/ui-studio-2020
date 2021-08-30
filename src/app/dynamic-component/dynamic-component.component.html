@@ -17,6 +17,7 @@
       (pasteInside)="pasteInside.emit($event)"
       (pasteCancel)="pasteCancel.emit($event)"
       (deleteComponent)="deleteComponent.emit($event)"
+      (addComponent)="addComponent.emit($event)"
       *ngFor="let childComponent of component.components"
       ></app-dynamic-component>
     </div>

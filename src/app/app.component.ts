@@ -28,13 +28,13 @@ export class AppComponent {
         components: [
           {
             offset: [],
-            col: [COL.ALL_12],
+            col: [COL.ALL_4],
             id: '1',
             isCopied: false,
             isCutted: false,
             type: COMPONENT_TYPE.ALERT_PRIMARY,
             components: [
-              {
+              /* {
                 offset: [],
                 col: [COL.ALL_4],
                 id: '1.1',
@@ -42,7 +42,7 @@ export class AppComponent {
                 isCutted: false,
                 type: COMPONENT_TYPE.ALERT_PRIMARY,
                 components: [],
-              },
+              }, */
             ],
           },
           {
@@ -116,7 +116,13 @@ export class AppComponent {
     return this.app.pages.find((page) => page.id === this.activePageId);
   }
 
-  copy({component,parent,}: {component: IComponent;parent: IComponent[];}): void {
+  copy({
+    component,
+    parent,
+  }: {
+    component: IComponent;
+    parent: IComponent[];
+  }): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;
     }
@@ -124,7 +130,13 @@ export class AppComponent {
     this.lastCopiedOrCuttedComponent = component;
     this.lastCopiedOrCuttedParent = parent;
   }
-  cut({component,parent,}: {component: IComponent;parent: IComponent[];}): void {
+  cut({
+    component,
+    parent,
+  }: {
+    component: IComponent;
+    parent: IComponent[];
+  }): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;
       this.lastCopiedOrCuttedComponent.isCutted = false;
@@ -133,7 +145,13 @@ export class AppComponent {
     this.lastCopiedOrCuttedComponent = component;
     this.lastCopiedOrCuttedParent = parent;
   }
-  pasteBefore({component,parent,}: {component: IComponent;parent: IComponent[];}): void {
+  pasteBefore({
+    component,
+    parent,
+  }: {
+    component: IComponent;
+    parent: IComponent[];
+  }): void {
     const addIndex = parent.findIndex((data) => data.id === component.id);
     const oldId = this.lastCopiedOrCuttedComponent?.id;
     const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
@@ -141,15 +159,30 @@ export class AppComponent {
       cloned.id = 'component_' + new Date().getTime();
       parent.splice(addIndex, 0, cloned);
     }
-    if(this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent?.isCutted && this.lastCopiedOrCuttedParent){
-      const removeIndex = this.lastCopiedOrCuttedParent.findIndex((data) => data.id === (this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent.id));
+    if (
+      this.lastCopiedOrCuttedComponent &&
+      this.lastCopiedOrCuttedComponent?.isCutted &&
+      this.lastCopiedOrCuttedParent
+    ) {
+      const removeIndex = this.lastCopiedOrCuttedParent.findIndex(
+        (data) =>
+          data.id ===
+          (this.lastCopiedOrCuttedComponent &&
+            this.lastCopiedOrCuttedComponent.id)
+      );
       this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
       cloned.id = oldId;
       this.lastCopiedOrCuttedComponent = undefined;
       this.lastCopiedOrCuttedParent = undefined;
     }
   }
-  pasteAfter({component,parent,}: {component: IComponent;parent: IComponent[];}): void {
+  pasteAfter({
+    component,
+    parent,
+  }: {
+    component: IComponent;
+    parent: IComponent[];
+  }): void {
     const addIndex = parent.findIndex((data) => data.id === component.id);
     const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
     const oldId = this.lastCopiedOrCuttedComponent?.id;
@@ -157,43 +190,85 @@ export class AppComponent {
       cloned.id = 'component_' + new Date().getTime();
       parent.splice(addIndex + 1, 0, cloned);
     }
-    if(this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent?.isCutted && this.lastCopiedOrCuttedParent){
-      const removeIndex = this.lastCopiedOrCuttedParent.findIndex((data) => data.id === (this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent.id));
+    if (
+      this.lastCopiedOrCuttedComponent &&
+      this.lastCopiedOrCuttedComponent?.isCutted &&
+      this.lastCopiedOrCuttedParent
+    ) {
+      const removeIndex = this.lastCopiedOrCuttedParent.findIndex(
+        (data) =>
+          data.id ===
+          (this.lastCopiedOrCuttedComponent &&
+            this.lastCopiedOrCuttedComponent.id)
+      );
       this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
       cloned.id = oldId;
       this.lastCopiedOrCuttedComponent = undefined;
       this.lastCopiedOrCuttedParent = undefined;
     }
   }
-  pasteInside({component,parent,}: {component: IComponent;parent: IComponent[];}): void {
+  pasteInside({
+    component,
+    parent,
+  }: {
+    component: IComponent;
+    parent: IComponent[];
+  }): void {
     const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
-    cloned.id = this.lastCopiedOrCuttedComponent?.isCopied ? 'component_' + new Date().getTime() : this.lastCopiedOrCuttedComponent?.id;
-    if(component.components){
+    cloned.id = this.lastCopiedOrCuttedComponent?.isCopied
+      ? 'component_' + new Date().getTime()
+      : this.lastCopiedOrCuttedComponent?.id;
+    if (component.components) {
       component.components.push(cloned);
-    }else{
+    } else {
       component.components = [];
       component.components.push(cloned);
     }
 
-    if(this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent?.isCutted && this.lastCopiedOrCuttedParent){
-      const removeIndex = this.lastCopiedOrCuttedParent.findIndex((data) => data.id === (this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent.id));
+    if (
+      this.lastCopiedOrCuttedComponent &&
+      this.lastCopiedOrCuttedComponent?.isCutted &&
+      this.lastCopiedOrCuttedParent
+    ) {
+      const removeIndex = this.lastCopiedOrCuttedParent.findIndex(
+        (data) =>
+          data.id ===
+          (this.lastCopiedOrCuttedComponent &&
+            this.lastCopiedOrCuttedComponent.id)
+      );
       this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
       this.lastCopiedOrCuttedComponent = undefined;
       this.lastCopiedOrCuttedParent = undefined;
     }
   }
-  pasteCancel({component,parent,}: {component: IComponent | null;parent: IComponent[] | null;}): void {
+  pasteCancel({
+    component,
+    parent,
+  }: {
+    component: IComponent | null;
+    parent: IComponent[] | null;
+  }): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;
       this.lastCopiedOrCuttedComponent.isCutted = false;
       this.lastCopiedOrCuttedComponent = undefined;
     }
   }
-  deleteComponent({component,parent,}: {component: IComponent | null;parent: IComponent[];}): void {
-    setTimeout(()=>{
-      const isConfirmed = confirm('Are you sure! Do you want to delete the Component?');
-      if(isConfirmed){
-        const removeIndex = parent.findIndex((data) => data.id === component?.id);
+  deleteComponent({
+    component,
+    parent,
+  }: {
+    component: IComponent | null;
+    parent: IComponent[];
+  }): void {
+    setTimeout(() => {
+      const isConfirmed = confirm(
+        'Are you sure! Do you want to delete the Component?'
+      );
+      if (isConfirmed) {
+        const removeIndex = parent.findIndex(
+          (data) => data.id === component?.id
+        );
         parent.splice(removeIndex, 1);
         if (this.lastCopiedOrCuttedComponent) {
           this.lastCopiedOrCuttedComponent.isCopied = false;
@@ -201,6 +276,14 @@ export class AppComponent {
           this.lastCopiedOrCuttedComponent = undefined;
         }
       }
-    },50);
+    }, 50);
+  }
+  addComponent(value: {
+    component: IComponent | null;
+    parent: IComponent[] | null;
+    where: String;
+    componentName: string;
+  }): void {
+    console.log(value);
   }
 }

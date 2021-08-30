@@ -18,6 +18,7 @@ export class DynamicPageComponent implements OnInit {
   @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteCancel: EventEmitter<{component:IComponent | null,parent:IComponent[] | null}> = new EventEmitter<{component:IComponent | null,parent:IComponent[] | null}>();
   @Output() deleteComponent: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() addComponent: EventEmitter<{component:IComponent | null,parent:IComponent[] | null, where: String, componentName:string}> = new EventEmitter<{component:IComponent | null,parent:IComponent[] | null, where: String, componentName: string}>();
 
   showContextMenu = false;
   contextMenuPageX = 884;
@@ -47,7 +48,9 @@ export class DynamicPageComponent implements OnInit {
       case 'paste-cancel':
         this.pasteCancel.emit({component:null,parent: null});
         break;
-
+        case 'add-alert-inside-page':
+          this.addComponent.emit({component:null,parent: null, where:'inside-page', componentName:'ALERT'});
+        break;
       default:
         break;
     }

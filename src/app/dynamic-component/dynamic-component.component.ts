@@ -54,6 +54,7 @@ export class DynamicComponentComponent implements OnInit {
   @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteCancel: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() deleteComponent: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() addComponent: EventEmitter<{component:IComponent,parent:IComponent[], where: String, componentName:string}> = new EventEmitter<{component:IComponent,parent:IComponent[], where: String, componentName:string}>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -155,6 +156,15 @@ export class DynamicComponentComponent implements OnInit {
       case 'delete':
         // delete functionality
         this.component && this.deleteComponent.emit({component:this.component,parent: this.parentList});
+        break;
+      case 'add-alert-before':
+          this.component && this.addComponent.emit({component:this.component,parent: this.parentList, where:'before-component', componentName:'ALERT'});
+        break;
+      case 'add-alert-after':
+          this.component && this.addComponent.emit({component:this.component,parent: this.parentList, where:'after-component', componentName:'ALERT'});
+        break;
+      case 'add-alert-inside':
+          this.component && this.addComponent.emit({component:this.component,parent: this.parentList, where:'inside-component', componentName:'ALERT'});
         break;
 
       default:
