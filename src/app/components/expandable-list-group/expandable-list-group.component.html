@@ -1,16 +1,17 @@
-<app-expandable-list-group-item
-        *ngFor="let data of menu"
-        [isSubMenu]="data.menu"
-        [menu]="data"
-        [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
-        [isPage]="isPage"
-        [class.d-none]="isMenuHidden(data)"
-        [component]="component"
-        (itemClick)="onSubItemClick($event)"
-        (isOpenChange)="onMenuOpenChange($event)"
-        [menuId]="data['label']"
-        [level]="level"
-        [isOpen]="activeMenu == data['label']"
-        [isRootMenu]="isRootMenu"
-        role="button"
-        ></app-expandable-list-group-item>
+<ng-container *ngFor="let data of menu; let ind = index">
+  <app-expandable-list-group-item
+    [isSubMenu]="data.menu"
+    [menu]="data"
+    [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+    [isPage]="isPage"
+    *ngIf="!isMenuHidden(data)"
+    [component]="component"
+    (itemClick)="onSubItemClick($event)"
+    (isOpenChange)="onMenuOpenChange($event)"
+    [menuId]="data['label']"
+    [level]="level"
+    [isOpen]="activeMenu == data['label']"
+    [isRootMenu]="isRootMenu"
+    role="button"
+  ></app-expandable-list-group-item>
+</ng-container>

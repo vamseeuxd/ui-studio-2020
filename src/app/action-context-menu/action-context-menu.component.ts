@@ -264,12 +264,109 @@ export class ActionContextMenuComponent implements OnInit {
         },
       ],
     },
+    /* -------------------- Add Component Menu -------------------- */
+    {
+      icon: 'fa fa-plus',
+      action: 'add',
+      label: 'Add Component',
+      menu: [
+        {
+          icon: 'fa fa-arrow-left',
+          hideMenuIspage: true,
+          action: 'add-component',
+          label: 'Add Before',
+          menu: [
+            { icon: 'fa fa-exclamation-triangle', action: 'add-alert-before', label: 'Alert' },
+            { icon: 'fa fa-list', action: 'add-accordion-before', label: 'Accordion' },
+            { icon: 'fa fa-ellipsis-h', action: 'add-tab-before', label: 'Tab' },
+            { icon: 'fa fa-address-card-o', action: 'add-form-before', label: 'Form' },
+            {
+              icon: 'fa fa-table',
+              action: 'add-data-grid',
+              label: 'Data Grid',
+            },
+          ],
+        },
+        {
+          icon: 'fa fa-arrow-right',
+          hideMenuIspage: true,
+          action: 'add-component',
+          label: 'Add After',
+          menu: [
+            { icon: 'fa fa-exclamation-triangle', action: 'add-alert-after', label: 'Alert' },
+            { icon: 'fa fa-list', action: 'add-accordion-after', label: 'Accordion' },
+            { icon: 'fa fa-ellipsis-h', action: 'add-tab-after', label: 'Tab' },
+            { icon: 'fa fa-address-card-o', action: 'add-form-after', label: 'Form' },
+            {
+              icon: 'fa fa-table',
+              action: 'add-data-grid',
+              label: 'Data Grid',
+            },
+          ],
+        },
+        {
+          icon: 'fa fa-arrow-down',
+          hideMenuIspage: true,
+          action: 'add-component',
+          label: 'Add Inside',
+          menu: [
+            { icon: 'fa fa-exclamation-triangle', action: 'add-alert-inside', label: 'Alert' },
+            { icon: 'fa fa-list', action: 'add-accordion-inside', label: 'Accordion' },
+            { icon: 'fa fa-ellipsis-h', action: 'add-tab-inside', label: 'Tab' },
+            { icon: 'fa fa-address-card-o', action: 'add-form-inside', label: 'Form' },
+            {
+              icon: 'fa fa-table',
+              action: 'add-data-grid',
+              label: 'Data Grid',
+            },
+          ],
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-exclamation-triangle',
+          action: 'add-alert-inside-page',
+          label: 'Alert',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-list',
+          action: 'add-accordion-inside-page',
+          label: 'Accordion',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-ellipsis-h',
+          action: 'add-tab-inside-page',
+          label: 'Tab',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-address-card-o',
+          action: 'add-form-inside-page',
+          label: 'Form',
+        },
+        {
+          showIfOnlyComponent: true,
+          icon: 'fa fa-table',
+          action: 'add-data-grid-inside-page',
+          label: 'Data Grid',
+        },
+      ],
+    },
+    /* -------------------- Add Component Menu -------------------- */
     {
       alwaysEnabled: true,
       hideMenuIspage: true,
       icon: 'fa fa-trash',
       action: 'delete',
       label: 'Delete Component',
+    },
+    {
+      alwaysEnabled: true,
+      hideMenuIspage: true,
+      icon: 'fa fa-edit',
+      action: 'edit',
+      label: 'Edit Component',
     },
     {
       alwaysEnabled: true,
@@ -331,85 +428,6 @@ export class ActionContextMenuComponent implements OnInit {
       label: 'Manage Event',
     },
     { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' },
-    {
-      icon: 'fa fa-plus',
-      action: 'add',
-      label: 'Add Component',
-      menu: [
-        {
-          icon: 'fa fa-arrow-left',
-          hideMenuIspage: true,
-          action: 'add-component',
-          label: 'Add Before',
-          menu: [
-            { icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
-            { icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
-            { icon: 'fa fa-address-card-o', action: 'add-form', label: 'Form' },
-            {
-              icon: 'fa fa-table',
-              action: 'add-data-grid',
-              label: 'Data Grid',
-            },
-          ],
-        },
-        {
-          icon: 'fa fa-arrow-right',
-          hideMenuIspage: true,
-          action: 'add-component',
-          label: 'Add After',
-          menu: [
-            { icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
-            { icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
-            { icon: 'fa fa-address-card-o', action: 'add-form', label: 'Form' },
-            {
-              icon: 'fa fa-table',
-              action: 'add-data-grid',
-              label: 'Data Grid',
-            },
-          ],
-        },
-        {
-          icon: 'fa fa-arrow-down',
-          hideMenuIspage: true,
-          action: 'add-component',
-          label: 'Add Inside',
-          menu: [
-            { icon: 'fa fa-list', action: 'add-accordion', label: 'Accordion' },
-            { icon: 'fa fa-ellipsis-h', action: 'add-tab', label: 'Tab' },
-            { icon: 'fa fa-address-card-o', action: 'add-form', label: 'Form' },
-            {
-              icon: 'fa fa-table',
-              action: 'add-data-grid',
-              label: 'Data Grid',
-            },
-          ],
-        },
-        {
-          showIfOnlyComponent: true,
-          icon: 'fa fa-list',
-          action: 'add-accordion',
-          label: 'Accordion',
-        },
-        {
-          showIfOnlyComponent: true,
-          icon: 'fa fa-ellipsis-h',
-          action: 'add-tab',
-          label: 'Tab',
-        },
-        {
-          showIfOnlyComponent: true,
-          icon: 'fa fa-address-card-o',
-          action: 'add-form',
-          label: 'Form',
-        },
-        {
-          showIfOnlyComponent: true,
-          icon: 'fa fa-table',
-          action: 'add-data-grid',
-          label: 'Data Grid',
-        },
-      ],
-    },
   ];
 
   constructor() {}

@@ -29,8 +29,11 @@ import { KeepElementInViewportDirective } from './directives/keep-element-in-vie
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExpandableListGroupComponent } from './components/expandable-list-group/expandable-list-group.component';
 import { ExpandableListGroupItemComponent } from './components/expandable-list-group/expandable-list-group-item/expandable-list-group-item.component';
+import { AlertWraperComponent } from './wraper-components/alert-wraper/alert-wraper.component';
+import { AngularDraggableModule } from 'angular2-draggable';
+import { ComponentEditorComponent } from './components/component-editor/component-editor/component-editor.component';
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent],
   imports: [
     FormsModule,
     BrowserModule,
@@ -53,6 +56,7 @@ import { ExpandableListGroupItemComponent } from './components/expandable-list-g
     TypeaheadModule.forRoot(),
     TimepickerModule.forRoot(),
     BrowserAnimationsModule,
+    AngularDraggableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,4 +1,4 @@
-import { COL, IComponent } from './../interfaces/component.interface';
+import { COL, IComponent, COMPONENT_TYPE } from './../interfaces/component.interface';
 import {
   Component,
   ElementRef,
@@ -16,6 +16,7 @@ import {
   styleUrls: ['./dynamic-component.component.scss'],
 })
 export class DynamicComponentComponent implements OnInit {
+  readonly component_type = COMPONENT_TYPE;
   @HostBinding('class') cssClass = '';
   showContextMenu = false;
   contextMenuPageX = 884;
@@ -54,6 +55,8 @@ export class DynamicComponentComponent implements OnInit {
   @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteCancel: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() deleteComponent: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() editComponent: EventEmitter<{component:IComponent}> = new EventEmitter<{component:IComponent}>();
+  @Output() addComponent: EventEmitter<{component:IComponent,parent:IComponent[], where: String, componentName:string}> = new EventEmitter<{component:IComponent,parent:IComponent[], where: String, componentName:string}>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -156,6 +159,19 @@ export class DynamicComponentComponent implements OnInit {
         // delete functionality
         this.component && this.deleteComponent.emit({component:this.component,parent: this.parentList});
         break;
+      case 'edit':
+        // delete functionality
+        this.component && this.editComponent.emit({component:this.component});
+        break;
+      case 'add-alert-before':
+          this.component && this.addComponent.emit({component:this.component,parent: this.parentList, where:'before-component', componentName:'ALERT'});
+        break;
+      case 'add-alert-after':
+          this.component && this.addComponent.emit({component:this.component,parent: this.parentList, where:'after-component', componentName:'ALERT'});
+        break;
+      case 'add-alert-inside':
+          this.component && this.addComponent.emit({component:this.component,parent: this.parentList, where:'inside-component', componentName:'ALERT'});
+        break;
 
       default:
         break;
@@ -167,7 +183,6 @@ export class DynamicComponentComponent implements OnInit {
   addOrRemove(array: string[], value: string): void {
     let removeIndex = -1;
     let oldValue = '';
-    debugger;
     array.forEach((val, index) => {
       if (val.split('-').slice(0, -1).join('-') === value.split('-').slice(0, -1).join('-')) {
         removeIndex = index;

@@ -20,6 +20,8 @@
     (pasteCancel)="pasteCancel($event)"
     (pasteInside)="pasteInside($event)"
     (deleteComponent)="deleteComponent($event)"
+    (editComponent)="editComponent($event)"
+    (addComponent)="addComponent($event)"
     [activePage]="getActivePage()"
   ></app-dynamic-page>
 </div>
@@ -36,6 +38,8 @@
   <h1 class="d-none d-xl-block d-xxl-none">Extra Large</h1>
   <h1 class="d-none d-xxl-block">Extra Extra Large</h1>
 </div>
+
+<app-component-editor *ngIf="componentToEdit" (close)="componentToEdit = null" [component]="componentToEdit"></app-component-editor>
 
 
  <!-- <app-expandable-list-group style="width: 200px;" class="mx-auto mt-5"></app-expandable-list-group> -->

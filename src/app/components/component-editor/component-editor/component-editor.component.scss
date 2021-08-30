@@ -1,0 +1,11 @@
+:host {
+  ::ng-deep .card-header {
+    padding: 0 !important;
+
+    .btn:focus,
+    .btn.focus {
+      outline: 0;
+      box-shadow: none;
+    }
+  }
+}

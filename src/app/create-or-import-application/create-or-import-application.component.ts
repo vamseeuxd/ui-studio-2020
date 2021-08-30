@@ -62,7 +62,7 @@ export class CreateOrImportApplicationComponent {
             name: form.value.defaultPage,
             id: defaultPageId,
             components: [
-              { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_4 ], id: '1', type: COMPONENT_TYPE.ALERT_PRIMARY, components: [] },
+              /* { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_4 ], id: '1', type: COMPONENT_TYPE.ALERT_PRIMARY, components: [] },
               { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_4 ], id: '2', type: COMPONENT_TYPE.ALERT_SECONDARY, components: [] },
               { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_4 ], id: '3', type: COMPONENT_TYPE.ALERT_SUCCESS, components: [] },
               { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_4 ], id: '4', type: COMPONENT_TYPE.ALERT_DANGER, components: [] },
@@ -71,7 +71,7 @@ export class CreateOrImportApplicationComponent {
               { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_4 ], id: '7', type: COMPONENT_TYPE.ALERT_LIGHT, components: [] },
               { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_4 ], id: '8', type: COMPONENT_TYPE.ALERT_DARK, components: [] },
               { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_4 ], id: '9', type: COMPONENT_TYPE.ALERT_PRIMARY, components: [] },
-              { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_12 ], id: '10', type: COMPONENT_TYPE.ALERT_PRIMARY, components: [] },
+              { offset: [ ], isCopied: false, isCutted: false, col: [ COL.MD_12 ], id: '10', type: COMPONENT_TYPE.ALERT_PRIMARY, components: [] }, */
             ],
           },
         ],
