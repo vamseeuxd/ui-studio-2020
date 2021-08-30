@@ -59,8 +59,12 @@ export class ExpandableListGroupItemComponent implements OnInit {
 
   updateHostCssClassName(): void {
     const actionClass = this.isSubMenu ? '' : 'list-group-item-action';
-    const activeClass = this.isActive(this.menu ? this.menu['label'] : '') ? 'active' : '';
-    const disabledClass = this.isMenuDisabled(this.menu) ? 'disabled text-disabled' : '';
+    const activeClass = this.isActive(this.menu ? this.menu['label'] : '')
+      ? 'active'
+      : '';
+    const disabledClass = this.isMenuDisabled(this.menu)
+      ? 'disabled text-disabled'
+      : '';
     this.cssClassName = `list-group-item px-2 py-1 ${actionClass} ${activeClass} ${disabledClass}`;
     // this.isSubMenu ? 'list-group-item px-2 py-1' : 'list-group-item list-group-item-action px-2 py-1';
   }
@@ -75,6 +79,32 @@ export class ExpandableListGroupItemComponent implements OnInit {
         : false)
     );
   }
+
+  getValue(): string[] {
+    if (
+      this.menu &&
+      this.menu.menu &&
+      this.menu.showValueInLabel &&
+      this.menu.dataField &&
+      this.component &&
+      // @ts-ignore
+      this.component[this.menu.dataField]
+    ) {
+      // @ts-ignore
+      const selectedValues: string[] = this.component[this.menu.dataField];
+      const returnValues: string[] = [];
+      selectedValues.forEach((val) => {
+        if (this.menu.menu.map((d: any) => d.label).indexOf(val) >= 0) {
+          returnValues.push(val);
+        }
+      });
+      return returnValues;
+    } else {
+      return [];
+    }
+  }
+
+  getColumnValue(): void {}
 
   isMenuDisabled(data: any): boolean {
     return !data?.alwaysEnabled

@@ -23,6 +23,8 @@ export class ActionContextMenuComponent implements OnInit {
         {
           icon: 'fa fa-globe',
           label: 'All',
+          showValueInLabel: true,
+          dataField: 'col',
           menu: [
             { action: 'col-size', label: 'col-1' },
             { action: 'col-size', label: 'col-2' },
@@ -41,6 +43,8 @@ export class ActionContextMenuComponent implements OnInit {
         {
           icon: 'fa fa-film',
           label: 'Extra Large',
+          showValueInLabel: true,
+          dataField: 'col',
           menu: [
             { action: 'col-size', label: 'col-xl-1' },
             { action: 'col-size', label: 'col-xl-2' },
@@ -59,6 +63,8 @@ export class ActionContextMenuComponent implements OnInit {
         {
           icon: 'fa fa-desktop',
           label: 'Large',
+          showValueInLabel: true,
+          dataField: 'col',
           menu: [
             { action: 'col-size', label: 'col-lg-1' },
             { action: 'col-size', label: 'col-lg-2' },
@@ -77,6 +83,8 @@ export class ActionContextMenuComponent implements OnInit {
         {
           icon: 'fa fa-laptop',
           label: 'Medium',
+          showValueInLabel: true,
+          dataField: 'col',
           menu: [
             { action: 'col-size', label: 'col-md-1' },
             { action: 'col-size', label: 'col-md-2' },
@@ -95,6 +103,8 @@ export class ActionContextMenuComponent implements OnInit {
         {
           icon: 'fa fa-tablet',
           label: 'Small',
+          showValueInLabel: true,
+          dataField: 'col',
           menu: [
             { action: 'col-size', label: 'col-sm-1' },
             { action: 'col-size', label: 'col-sm-2' },
@@ -113,6 +123,8 @@ export class ActionContextMenuComponent implements OnInit {
         {
           icon: 'fa fa-mobile',
           label: 'Extra Small',
+          showValueInLabel: true,
+          dataField: 'col',
           menu: [
             { action: 'col-size', label: 'col-xs-1' },
             { action: 'col-size', label: 'col-xs-2' },
