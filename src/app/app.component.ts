@@ -52,11 +52,21 @@ export class AppComponent {
     this.lastCopiedOrCuttedParent = parent;
   }
 
+  updateIdsForAllChildren(component: IComponent):void{
+    if(component.components){
+      component.components.forEach((comp: IComponent)=>{
+        comp.id = window._.uniqueId('component_');
+        this.updateIdsForAllChildren(comp);
+      });
+    }
+  }
+
   pasteComponent({ component, parent }: ICutCopyPateValueObject, isAfter:boolean, isInside = false): void {
     const oldId = this.lastCopiedOrCuttedComponent?.id;
     const cloned = window._.cloneDeep(this.lastCopiedOrCuttedComponent);
-    cloned.id = 'component_' + new Date().getTime();
     if(isInside){
+      cloned.id = window._.uniqueId('component_');
+      this.updateIdsForAllChildren(cloned);
       if (component.components) {
         component.components.push(cloned);
       } else {
@@ -64,6 +74,8 @@ export class AppComponent {
         component.components.push(cloned);
       }
     }else{
+      cloned.id = window._.uniqueId('component_');
+      this.updateIdsForAllChildren(cloned);
       const addIndex = window._.findIndex(parent, ['id', component.id]);
       if (addIndex >= 0) {
         parent.splice(addIndex + (isAfter ? 1 : 0), 0, cloned);

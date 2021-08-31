@@ -21,7 +21,7 @@ export const AlertMockData = (): IComponent => {
   return {
     offset: [],
     col: [],
-    id: 'component_' + new Date().getTime(),
+    id: window._.uniqueId('component_'),
     isCopied: false,
     isCutted: false,
     type: COMPONENT_TYPE.ALERT,
