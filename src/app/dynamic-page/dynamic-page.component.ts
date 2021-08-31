@@ -1,3 +1,5 @@
+import { IAddComponentValueObject } from './../interfaces/add-component-vo';
+import { ICutCopyPateValueObject } from './../interfaces/cut-copy-paste-vo';
 import { IComponent } from './../interfaces/component.interface';
 import { IPage } from './../interfaces/page.interface';
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
@@ -11,15 +13,15 @@ export class DynamicPageComponent implements OnInit {
   @Input() activePage: IPage | undefined;
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
-  @Output() copy: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() cut: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() pasteBefore: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() pasteAfter: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() pasteCancel: EventEmitter<{component:IComponent | null,parent:IComponent[] | null}> = new EventEmitter<{component:IComponent | null,parent:IComponent[] | null}>();
-  @Output() deleteComponent: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
+  @Output() copy: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() cut: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
   @Output() editComponent: EventEmitter<{component:IComponent}> = new EventEmitter<{component:IComponent}>();
-  @Output() addComponent: EventEmitter<{component:IComponent | null,parent:IComponent[] | null, where: String, componentName:string}> = new EventEmitter<{component:IComponent | null,parent:IComponent[] | null, where: String, componentName: string}>();
+  @Output() addComponent: EventEmitter<IAddComponentValueObject> = new EventEmitter<IAddComponentValueObject>();
 
   showContextMenu = false;
   contextMenuPageX = 884;
@@ -64,6 +66,7 @@ export class DynamicPageComponent implements OnInit {
   onAction({ action, label }: any): void {
     switch (action) {
       case 'paste-cancel':
+        // @ts-ignore
         this.pasteCancel.emit({component:null,parent: null});
         break;
         case 'add-alert-inside-page':

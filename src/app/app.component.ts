@@ -1,3 +1,6 @@
+import { IAddComponentValueObject } from './interfaces/add-component-vo';
+import { ICutCopyPateValueObject } from './interfaces/cut-copy-paste-vo';
+import { applicationMockData } from './utilities/mock-data';
 import { IApplication } from './interfaces/application.interface';
 import { Component } from '@angular/core';
 import {
@@ -18,31 +21,13 @@ export class AppComponent {
   lastCopiedOrCuttedComponent: IComponent | undefined;
   lastCopiedOrCuttedParent: IComponent[] | undefined;
   componentToEdit: IComponent | null = null;
-  // Institutional Trade Processing
-  app: IApplication = {
-    name: 'Institutional Trade Processing',
-    layout: 'blank-layout',
-    defaultPage: 'page_140',
-    pages: [
-      {
-        name: 'Dashboard',
-        id: 'page_140',
-        components: [],
-      },
-    ],
-  };
+  app: IApplication = applicationMockData;
   constructor() {}
   getActivePage(): any {
     return this.app.pages.find((page) => page.id === this.activePageId);
   }
 
-  copy({
-    component,
-    parent,
-  }: {
-    component: IComponent;
-    parent: IComponent[];
-  }): void {
+  copy({ component, parent,  }: ICutCopyPateValueObject): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;
     }
@@ -50,13 +35,7 @@ export class AppComponent {
     this.lastCopiedOrCuttedComponent = component;
     this.lastCopiedOrCuttedParent = parent;
   }
-  cut({
-    component,
-    parent,
-  }: {
-    component: IComponent;
-    parent: IComponent[];
-  }): void {
+  cut({ component, parent, }: ICutCopyPateValueObject): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;
       this.lastCopiedOrCuttedComponent.isCutted = false;
@@ -65,13 +44,7 @@ export class AppComponent {
     this.lastCopiedOrCuttedComponent = component;
     this.lastCopiedOrCuttedParent = parent;
   }
-  pasteBefore({
-    component,
-    parent,
-  }: {
-    component: IComponent;
-    parent: IComponent[];
-  }): void {
+  pasteBefore({ component, parent, }: ICutCopyPateValueObject): void {
     const addIndex = parent.findIndex((data) => data.id === component.id);
     const oldId = this.lastCopiedOrCuttedComponent?.id;
     const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
@@ -96,13 +69,7 @@ export class AppComponent {
       this.lastCopiedOrCuttedParent = undefined;
     }
   }
-  pasteAfter({
-    component,
-    parent,
-  }: {
-    component: IComponent;
-    parent: IComponent[];
-  }): void {
+  pasteAfter({ component, parent, }: ICutCopyPateValueObject): void {
     const addIndex = parent.findIndex((data) => data.id === component.id);
     const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
     const oldId = this.lastCopiedOrCuttedComponent?.id;
@@ -127,13 +94,7 @@ export class AppComponent {
       this.lastCopiedOrCuttedParent = undefined;
     }
   }
-  pasteInside({
-    component,
-    parent,
-  }: {
-    component: IComponent;
-    parent: IComponent[];
-  }): void {
+  pasteInside({ component, parent, }: ICutCopyPateValueObject): void {
     const cloned = JSON.parse(JSON.stringify(this.lastCopiedOrCuttedComponent));
     cloned.id = this.lastCopiedOrCuttedComponent?.isCopied
       ? 'component_' + new Date().getTime()
@@ -161,30 +122,16 @@ export class AppComponent {
       this.lastCopiedOrCuttedParent = undefined;
     }
   }
-  pasteCancel({
-    component,
-    parent,
-  }: {
-    component: IComponent | null;
-    parent: IComponent[] | null;
-  }): void {
+  pasteCancel({ component, parent, }: ICutCopyPateValueObject): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;
       this.lastCopiedOrCuttedComponent.isCutted = false;
       this.lastCopiedOrCuttedComponent = undefined;
     }
   }
-  deleteComponent({
-    component,
-    parent,
-  }: {
-    component: IComponent | null;
-    parent: IComponent[];
-  }): void {
+  deleteComponent({ component, parent, }: ICutCopyPateValueObject): void {
     setTimeout(() => {
-      const isConfirmed = confirm(
-        'Are you sure! Do you want to delete the Component?'
-      );
+      const isConfirmed = confirm( 'Are you sure! Do you want to delete the Component?' );
       if (isConfirmed) {
         const removeIndex = parent.findIndex(
           (data) => data.id === component?.id
@@ -201,12 +148,7 @@ export class AppComponent {
   editComponent({ component }: { component: IComponent | null }): void {
     this.componentToEdit = component;
   }
-  addComponent(value: {
-    component: IComponent | null;
-    parent: IComponent[] | null;
-    where: String;
-    componentName: string;
-  }): void {
+  addComponent(value: IAddComponentValueObject): void {
     switch (value.componentName) {
       case 'ALERT':
         const config: IComponent = {
@@ -259,15 +201,7 @@ export class AppComponent {
         break;
     }
   }
-  addNewComponent(
-    details: {
-      component: IComponent | null;
-      parent: IComponent[] | null;
-      where: String;
-      componentName: string;
-    },
-    newComponent: any
-  ) {
+  addNewComponent( details: IAddComponentValueObject, newComponent: any ) {
     switch (details.where) {
       case 'inside-page':
         newComponent.col = [COL.ALL_4];
