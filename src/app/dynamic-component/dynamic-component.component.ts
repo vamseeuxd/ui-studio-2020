@@ -1,4 +1,8 @@
-import { COL, IComponent, COMPONENT_TYPE } from './../interfaces/component.interface';
+import {
+  COL,
+  IComponent,
+  COMPONENT_TYPE,
+} from './../interfaces/component.interface';
 import {
   Component,
   ElementRef,
@@ -46,17 +50,47 @@ export class DynamicComponentComponent implements OnInit {
 
   @Input() parentList: IComponent[] = [];
   @Input() isChild = false;
-
+  @Input() componentToEdit: IComponent | null = null;
   // @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
-  @Output() copy: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() cut: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() pasteBefore: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() pasteAfter: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() pasteInside: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() pasteCancel: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() deleteComponent: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
-  @Output() editComponent: EventEmitter<{component:IComponent}> = new EventEmitter<{component:IComponent}>();
-  @Output() addComponent: EventEmitter<{component:IComponent,parent:IComponent[], where: String, componentName:string}> = new EventEmitter<{component:IComponent,parent:IComponent[], where: String, componentName:string}>();
+  @Output() copy: EventEmitter<{
+    component: IComponent;
+    parent: IComponent[];
+  }> = new EventEmitter<{ component: IComponent; parent: IComponent[] }>();
+  @Output() cut: EventEmitter<{ component: IComponent; parent: IComponent[] }> =
+    new EventEmitter<{ component: IComponent; parent: IComponent[] }>();
+  @Output() pasteBefore: EventEmitter<{
+    component: IComponent;
+    parent: IComponent[];
+  }> = new EventEmitter<{ component: IComponent; parent: IComponent[] }>();
+  @Output() pasteAfter: EventEmitter<{
+    component: IComponent;
+    parent: IComponent[];
+  }> = new EventEmitter<{ component: IComponent; parent: IComponent[] }>();
+  @Output() pasteInside: EventEmitter<{
+    component: IComponent;
+    parent: IComponent[];
+  }> = new EventEmitter<{ component: IComponent; parent: IComponent[] }>();
+  @Output() pasteCancel: EventEmitter<{
+    component: IComponent;
+    parent: IComponent[];
+  }> = new EventEmitter<{ component: IComponent; parent: IComponent[] }>();
+  @Output() deleteComponent: EventEmitter<{
+    component: IComponent;
+    parent: IComponent[];
+  }> = new EventEmitter<{ component: IComponent; parent: IComponent[] }>();
+  @Output() editComponent: EventEmitter<{ component: IComponent }> =
+    new EventEmitter<{ component: IComponent }>();
+  @Output() addComponent: EventEmitter<{
+    component: IComponent;
+    parent: IComponent[];
+    where: String;
+    componentName: string;
+  }> = new EventEmitter<{
+    component: IComponent;
+    parent: IComponent[];
+    where: String;
+    componentName: string;
+  }>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -68,8 +102,18 @@ export class DynamicComponentComponent implements OnInit {
   @HostListener('window:pointerdown', ['$event'])
   // tslint:disable-next-line:typedef
   windowPointerdown($event: MouseEvent) {
-    const hostElement:HTMLElement = this.hostElement.nativeElement.getElementsByTagName('app-action-context-menu')[0];
-    if(!($event && $event.target && hostElement && hostElement.contains($event.target as HTMLElement))){
+    const hostElement: HTMLElement =
+      this.hostElement.nativeElement.getElementsByTagName(
+        'app-action-context-menu'
+      )[0];
+    if (
+      !(
+        $event &&
+        $event.target &&
+        hostElement &&
+        hostElement.contains($event.target as HTMLElement)
+      )
+    ) {
       this.showContextMenu = false;
       this.cssClass = this.getColClasses();
     }
@@ -93,15 +137,17 @@ export class DynamicComponentComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  updateContextMenuPosition($event: MouseEvent){
+  updateContextMenuPosition($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
-    this.showContextMenu = true;
-    this.cssClass = this.getColClasses();
-    this.contextMenuLeftAlign = $event.pageX + (250 * 3) > document.body.clientWidth;
-    this.contextMenuPageX = $event.pageX;
-    this.contextMenuPageY = $event.pageY - 44;
-    // this.contextMenuPageX = $event.pageX + (250 * 1) > document.body.clientWidth ? (document.body.clientWidth - 260) :  $event.pageX;
+    if (!this.componentToEdit) {
+      this.showContextMenu = true;
+      this.cssClass = this.getColClasses();
+      this.contextMenuLeftAlign =
+        $event.pageX + 250 * 3 > document.body.clientWidth;
+      this.contextMenuPageX = $event.pageX;
+      this.contextMenuPageY = $event.pageY - 44;
+    }
   }
 
   getColClasses(): string {
@@ -115,9 +161,7 @@ export class DynamicComponentComponent implements OnInit {
         ? ' ants '
         : '') +
       ' ' +
-      (this.showContextMenu
-        ? 'border shadow border-danger'
-        : '') +
+      (this.showContextMenu ? 'border shadow border-danger' : '') +
       ' ' +
       ' position-relative d-block'
     );
@@ -133,44 +177,88 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'copy':
         // copy functionality
-        this.component && this.copy.emit({component:this.component,parent: this.parentList});
+        this.component &&
+          this.copy.emit({
+            component: this.component,
+            parent: this.parentList,
+          });
         break;
       case 'cut':
         // cut functionality
-        this.component && this.cut.emit({component:this.component,parent: this.parentList});
+        this.component &&
+          this.cut.emit({ component: this.component, parent: this.parentList });
         break;
       case 'paste-before':
         // paste functionality
-        this.component && this.pasteBefore.emit({component:this.component,parent: this.parentList});
+        this.component &&
+          this.pasteBefore.emit({
+            component: this.component,
+            parent: this.parentList,
+          });
         break;
       case 'paste-after':
         // paste functionality
-        this.component && this.pasteAfter.emit({component:this.component,parent: this.parentList});
+        this.component &&
+          this.pasteAfter.emit({
+            component: this.component,
+            parent: this.parentList,
+          });
         break;
       case 'paste-inside':
         // paste functionality
-        this.component && this.pasteInside.emit({component:this.component,parent: this.parentList});
+        this.component &&
+          this.pasteInside.emit({
+            component: this.component,
+            parent: this.parentList,
+          });
         break;
       case 'paste-cancel':
         // paste functionality
-        this.component && this.pasteCancel.emit({component:this.component,parent: this.parentList});
+        this.component &&
+          this.pasteCancel.emit({
+            component: this.component,
+            parent: this.parentList,
+          });
         break;
       case 'delete':
         // delete functionality
-        this.component && this.deleteComponent.emit({component:this.component,parent: this.parentList});
+        this.component &&
+          this.deleteComponent.emit({
+            component: this.component,
+            parent: this.parentList,
+          });
         break;
       case 'edit':
         // delete functionality
-        this.component && this.editComponent.emit({component:this.component});
+        this.component &&
+          this.editComponent.emit({ component: this.component });
         break;
       case 'add-alert-before':
-          this.component && this.addComponent.emit({component:this.component,parent: this.parentList, where:'before-component', componentName:'ALERT'});
+        this.component &&
+          this.addComponent.emit({
+            component: this.component,
+            parent: this.parentList,
+            where: 'before-component',
+            componentName: 'ALERT',
+          });
         break;
       case 'add-alert-after':
-          this.component && this.addComponent.emit({component:this.component,parent: this.parentList, where:'after-component', componentName:'ALERT'});
+        this.component &&
+          this.addComponent.emit({
+            component: this.component,
+            parent: this.parentList,
+            where: 'after-component',
+            componentName: 'ALERT',
+          });
         break;
       case 'add-alert-inside':
-          this.component && this.addComponent.emit({component:this.component,parent: this.parentList, where:'inside-component', componentName:'ALERT'});
+        this.component &&
+          this.addComponent.emit({
+            component: this.component,
+            parent: this.parentList,
+            where: 'inside-component',
+            componentName: 'ALERT',
+          });
         break;
 
       default:
@@ -184,7 +272,10 @@ export class DynamicComponentComponent implements OnInit {
     let removeIndex = -1;
     let oldValue = '';
     array.forEach((val, index) => {
-      if (val.split('-').slice(0, -1).join('-') === value.split('-').slice(0, -1).join('-')) {
+      if (
+        val.split('-').slice(0, -1).join('-') ===
+        value.split('-').slice(0, -1).join('-')
+      ) {
         removeIndex = index;
         oldValue = val;
       }

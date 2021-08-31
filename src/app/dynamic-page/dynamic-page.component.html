@@ -3,6 +3,7 @@
     <app-dynamic-component
       [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
       [component]="component"
+      [componentToEdit]="componentToEdit"
       [parentList]="activePage.components"
       (copy)="copy.emit($event)"
       (cut)="cut.emit($event)"
@@ -17,7 +18,6 @@
     ></app-dynamic-component>
   </div>
 </div>
-
 
 <app-action-context-menu
   [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
