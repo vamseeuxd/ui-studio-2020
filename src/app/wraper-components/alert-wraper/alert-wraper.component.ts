@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class AlertWraperComponent implements OnInit {
   @Input() component: IComponent | undefined;
+  @Input() componentToEdit: IComponent | null = null;
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Output() copy: EventEmitter<{
     component: IComponent;
