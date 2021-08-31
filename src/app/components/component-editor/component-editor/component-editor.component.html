@@ -1,16 +1,16 @@
 <div class="card shadow mx-auto" style="width: 350px;" ngDraggable>
   <div class="card-body p-2">
-    <h6 class="card-title pl-3">
+    <h6 class="card-title ps-3">
       Edit Component
-      <i (click)="close.emit();" class="fa fa-close float-right mr-2" role="button"></i>
+      <i (click)="close.emit();" class="fa fa-close float-end me-2" role="button"></i>
     </h6>
       <tabset>
         <tab ngResizable [rzMinWidth]="332" [rzMaxWidth]="332" class="border border-top-0 p-2" style="min-height: 200px;" heading="Properties">
           <accordion *ngIf="component" [closeOthers]="true" [isAnimated]="true">
             <accordion-group *ngFor="let prop of component.props" class="mb-1">
-              <button style="max-width: 100%;" [title]="prop.label+' : '+prop.value" accordion-heading type="button" class="rounded-0 btn btn-light btn-block align-items-center justify-content-left d-flex w-100  shadow-none">
+              <button style="max-width: 100%;" [title]="prop.label+' : '+prop.value" accordion-heading type="button" class="rounded-0 btn btn-light btn-block align-items-center justify-content-start d-flex w-100  shadow-none">
                 <code class="text-dark text-truncate">{{prop.label}} :</code>
-                <code class="font-weight-bold ml-2 text-truncate">{{prop.value}}</code>
+                <code class="font-weight-bold ms-2 text-truncate">{{prop.value}}</code>
               </button>
                 <ng-container *ngIf="prop.propType === PropType.LIST">
                   <select class="form-control" [(ngModel)]="prop.value">
