@@ -1,6 +1,6 @@
 import { IAddComponentValueObject } from './interfaces/add-component-vo';
 import { ICutCopyPateValueObject } from './interfaces/cut-copy-paste-vo';
-import { applicationMockData } from './utilities/mock-data';
+import { applicationMockData, AlertMockData } from './utilities/mock-data';
 import { IApplication } from './interfaces/application.interface';
 import { Component } from '@angular/core';
 import {
@@ -27,12 +27,17 @@ export class AppComponent {
   getActivePage(): any {
     return this.app.pages.find((page) => page.id === this.activePageId);
   }
-
+  isCutInProgress(): boolean {
+    // @ts-ignore
+    return ( this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent.isCutted);
+  }
   copy({ component, parent }: ICutCopyPateValueObject): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;
+      this.lastCopiedOrCuttedComponent.isCutted = false;
     }
     component.isCopied = true;
+    component.isCutted = false;
     this.lastCopiedOrCuttedComponent = component;
     this.lastCopiedOrCuttedParent = parent;
   }
@@ -42,49 +47,30 @@ export class AppComponent {
       this.lastCopiedOrCuttedComponent.isCutted = false;
     }
     component.isCutted = true;
+    component.isCopied = false;
     this.lastCopiedOrCuttedComponent = component;
     this.lastCopiedOrCuttedParent = parent;
   }
-  pasteBefore({ component, parent }: ICutCopyPateValueObject): void {
+
+  pasteComponent({ component, parent }: ICutCopyPateValueObject, isAfter:boolean, isInside = false): void {
     const addIndex = window._.findIndex(parent, ['id', component.id]);
     const oldId = this.lastCopiedOrCuttedComponent?.id;
     const cloned = window._.cloneDeep(this.lastCopiedOrCuttedComponent);
     if (addIndex >= 0) {
       cloned.id = 'component_' + new Date().getTime();
-      parent.splice(addIndex, 0, cloned);
+      parent.splice(addIndex + (isAfter ? 1 : 0), 0, cloned);
     }
-    if (
-      this.lastCopiedOrCuttedComponent &&
-      this.lastCopiedOrCuttedComponent?.isCutted &&
-      this.lastCopiedOrCuttedParent
-    ) {
-      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, ['id', this.lastCopiedOrCuttedComponent.id]);
+    if ( this.isCutInProgress() ) {
+      // @ts-ignore
+      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, ['id', this.lastCopiedOrCuttedComponent.id,]);
+      // @ts-ignore
       this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
       cloned.id = oldId;
-      this.lastCopiedOrCuttedComponent = undefined;
-      this.lastCopiedOrCuttedParent = undefined;
+      this.pasteCancel({ component, parent });
     }
+
   }
-  pasteAfter({ component, parent }: ICutCopyPateValueObject): void {
-    const addIndex = window._.findIndex(parent, ['id', component.id]);
-    const cloned = window._.cloneDeep(this.lastCopiedOrCuttedComponent);
-    const oldId = this.lastCopiedOrCuttedComponent?.id;
-    if (addIndex >= 0) {
-      cloned.id = 'component_' + new Date().getTime();
-      parent.splice(addIndex + 1, 0, cloned);
-    }
-    if (
-      this.lastCopiedOrCuttedComponent &&
-      this.lastCopiedOrCuttedComponent?.isCutted &&
-      this.lastCopiedOrCuttedParent
-    ) {
-      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, ['id', this.lastCopiedOrCuttedComponent.id]);
-      this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
-      cloned.id = oldId;
-      this.lastCopiedOrCuttedComponent = undefined;
-      this.lastCopiedOrCuttedParent = undefined;
-    }
-  }
+
   pasteInside({ component, parent }: ICutCopyPateValueObject): void {
     const cloned = window._.cloneDeep(this.lastCopiedOrCuttedComponent);
     cloned.id = this.lastCopiedOrCuttedComponent?.isCopied ? 'component_' + new Date().getTime() : this.lastCopiedOrCuttedComponent?.id;
@@ -95,15 +81,14 @@ export class AppComponent {
       component.components.push(cloned);
     }
 
-    if (
-      this.lastCopiedOrCuttedComponent &&
-      this.lastCopiedOrCuttedComponent?.isCutted &&
-      this.lastCopiedOrCuttedParent
-    ) {
-      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, ['id', this.lastCopiedOrCuttedComponent.id]);
+    if (this.isCutInProgress()) {
+      // @ts-ignore
+      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, [ 'id', this.lastCopiedOrCuttedComponent.id, ]);
+      // @ts-ignore
       this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
-      this.lastCopiedOrCuttedComponent = undefined;
-      this.lastCopiedOrCuttedParent = undefined;
+      // @ts-ignore
+      this.lastCopiedOrCuttedComponent.isCopied = false;
+      this.pasteCancel({ component, parent });
     }
   }
   pasteCancel({ component, parent }: ICutCopyPateValueObject): void {
@@ -135,49 +120,7 @@ export class AppComponent {
   addComponent(value: IAddComponentValueObject): void {
     switch (value.componentName) {
       case 'ALERT':
-        const config: IComponent = {
-          offset: [],
-          col: [],
-          id: 'component_' + new Date().getTime(),
-          isCopied: false,
-          isCutted: false,
-          type: COMPONENT_TYPE.ALERT,
-          components: [],
-          props: [
-            {
-              label: 'Alert Type',
-              name: 'alertType',
-              value: 'alert-success',
-              propType: PROP_TYPE.LIST,
-              min: 0,
-              max: 0,
-              dataProvider: [
-                { label: 'Alert Danger', value: 'alert-danger' },
-                { label: 'Alert Success', value: 'alert-success' },
-                { label: 'Alert Warning', value: 'alert-warning' },
-                { label: 'Alert Primary', value: 'alert-primary' },
-                { label: 'Alert Info', value: 'alert-info' },
-                { label: 'Alert Secondary', value: 'alert-secondary' },
-              ],
-            },
-            {
-              label: 'Innter Text',
-              name: 'innterText',
-              min: 0,
-              max: 0,
-              value: 'simple danger alert',
-              propType: PROP_TYPE.STRING,
-            },
-            {
-              label: 'Width in %',
-              name: 'width',
-              value: 100,
-              min: 5,
-              max: 100,
-              propType: PROP_TYPE.NUMBER,
-            },
-          ],
-        };
+        const config: IComponent = AlertMockData();
         this.addNewComponent(value, config);
         break;
 
@@ -205,14 +148,20 @@ export class AppComponent {
         break;
       case ADD_OR_PASTE_WHERE.BEFORE_COMPONENT:
         if (details.component && details.parent) {
-          const addIndex =  window._.findIndex(details.parent, ['id', details.component.id]);
+          const addIndex = window._.findIndex(details.parent, [
+            'id',
+            details.component.id,
+          ]);
           newComponent.col = [...details.component.col];
           details.parent.splice(addIndex, 0, newComponent);
         }
         break;
       case ADD_OR_PASTE_WHERE.AFTER_COMPONENT:
         if (details.component && details.parent) {
-          const addIndex = window._.findIndex(details.parent, ['id', details.component.id]);
+          const addIndex = window._.findIndex(details.parent, [
+            'id',
+            details.component.id,
+          ]);
           newComponent.col = [...details.component.col];
           details.parent.splice(addIndex + 1, 0, newComponent);
         }
