@@ -15,6 +15,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { ADD_OR_PASTE_WHERE } from '../interfaces/paster-where-enum';
 
 @Component({
   selector: 'app-dynamic-component',
@@ -209,7 +210,7 @@ export class DynamicComponentComponent implements OnInit {
           this.addComponent.emit({
             component: this.component,
             parent: this.parentList,
-            where: 'before-component',
+            where: ADD_OR_PASTE_WHERE.BEFORE_COMPONENT,
             componentName: 'ALERT',
           });
         break;
@@ -218,7 +219,7 @@ export class DynamicComponentComponent implements OnInit {
           this.addComponent.emit({
             component: this.component,
             parent: this.parentList,
-            where: 'after-component',
+            where: ADD_OR_PASTE_WHERE.AFTER_COMPONENT,
             componentName: 'ALERT',
           });
         break;
@@ -227,7 +228,7 @@ export class DynamicComponentComponent implements OnInit {
           this.addComponent.emit({
             component: this.component,
             parent: this.parentList,
-            where: 'inside-component',
+            where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT,
             componentName: 'ALERT',
           });
         break;

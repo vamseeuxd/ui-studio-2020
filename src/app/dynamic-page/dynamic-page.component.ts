@@ -1,3 +1,4 @@
+import { ADD_OR_PASTE_WHERE } from './../interfaces/paster-where-enum';
 import { IAddComponentValueObject } from './../interfaces/add-component-vo';
 import { ICutCopyPateValueObject } from './../interfaces/cut-copy-paste-vo';
 import { IComponent } from './../interfaces/component.interface';
@@ -70,7 +71,7 @@ export class DynamicPageComponent implements OnInit {
         this.pasteCancel.emit({component:null,parent: null});
         break;
         case 'add-alert-inside-page':
-          this.addComponent.emit({component:null,parent: null, where:'inside-page', componentName:'ALERT'});
+          this.addComponent.emit({component:null,parent: null, where:ADD_OR_PASTE_WHERE.INSIDE_PAGE, componentName:'ALERT'});
         break;
       default:
         break;

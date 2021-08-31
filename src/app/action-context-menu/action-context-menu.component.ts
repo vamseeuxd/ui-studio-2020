@@ -15,6 +15,7 @@ export class ActionContextMenuComponent implements OnInit {
   activeMenu = '';
 
   menu: any[] = [
+    /* -------------------- Col Size Menu -------------------- */
     {
       icon: 'fa fa-arrows-h',
       hideMenuIspage: true,
@@ -142,6 +143,9 @@ export class ActionContextMenuComponent implements OnInit {
         },
       ],
     },
+    /* -------------------- Col Size Menu -------------------- */
+
+    /* -------------------- Offset Size Menu -------------------- */
     {
       icon: 'fa fa-long-arrow-right',
       hideMenuIspage: true,
@@ -264,6 +268,8 @@ export class ActionContextMenuComponent implements OnInit {
         },
       ],
     },
+    /* -------------------- Offset Size Menu -------------------- */
+
     /* -------------------- Add Component Menu -------------------- */
     {
       icon: 'fa fa-plus',
@@ -354,6 +360,8 @@ export class ActionContextMenuComponent implements OnInit {
       ],
     },
     /* -------------------- Add Component Menu -------------------- */
+
+    /* -------------------- Delete Component Menu -------------------- */
     {
       alwaysEnabled: true,
       hideMenuIspage: true,
@@ -361,6 +369,9 @@ export class ActionContextMenuComponent implements OnInit {
       action: 'delete',
       label: 'Delete Component',
     },
+    /* -------------------- Delete Component Menu -------------------- */
+
+    /* -------------------- Edit Component Menu -------------------- */
     {
       alwaysEnabled: true,
       hideMenuIspage: true,
@@ -368,6 +379,9 @@ export class ActionContextMenuComponent implements OnInit {
       action: 'edit',
       label: 'Edit Component',
     },
+    /* -------------------- Edit Component Menu -------------------- */
+
+    /* -------------------- Cut Component Menu -------------------- */
     {
       alwaysEnabled: true,
       hideMenuIspage: true,
@@ -375,6 +389,9 @@ export class ActionContextMenuComponent implements OnInit {
       action: 'cut',
       label: 'Cut',
     },
+    /* -------------------- Cut Component Menu -------------------- */
+
+    /* -------------------- Copy Component Menu -------------------- */
     {
       alwaysEnabled: true,
       hideMenuIspage: true,
@@ -382,6 +399,9 @@ export class ActionContextMenuComponent implements OnInit {
       action: 'copy',
       label: 'Copy',
     },
+    /* -------------------- Copy Component Menu -------------------- */
+
+    /* -------------------- Paste Component Menu -------------------- */
     {
       hideMenuIspage: true,
       icon: 'fa fa-clipboard',
@@ -414,20 +434,34 @@ export class ActionContextMenuComponent implements OnInit {
         },
       ],
     },
+    /* -------------------- Paste Component Menu -------------------- */
+
+    /* -------------------- Cancel Component Menu -------------------- */
     {
       lastCopiedOrCutted: true,
       icon: 'fa fa-close',
       action: 'paste-cancel',
       label: 'Cancel Paste',
     },
+    /* -------------------- Cancel Component Menu -------------------- */
+
+    /* -------------------- Manage Pages Menu -------------------- */
     { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages' },
+    /* -------------------- Manage Pages Menu -------------------- */
+
+    /* -------------------- Manage Event Menu -------------------- */
     {
       hideMenuIspage: true,
       icon: 'fa fa-book',
       action: 'manage-event',
       label: 'Manage Event',
     },
+    /* -------------------- Manage Event Menu -------------------- */
+
+    /* -------------------- Manage API Menu -------------------- */
     { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' },
+    /* -------------------- Manage API Menu -------------------- */
+
   ];
 
   constructor() {}
