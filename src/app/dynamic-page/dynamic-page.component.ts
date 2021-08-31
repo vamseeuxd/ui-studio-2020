@@ -10,7 +10,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Outpu
 export class DynamicPageComponent implements OnInit {
   @Input() activePage: IPage | undefined;
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
-
+  @Input() componentToEdit: IComponent | null = null;
   @Output() copy: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() cut: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
   @Output() pasteBefore: EventEmitter<{component:IComponent,parent:IComponent[]}> = new EventEmitter<{component:IComponent,parent:IComponent[]}>();
@@ -54,9 +54,11 @@ export class DynamicPageComponent implements OnInit {
   updateContextMenuPosition($event: MouseEvent){
     $event.preventDefault();
     $event.stopPropagation();
-    this.showContextMenu = true;
-    this.contextMenuPageX = $event.pageX;
-    this.contextMenuPageY = $event.pageY;
+    if(!this.componentToEdit){
+      this.showContextMenu = true;
+      this.contextMenuPageX = $event.pageX;
+      this.contextMenuPageY = $event.pageY;
+    }
   }
 
   onAction({ action, label }: any): void {
