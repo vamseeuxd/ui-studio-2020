@@ -20,7 +20,7 @@ export class AppComponent {
   componentToEdit: IComponent | null = null;
   // Institutional Trade Processing
   app: IApplication = {
-    name: 'Institutional Trade Processing',
+    name: '',
     layout: 'blank-layout',
     defaultPage: 'page_140',
     pages: [
