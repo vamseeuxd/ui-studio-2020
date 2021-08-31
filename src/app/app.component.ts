@@ -52,13 +52,34 @@ export class AppComponent {
     this.lastCopiedOrCuttedParent = parent;
   }
 
+  updateIdsForAllChildren(component: IComponent):void{
+    if(component.components){
+      component.components.forEach((comp: IComponent)=>{
+        comp.id = window._.uniqueId('component_');
+        this.updateIdsForAllChildren(comp);
+      });
+    }
+  }
+
   pasteComponent({ component, parent }: ICutCopyPateValueObject, isAfter:boolean, isInside = false): void {
-    const addIndex = window._.findIndex(parent, ['id', component.id]);
     const oldId = this.lastCopiedOrCuttedComponent?.id;
     const cloned = window._.cloneDeep(this.lastCopiedOrCuttedComponent);
-    if (addIndex >= 0) {
-      cloned.id = 'component_' + new Date().getTime();
-      parent.splice(addIndex + (isAfter ? 1 : 0), 0, cloned);
+    if(isInside){
+      cloned.id = window._.uniqueId('component_');
+      this.updateIdsForAllChildren(cloned);
+      if (component.components) {
+        component.components.push(cloned);
+      } else {
+        component.components = [];
+        component.components.push(cloned);
+      }
+    }else{
+      cloned.id = window._.uniqueId('component_');
+      this.updateIdsForAllChildren(cloned);
+      const addIndex = window._.findIndex(parent, ['id', component.id]);
+      if (addIndex >= 0) {
+        parent.splice(addIndex + (isAfter ? 1 : 0), 0, cloned);
+      }
     }
     if ( this.isCutInProgress() ) {
       // @ts-ignore
@@ -71,26 +92,6 @@ export class AppComponent {
 
   }
 
-  pasteInside({ component, parent }: ICutCopyPateValueObject): void {
-    const cloned = window._.cloneDeep(this.lastCopiedOrCuttedComponent);
-    cloned.id = this.lastCopiedOrCuttedComponent?.isCopied ? 'component_' + new Date().getTime() : this.lastCopiedOrCuttedComponent?.id;
-    if (component.components) {
-      component.components.push(cloned);
-    } else {
-      component.components = [];
-      component.components.push(cloned);
-    }
-
-    if (this.isCutInProgress()) {
-      // @ts-ignore
-      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, [ 'id', this.lastCopiedOrCuttedComponent.id, ]);
-      // @ts-ignore
-      this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
-      // @ts-ignore
-      this.lastCopiedOrCuttedComponent.isCopied = false;
-      this.pasteCancel({ component, parent });
-    }
-  }
   pasteCancel({ component, parent }: ICutCopyPateValueObject): void {
     if (this.lastCopiedOrCuttedComponent) {
       this.lastCopiedOrCuttedComponent.isCopied = false;

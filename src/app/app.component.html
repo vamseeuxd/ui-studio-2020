@@ -16,10 +16,10 @@
     [componentToEdit]="componentToEdit"
     (copy)="copy($event)"
     (cut)="cut($event)"
-    (pasteBefore)="pasteComponent($event,false)"
-    (pasteAfter)="pasteComponent($event,true)"
+    (pasteBefore)="pasteComponent($event, false)"
+    (pasteAfter)="pasteComponent($event, true)"
     (pasteCancel)="pasteCancel($event)"
-    (pasteInside)="pasteInside($event)"
+    (pasteInside)="pasteComponent($event, false, true)"
     (deleteComponent)="deleteComponent($event)"
     (editComponent)="editComponent($event)"
     (addComponent)="addComponent($event)"
@@ -40,4 +40,8 @@
   <h1 class="d-none d-xxl-block">Extra Extra Large</h1>
 </div>
 
-<app-component-editor *ngIf="componentToEdit" (close)="componentToEdit = null" [component]="componentToEdit"></app-component-editor>
+<app-component-editor
+  *ngIf="componentToEdit"
+  (close)="componentToEdit = null"
+  [component]="componentToEdit"
+></app-component-editor>
