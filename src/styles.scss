@@ -52,3 +52,9 @@ $antcolor: red;
 .disabled {
   cursor: not-allowed !important;
 }
+
+
+.popover-body,
+.panel-body {
+  padding: 5px;
+}

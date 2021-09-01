@@ -5,8 +5,7 @@ import {
   COL,
 } from './../interfaces/component.interface';
 import { IApplication } from './../interfaces/application.interface';
-
-
+// import '../../../node_modules/@popperjs/core/dist/umd/popper.min.js';
 
 export const AlertMockData = (): IComponent => {
   return {
