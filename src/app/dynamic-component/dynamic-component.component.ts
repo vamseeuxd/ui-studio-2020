@@ -71,6 +71,13 @@ export class DynamicComponentComponent implements OnInit {
     this.cssClass = this.getColClasses();
   }
 
+  @HostListener('window:resize', ['$event'])
+  // tslint:disable-next-line:typedef
+  windowResize($event: MouseEvent) {
+    this.showContextMenu = false;
+    this.cssClass = this.getColClasses();
+  }
+
   @HostListener('window:pointerdown', ['$event'])
   // tslint:disable-next-line:typedef
   windowPointerdown($event: MouseEvent) {

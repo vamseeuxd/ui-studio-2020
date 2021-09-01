@@ -23,7 +23,9 @@ export class AppComponent {
   lastCopiedOrCuttedParent: IComponent[] | undefined;
   componentToEdit: IComponent | null = null;
   app: IApplication = applicationMockData;
-  constructor() {}
+  constructor() {
+    this.app.pages[0].components = [AlertMockData()];
+  }
   getActivePage(): any {
     return this.app.pages.find((page) => page.id === this.activePageId);
   }

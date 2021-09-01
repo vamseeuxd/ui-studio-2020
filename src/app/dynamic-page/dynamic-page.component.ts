@@ -33,6 +33,12 @@ export class DynamicPageComponent implements OnInit {
     this.updateContextMenuPosition($event);
   }
 
+  @HostListener('window:resize', ['$event'])
+  // tslint:disable-next-line:typedef
+  windowResize($event: MouseEvent) {
+    this.showContextMenu = false;
+  }
+
   @HostListener('window:dblclick', ['$event'])
   // tslint:disable-next-line:typedef
   onDblclick($event: MouseEvent) {
