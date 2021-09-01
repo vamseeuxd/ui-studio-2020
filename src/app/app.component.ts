@@ -24,7 +24,11 @@ export class AppComponent {
   componentToEdit: IComponent | null = null;
   app: IApplication = applicationMockData;
   constructor() {
-    this.app.pages[0].components = [AlertMockData()];
+    this.app.pages[0].components = [
+      AlertMockData(),
+      AlertMockData(),
+      AlertMockData()
+    ];
   }
   getActivePage(): any {
     return this.app.pages.find((page) => page.id === this.activePageId);

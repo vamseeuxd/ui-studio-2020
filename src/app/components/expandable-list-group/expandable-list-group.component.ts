@@ -405,7 +405,7 @@ export class ExpandableListGroupComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.cssClassName = `list-group shadow-sm border p-1 bg-light level-${this.level}`
+    this.cssClassName = `list-group shadow-sm border p-1 mb-3 bg-light level-${this.level}`
   }
 
   onMenuOpenChange($event: string) {

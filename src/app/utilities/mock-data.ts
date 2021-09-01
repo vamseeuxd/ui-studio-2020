@@ -2,6 +2,7 @@ import {
   PROP_TYPE,
   COMPONENT_TYPE,
   IComponent,
+  COL,
 } from './../interfaces/component.interface';
 import { IApplication } from './../interfaces/application.interface';
 
@@ -10,7 +11,7 @@ import { IApplication } from './../interfaces/application.interface';
 export const AlertMockData = (): IComponent => {
   return {
     offset: [],
-    col: [],
+    col: [ COL.ALL_4 ],
     id: window._.uniqueId('component_'),
     isCopied: false,
     isCutted: false,
