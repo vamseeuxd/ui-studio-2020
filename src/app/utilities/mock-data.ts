@@ -51,6 +51,10 @@ export const AlertMockData = (): IComponent => {
         propType: PROP_TYPE.NUMBER,
       },
     ],
+    events:[
+      { name: 'click', label: 'On Alert Click', description:'A pointing device button has been pressed and released on an Alert.' },
+      { name: 'dblclick', label: 'On Alert Double Click', description:'A pointing device button is clicked twice on an Alert.' },
+    ]
   };
 };
 

@@ -158,6 +158,7 @@ export interface IComponent {
   isCopied: boolean;
   isCutted: boolean;
   props?: IProp[];
+  events?: IEvent[];
   components: any[];
 }
 
@@ -169,6 +170,11 @@ export interface IProp {
   max: number;
   propType: PROP_TYPE;
   dataProvider?: { label: string; value: any }[];
+}
+export interface IEvent {
+  name: string;
+  label: string;
+  description: string;
 }
 
 export enum PROP_TYPE {

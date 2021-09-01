@@ -27,7 +27,15 @@
           </accordion>
 
         </tab>
-        <tab ngResizable class="border border-top-0 p-2" style="min-height: 300px;" heading="Events">Basic content 1</tab>
+        <tab ngResizable [rzMinWidth]="332" [rzMaxWidth]="332" class="border border-top-0 p-2" style="min-height: 200px;" heading="Events">
+          <accordion *ngIf="component" [closeOthers]="true" [isAnimated]="true">
+            <accordion-group *ngFor="let event of component.events" class="mb-1">
+              <button style="max-width: 100%;" [title]="event.description" accordion-heading type="button" class="rounded-0 btn btn-light btn-block align-items-center justify-content-start d-flex w-100  shadow-none">
+                <code class="text-truncate">{{event.label}} :</code>
+              </button>
+              </accordion-group>
+          </accordion>
+        </tab>
       </tabset>
   </div>
 </div>
