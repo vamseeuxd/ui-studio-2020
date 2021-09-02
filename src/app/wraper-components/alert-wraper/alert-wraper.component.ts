@@ -1,6 +1,10 @@
 import { ICutCopyPateValueObject } from './../../interfaces/cut-copy-paste-vo';
 import { IAddComponentValueObject } from './../../interfaces/add-component-vo';
-import { IComponent } from './../../interfaces/component.interface';
+import {
+  ACTION_TYPE,
+  IComponent,
+  IEvent,
+} from './../../interfaces/component.interface';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -12,15 +16,24 @@ export class AlertWraperComponent implements OnInit {
   @Input() component: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
-  @Output() copy: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() cut: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() editComponent: EventEmitter<{ component: IComponent }> = new EventEmitter<{ component: IComponent }>();
-  @Output() addComponent: EventEmitter<IAddComponentValueObject> = new EventEmitter<IAddComponentValueObject>();
+  @Output() copy: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() cut: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() editComponent: EventEmitter<{ component: IComponent }> =
+    new EventEmitter<{ component: IComponent }>();
+  @Output() addComponent: EventEmitter<IAddComponentValueObject> =
+    new EventEmitter<IAddComponentValueObject>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -40,5 +53,39 @@ export class AlertWraperComponent implements OnInit {
       return returnValue;
     }
     return null;
+  }
+
+  getActions() {
+    if (
+      this.component &&
+      this.component.events &&
+      this.component.events.length > 0
+    ) {
+      return this.component.events[0].actions;
+    }
+    return [];
+  }
+
+  onClick(
+    $event: MouseEvent,
+    events: IEvent[] | undefined,
+    eventTargeted: string
+  ) {
+    if (events) {
+      events.forEach((evtent) => {
+        if (evtent.name == eventTargeted) {
+          if (evtent.actions) {
+            evtent.actions.forEach((action) => {
+              if (
+                (action.type == ACTION_TYPE.LINK) &&
+                (action.value as string).trim().length > 0
+              ) {
+                window.open(action.value.trim());
+              }
+            });
+          }
+        }
+      });
+    }
   }
 }

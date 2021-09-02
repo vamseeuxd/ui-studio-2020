@@ -53,8 +53,15 @@ $antcolor: red;
   cursor: not-allowed !important;
 }
 
+.panel {
+  border-radius: 0;
+}
 
 .popover-body,
 .panel-body {
   padding: 5px;
+}
+
+.panel-collapse {
+  border-radius: 0;
 }

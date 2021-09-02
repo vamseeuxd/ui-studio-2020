@@ -2,8 +2,10 @@
   [style.width.%]="getPropValueByName('width')"
   [class]="'mt-3 alert text-truncate ' + getPropValueByName('alertType')"
   role="alert"
+  (click)="onClick($event, component?.events, 'click')"
 >
   <!-- {{ getPropValueByName("innterText") }} -->
+  <pre>{{getActions() | json}}</pre>
   {{component?.id}}
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"

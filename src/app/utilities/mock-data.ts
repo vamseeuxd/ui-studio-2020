@@ -3,6 +3,7 @@ import {
   COMPONENT_TYPE,
   IComponent,
   COL,
+  ACTION_TYPE,
 } from './../interfaces/component.interface';
 import { IApplication } from './../interfaces/application.interface';
 // import '../../../node_modules/@popperjs/core/dist/umd/popper.min.js';
@@ -10,7 +11,7 @@ import { IApplication } from './../interfaces/application.interface';
 export const AlertMockData = (): IComponent => {
   return {
     offset: [],
-    col: [ COL.ALL_4 ],
+    col: [COL.ALL_4],
     id: window._.uniqueId('component_'),
     isCopied: false,
     isCutted: false,
@@ -50,10 +51,44 @@ export const AlertMockData = (): IComponent => {
         propType: PROP_TYPE.NUMBER,
       },
     ],
-    events:[
-      { name: 'click', label: 'On Alert Click', description:'A pointing device button has been pressed and released on an Alert.' },
-      { name: 'dblclick', label: 'On Alert Double Click', description:'A pointing device button is clicked twice on an Alert.' },
-    ]
+    events: [
+      {
+        name: 'click',
+        label: 'On Alert Click',
+        description: 'A pointing device button has been pressed and released on an Alert.',
+        actions:[
+          {
+            label:'Navigate to Page',
+            type :ACTION_TYPE.PAGE,
+            value:'https://www.google.com/',
+            description:''
+          },
+          {
+            label:'Open External Link',
+            type :ACTION_TYPE.LINK,
+            value:'https://www.google.com/',
+            description:''
+          },
+          {
+            label:'Open Modal Dialog',
+            type :ACTION_TYPE.MODAL,
+            value:'https://www.google.com/',
+            description:''
+          },
+          {
+            label:'Call Command in Current Page',
+            type :ACTION_TYPE.COMMAND,
+            value:'https://www.google.com/',
+            description:''
+          },
+        ]
+      },
+      {
+        name: 'dblclick',
+        label: 'On Alert Double Click',
+        description: 'A pointing device button is clicked twice on an Alert.',
+      },
+    ],
   };
 };
 

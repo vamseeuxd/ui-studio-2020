@@ -175,10 +175,25 @@ export interface IEvent {
   name: string;
   label: string;
   description: string;
+  actions?: IACTION[];
 }
 
 export enum PROP_TYPE {
   STRING = 'STRING',
   NUMBER = 'NUMBER',
   LIST = 'LIST',
+}
+
+export interface IACTION {
+  value: any;
+  label: string;
+  description: string;
+  type: ACTION_TYPE;
+}
+
+export enum ACTION_TYPE {
+  PAGE = 'PAGE',
+  LINK = 'LINK',
+  MODAL = 'MODAL',
+  COMMAND = 'COMMAND',
 }

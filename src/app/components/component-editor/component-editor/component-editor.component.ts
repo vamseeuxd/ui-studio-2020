@@ -2,6 +2,7 @@ import {
   IComponent,
   PROP_TYPE,
   COMPONENT_TYPE,
+  ACTION_TYPE,
 } from './../../../interfaces/component.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
@@ -12,6 +13,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ComponentEditorComponent implements OnInit {
   readonly PropType = PROP_TYPE;
+  readonly ActionType = ACTION_TYPE;
   @Output() close:EventEmitter<any> = new EventEmitter<any>();
   @Input() component: IComponent | null = null;
 
