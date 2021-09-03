@@ -24,6 +24,7 @@ export class AppComponent {
   componentToEdit: IComponent | null = null;
   mouseEventForComponentEdit: MouseEvent | null = null;
   app: IApplication = applicationMockData;
+  showManagePages = false;
   constructor() {
     this.app.pages[0].components = [
       AlertMockData(),

@@ -75,6 +75,8 @@ export class DynamicComponentComponent implements OnInit {
   @Output() addComponent: EventEmitter<IAddComponentValueObject> =
     new EventEmitter<IAddComponentValueObject>();
 
+  @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
+
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
   windowMousedown($event: MouseEvent) {
@@ -255,6 +257,9 @@ export class DynamicComponentComponent implements OnInit {
             where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT,
             componentName: 'ALERT',
           });
+        break;
+      case 'manage-pages':
+        this.managePages.emit();
         break;
 
       default:

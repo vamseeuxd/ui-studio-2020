@@ -39,6 +39,7 @@ export class AlertWraperComponent implements OnInit {
   }>();
   @Output() addComponent: EventEmitter<IAddComponentValueObject> =
     new EventEmitter<IAddComponentValueObject>();
+  @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -85,7 +86,7 @@ export class AlertWraperComponent implements OnInit {
                 action.type == ACTION_TYPE.LINK &&
                 (action.value as string).trim().length > 0
               ) {
-                window.open(action.value.trim(),action.target);
+                window.open(action.value.trim(), action.target);
               }
             });
           }

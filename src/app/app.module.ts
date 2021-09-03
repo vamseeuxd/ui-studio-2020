@@ -32,8 +32,9 @@ import { ExpandableListGroupItemComponent } from './components/expandable-list-g
 import { AlertWraperComponent } from './wraper-components/alert-wraper/alert-wraper.component';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ComponentEditorComponent } from './components/component-editor/component-editor/component-editor.component';
+import { ManagePagesComponent } from './manage-pages/manage-pages.component';
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent],
   imports: [
     FormsModule,
     BrowserModule,

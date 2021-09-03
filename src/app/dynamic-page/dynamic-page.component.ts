@@ -45,6 +45,7 @@ export class DynamicPageComponent implements OnInit {
   }>();
   @Output() addComponent: EventEmitter<IAddComponentValueObject> =
     new EventEmitter<IAddComponentValueObject>();
+  @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
 
   showContextMenu = false;
   contextMenuPageX = 884;

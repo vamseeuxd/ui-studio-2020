@@ -16,6 +16,7 @@
     [componentToEdit]="componentToEdit"
     (copy)="copy($event)"
     (cut)="cut($event)"
+    (managePages)="showManagePages = true;"
     (pasteBefore)="pasteComponent($event, false)"
     (pasteAfter)="pasteComponent($event, true)"
     (pasteCancel)="pasteCancel($event)"
@@ -47,3 +48,6 @@
   [app]="app"
   [mouseEvent]="mouseEventForComponentEdit"
 ></app-component-editor>
+
+
+<app-manage-pages (close)="showManagePages = false;" *ngIf="showManagePages" [(activePageId)]="activePageId" [pages]="app.pages"></app-manage-pages>

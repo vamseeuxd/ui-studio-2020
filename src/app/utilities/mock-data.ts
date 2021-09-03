@@ -102,6 +102,8 @@ export const applicationMockData: IApplication = {
     {
       name: 'Dashboard',
       id: 'page_140',
+      route: 'dashboard',
+      isDefaultPage: true,
       components: [],
     },
   ],

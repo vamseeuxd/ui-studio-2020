@@ -16,6 +16,7 @@
         [componentToEdit]="componentToEdit"
         [component]="childComponent"
         [isChild]="true"
+        (managePages)="managePages.emit()"
         [parentList]="component.components"
         (copy)="copy.emit($event)"
         (cut)="cut.emit($event)"
