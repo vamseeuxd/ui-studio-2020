@@ -1,3 +1,4 @@
+import { IApplication } from './../../../interfaces/application.interface';
 import {
   IComponent,
   PROP_TYPE,
@@ -26,6 +27,7 @@ export class ComponentEditorComponent implements AfterViewInit {
   readonly ActionType = ACTION_TYPE;
   @Output() close: EventEmitter<any> = new EventEmitter<any>();
   @Input() component: IComponent | null = null;
+  @Input() app: IApplication | null = null;
   @Input() mouseEvent: MouseEvent | null = null;
   @HostBinding('class') cssClass = 'position-fixed';
   constructor(private el: ElementRef) {}

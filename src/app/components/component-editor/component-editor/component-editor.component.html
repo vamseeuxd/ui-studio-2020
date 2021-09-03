@@ -196,6 +196,19 @@
                   </button>
 
                   <div class="p-3">
+
+                    <!-- ************************** Navigate to Page ************************** -->
+                    <ng-container *ngIf="action.type === ActionType.PAGE && app && app.pages">
+                      <p class="m-0 p-0 mb-2 text-muted">Selete Page to Navigate :</p>
+                      <select class="form-control" [(ngModel)]="action.value">
+                        <option value="">Select Page to Navigate</option>
+                        <option [value]="page.id" *ngFor="let page of app.pages">{{page.name}}</option>
+                      </select>
+                    </ng-container>
+                    <!-- ************************** Navigate to Page ************************** -->
+
+
+                    <!-- ************************** External Link URL ************************** -->
                     <ng-container *ngIf="action.type === ActionType.LINK">
                       <p class="m-0 p-0 mb-2 text-muted">External Link URL :</p>
                       <input
@@ -212,7 +225,9 @@
                         <option>_top</option>
                       </select>
                     </ng-container>
+                    <!-- ************************** External Link URL ************************** -->
                   </div>
+
                 </accordion-group>
               </accordion>
             </div>

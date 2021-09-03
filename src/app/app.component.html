@@ -44,5 +44,6 @@
   *ngIf="componentToEdit"
   (close)="componentToEdit = null"
   [component]="componentToEdit"
+  [app]="app"
   [mouseEvent]="mouseEventForComponentEdit"
 ></app-component-editor>

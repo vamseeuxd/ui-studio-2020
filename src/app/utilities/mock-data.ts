@@ -61,7 +61,7 @@ export const AlertMockData = (): IComponent => {
           {
             label: 'Navigate to Page',
             type: ACTION_TYPE.PAGE,
-            value: 'https://www.google.com/',
+            value: '',
             description: '',
           },
           {
