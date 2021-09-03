@@ -26,11 +26,8 @@ export class AppComponent {
   app: IApplication = applicationMockData;
   showManagePages = false;
   constructor() {
-    this.app.pages[0].components = [
-      AlertMockData(),
-      AlertMockData(),
-      AlertMockData(),
-    ];
+    this.app.pages[0].components = [ AlertMockData(), AlertMockData(), AlertMockData(), ];
+    this.app.pages[1].components = [ AlertMockData('page_140'), AlertMockData('page_140'), AlertMockData('page_140'), ];
   }
   getActivePage(): any {
     return this.app.pages.find((page) => page.id === this.activePageId);
@@ -143,6 +140,7 @@ export class AppComponent {
     this.mouseEventForComponentEdit = event;
   }
   addComponent(value: IAddComponentValueObject): void {
+    debugger;
     switch (value.componentName) {
       case 'ALERT':
         const config: IComponent = AlertMockData();
@@ -154,6 +152,7 @@ export class AppComponent {
     }
   }
   addNewComponent(details: IAddComponentValueObject, newComponent: any) {
+    debugger;
     switch (details.where) {
       case ADD_OR_PASTE_WHERE.INSIDE_PAGE:
         newComponent.col = [COL.ALL_4];

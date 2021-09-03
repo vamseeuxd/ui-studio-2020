@@ -14,6 +14,7 @@
   <app-dynamic-page
     [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
     [componentToEdit]="componentToEdit"
+    [(activePageId)]="activePageId"
     (copy)="copy($event)"
     (cut)="cut($event)"
     (managePages)="showManagePages = true;"

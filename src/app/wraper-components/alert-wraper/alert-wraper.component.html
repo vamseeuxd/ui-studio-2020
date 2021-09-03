@@ -5,8 +5,9 @@
   (click)="onClick($event, component?.events, 'click')"
 >
   <!-- {{ getPropValueByName("innterText") }} -->
-  <pre>{{getActions() | json}}</pre>
-  {{component?.id}}
+  <!-- <pre>{{getActions() | json}}</pre> -->
+  <!-- {{component?.id}} -->
+  {{activePageId}}
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"
   >
@@ -16,6 +17,8 @@
         [componentToEdit]="componentToEdit"
         [component]="childComponent"
         [isChild]="true"
+        [(activePageId)]="activePageId"
+        (activePageIdChange)="activePageIdChange.emit($event)"
         (managePages)="managePages.emit()"
         [parentList]="component.components"
         (copy)="copy.emit($event)"

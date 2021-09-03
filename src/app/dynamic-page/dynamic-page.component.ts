@@ -22,6 +22,8 @@ export class DynamicPageComponent implements OnInit {
   @Input() activePage: IPage | undefined;
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
+  @Input() activePageId = '';
+  @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() copy: EventEmitter<ICutCopyPateValueObject> =
     new EventEmitter<ICutCopyPateValueObject>();
   @Output() cut: EventEmitter<ICutCopyPateValueObject> =
@@ -103,7 +105,14 @@ export class DynamicPageComponent implements OnInit {
     }
   }
 
-  onAction({ action, label }: any): void {
+  onAction({
+    menu: { action, label },
+    event,
+  }: {
+    menu: any;
+    event: MouseEvent;
+  }): void {
+    debugger;
     switch (action) {
       case 'paste-cancel':
         // @ts-ignore
@@ -116,6 +125,9 @@ export class DynamicPageComponent implements OnInit {
           where: ADD_OR_PASTE_WHERE.INSIDE_PAGE,
           componentName: 'ALERT',
         });
+        break;
+      case 'manage-pages':
+        this.managePages.emit();
         break;
       default:
         break;

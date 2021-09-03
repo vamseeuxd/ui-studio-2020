@@ -33,21 +33,21 @@
           <div class="list-group-item p-0 border-0">
             <div style="max-height: calc(100vh - 250px);overflow-y: auto;overflow-x: hidden;" class="list-group p-0 border-0">
 
-              <div *ngFor="let page of pages" class="shadow mb-2 list-group-item p-2 border d-flex justify-content-between align-items-center">
+              <div *ngFor="let page of pages" class="shadow-sm mb-2 list-group-item p-2 border d-flex justify-content-between align-items-center">
                 <div class="list-group w-100">
                   <div class="list-group-item py-1">Name : {{page.name}}</div>
                   <div class="list-group-item py-1">Id : {{page.id}}</div>
                   <div class="list-group-item py-1">Route : {{page.route}}</div>
-                  <div class="list-group-item py-1">Is Home Page : {{page.isDefaultPage ? 'Yes' : 'No'}}</div>
+                  <div class="list-group-item py-1">Is Home Page : {{page.isHomePage ? 'Yes' : 'No'}}</div>
                   <div class="list-group-item py-1 d-flex">
                     <button (click)="activePageId = page.id;activePageIdChange.emit(activePageId)" [disabled]="page.id == activePageId" [class.btn-outline-primary]="page.id == activePageId" class="btn btn-primary btn-sm my-1">Make as Active Page</button>
                   </div>
                 </div>
-                <!-- [disabled]="page.isDefaultPage" -->
+                <!-- [disabled]="page.isHomePage" -->
                 <div class="position-absolute d-flex pt-2 justify-content-center flex-column top-0 end-0 h-100 me-5">
-                  <button container="#manage_page_tooltip_container" (click)="deletePage(page)" [class.btn-outline-danger]="page.isDefaultPage || page.id == activePageId" [disabled]="page.isDefaultPage || page.id == activePageId" tooltip="Delete Page" class="btn shadow-sm btn-danger mb-2 btn-sm"><i class="fa fa-trash"></i></button>
+                  <button container="#manage_page_tooltip_container" (click)="deletePage(page)" [class.btn-outline-danger]="page.isHomePage || page.id == activePageId" [disabled]="page.isHomePage || page.id == activePageId" tooltip="Delete Page" class="btn shadow-sm btn-danger mb-2 btn-sm"><i class="fa fa-trash"></i></button>
                   <button container="#manage_page_tooltip_container" tooltip="Edit Page" class="btn shadow-sm btn-warning mb-2 btn-sm"><i class="fa fa-edit"></i></button>
-                  <button container="#manage_page_tooltip_container"  (click)="updateHomePage(page)" [class.btn-outline-secondary]="page.isDefaultPage" [disabled]="page.isDefaultPage" tooltip="Make as Home Page" class="btn shadow-sm btn-secondary mb-2 btn-sm"><i class="fa fa-home"></i></button>
+                  <button container="#manage_page_tooltip_container"  (click)="updateHomePage(page)" [class.btn-outline-secondary]="page.isHomePage" [disabled]="page.isHomePage" tooltip="Make as Home Page" class="btn shadow-sm btn-secondary mb-2 btn-sm"><i class="fa fa-home"></i></button>
                 </div>
               </div>
 

@@ -8,7 +8,7 @@ import {
 import { IApplication } from './../interfaces/application.interface';
 // import '../../../node_modules/@popperjs/core/dist/umd/popper.min.js';
 
-export const AlertMockData = (): IComponent => {
+export const AlertMockData = (activePageId='page_150'): IComponent => {
   return {
     offset: [],
     col: [COL.ALL_4],
@@ -61,7 +61,7 @@ export const AlertMockData = (): IComponent => {
           {
             label: 'Navigate to Page',
             type: ACTION_TYPE.PAGE,
-            value: '',
+            value: activePageId,
             description: '',
           },
           {
@@ -103,7 +103,14 @@ export const applicationMockData: IApplication = {
       name: 'Dashboard',
       id: 'page_140',
       route: 'dashboard',
-      isDefaultPage: true,
+      isHomePage: true,
+      components: [],
+    },
+    {
+      name: 'Products',
+      id: 'page_150',
+      route: 'products',
+      isHomePage: false,
       components: [],
     },
   ],

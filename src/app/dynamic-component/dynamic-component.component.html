@@ -5,6 +5,8 @@
   [component]="component"
   [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
   [componentToEdit]="componentToEdit"
+  [(activePageId)]="activePageId"
+  (activePageIdChange)="activePageIdChange.emit($event)"
   (copy)="copy.emit($event)"
   (cut)="cut.emit($event)"
   (managePages)="managePages.emit()"

@@ -54,6 +54,8 @@ export class DynamicComponentComponent implements OnInit {
   @Input() parentList: IComponent[] = [];
   @Input() isChild = false;
   @Input() componentToEdit: IComponent | null = null;
+  @Input() activePageId = '';
+  @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() copy: EventEmitter<ICutCopyPateValueObject> =
     new EventEmitter<ICutCopyPateValueObject>();
   @Output() cut: EventEmitter<ICutCopyPateValueObject> =

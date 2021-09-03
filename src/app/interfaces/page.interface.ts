@@ -3,6 +3,6 @@ export interface IPage {
   name: string;
   id: string;
   route: string;
-  isDefaultPage: boolean;
+  isHomePage: boolean;
   components: IComponent[];
 }

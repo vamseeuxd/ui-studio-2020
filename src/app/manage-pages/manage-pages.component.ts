@@ -28,15 +28,16 @@ export class ManagePagesComponent implements OnInit {
     this.pages.push({
       id: new Date().getTime().toString(),
       ...form.value,
+      components: [],
     });
     // form.resetForm({});
   }
 
   updateHomePage(selectedPage: IPage) {
     this.pages.forEach((page) => {
-      page.isDefaultPage = false;
+      page.isHomePage = false;
       if (selectedPage.id === page.id) {
-        selectedPage.isDefaultPage = true;
+        selectedPage.isHomePage = true;
       }
     });
   }

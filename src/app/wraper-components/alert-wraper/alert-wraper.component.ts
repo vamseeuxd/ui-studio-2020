@@ -15,6 +15,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class AlertWraperComponent implements OnInit {
   @Input() component: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
+  @Input() activePageId = '';
+  @Output() activePageIdChange: EventEmitter<string> =
+    new EventEmitter<string>();
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Output() copy: EventEmitter<ICutCopyPateValueObject> =
     new EventEmitter<ICutCopyPateValueObject>();
@@ -82,11 +85,19 @@ export class AlertWraperComponent implements OnInit {
         if (evtent.name == eventTargeted) {
           if (evtent.actions) {
             evtent.actions.forEach((action) => {
-              if (
+              /* if (
                 action.type == ACTION_TYPE.LINK &&
                 (action.value as string).trim().length > 0
               ) {
                 window.open(action.value.trim(), action.target);
+              } */
+              if (
+                action.type == ACTION_TYPE.PAGE &&
+                (action.value as string).trim().length > 0
+              ) {
+                // window.open(action.value.trim(), action.target);
+                this.activePageId = action.value.trim();
+                this.activePageIdChange.emit(action.value.trim());
               }
             });
           }
