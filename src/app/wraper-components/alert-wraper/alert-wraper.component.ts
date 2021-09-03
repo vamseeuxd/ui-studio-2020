@@ -85,7 +85,7 @@ export class AlertWraperComponent implements OnInit {
                 action.type == ACTION_TYPE.LINK &&
                 (action.value as string).trim().length > 0
               ) {
-                window.open(action.value.trim());
+                window.open(action.value.trim(),action.target);
               }
             });
           }

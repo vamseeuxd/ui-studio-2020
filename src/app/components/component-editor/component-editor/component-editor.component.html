@@ -204,6 +204,13 @@
                         class="form-control"
                         [(ngModel)]="action.value"
                       />
+                      <p class="m-0 p-0 mb-2 text-muted">Target :</p>
+                      <select class="form-control" [(ngModel)]="action.target">
+                        <option>_blank</option>
+                        <option>_self</option>
+                        <option>_parent</option>
+                        <option>_top</option>
+                      </select>
                     </ng-container>
                   </div>
                 </accordion-group>

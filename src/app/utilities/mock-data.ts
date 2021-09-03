@@ -55,33 +55,35 @@ export const AlertMockData = (): IComponent => {
       {
         name: 'click',
         label: 'On Alert Click',
-        description: 'A pointing device button has been pressed and released on an Alert.',
-        actions:[
+        description:
+          'A pointing device button has been pressed and released on an Alert.',
+        actions: [
           {
-            label:'Navigate to Page',
-            type :ACTION_TYPE.PAGE,
-            value:'https://www.google.com/',
-            description:''
+            label: 'Navigate to Page',
+            type: ACTION_TYPE.PAGE,
+            value: 'https://www.google.com/',
+            description: '',
           },
           {
-            label:'Open External Link',
-            type :ACTION_TYPE.LINK,
-            value:'https://www.google.com/',
-            description:''
+            label: 'Open External Link',
+            type: ACTION_TYPE.LINK,
+            value: 'https://www.google.com/',
+            target: '_blank',
+            description: '',
           },
           {
-            label:'Open Modal Dialog',
-            type :ACTION_TYPE.MODAL,
-            value:'https://www.google.com/',
-            description:''
+            label: 'Open Modal Dialog',
+            type: ACTION_TYPE.MODAL,
+            value: 'https://www.google.com/',
+            description: '',
           },
           {
-            label:'Call Command in Current Page',
-            type :ACTION_TYPE.COMMAND,
-            value:'https://www.google.com/',
-            description:''
+            label: 'Call Command in Current Page',
+            type: ACTION_TYPE.COMMAND,
+            value: 'https://www.google.com/',
+            description: '',
           },
-        ]
+        ],
       },
       {
         name: 'dblclick',
