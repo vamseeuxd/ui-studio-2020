@@ -40,7 +40,7 @@ export class ExpandableListGroupItemComponent implements OnInit {
     if (this.isSubMenu) {
       this.isOpenChange.emit(this.menuId);
     } else {
-      this.itemClick.emit(this.menu);
+      this.itemClick.emit({ menu: this.menu, event: $event });
     }
     $event.stopPropagation();
   }
@@ -51,7 +51,8 @@ export class ExpandableListGroupItemComponent implements OnInit {
   @Input() menuId: string = '';
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Output() isOpenChange: EventEmitter<string> = new EventEmitter<string>();
-  @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() itemClick: EventEmitter<{ menu: any; event: MouseEvent }> =
+    new EventEmitter<{ menu: any; event: MouseEvent }>();
 
   constructor() {}
 

@@ -11,7 +11,7 @@ export class ActionContextMenuComponent implements OnInit {
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() isPage = false;
   @Input() leftAlign = false;
-  @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  @Output() action: EventEmitter<{ menu: any; event: MouseEvent }> = new EventEmitter<{ menu: any; event: MouseEvent }>();
   activeMenu = '';
 
   menu: any[] = [
@@ -467,7 +467,7 @@ export class ActionContextMenuComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onItemClick(item: any): void {
+  onItemClick(item: { menu: any; event: MouseEvent }): void {
     this.action.emit(item);
   }
 

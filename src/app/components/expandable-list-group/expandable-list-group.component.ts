@@ -19,7 +19,7 @@ export class ExpandableListGroupComponent implements OnInit {
   @Input() isSubMenu = true;
   @Input() isPage = true;
   @Input() level = 1;
-  @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() itemClick: EventEmitter<{ menu: any; event: MouseEvent }> = new EventEmitter<{ menu: any; event: MouseEvent }>();
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() component: IComponent | undefined = {
     offset: [],

@@ -54,15 +54,26 @@ export class DynamicComponentComponent implements OnInit {
   @Input() parentList: IComponent[] = [];
   @Input() isChild = false;
   @Input() componentToEdit: IComponent | null = null;
-  @Output() copy: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() cut: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() editComponent: EventEmitter<{ component: IComponent }> = new EventEmitter<{ component: IComponent }>();
-  @Output() addComponent: EventEmitter<IAddComponentValueObject> = new EventEmitter<IAddComponentValueObject>();
+  @Output() copy: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() cut: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() editComponent: EventEmitter<{
+    component: IComponent;
+    event: MouseEvent;
+  }> = new EventEmitter<{ component: IComponent; event: MouseEvent }>();
+  @Output() addComponent: EventEmitter<IAddComponentValueObject> =
+    new EventEmitter<IAddComponentValueObject>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -146,7 +157,13 @@ export class DynamicComponentComponent implements OnInit {
     );
   }
 
-  onAction({ action, label }: any): void {
+  onAction({
+    menu: { action, label },
+    event,
+  }: {
+    menu: any;
+    event: MouseEvent;
+  }): void {
     switch (action) {
       case 'offset-size':
         this.component && this.addOrRemove(this.component.offset, label);
@@ -210,7 +227,7 @@ export class DynamicComponentComponent implements OnInit {
       case 'edit':
         // delete functionality
         this.component &&
-          this.editComponent.emit({ component: this.component });
+          this.editComponent.emit({ component: this.component, event });
         break;
       case 'add-alert-before':
         this.component &&

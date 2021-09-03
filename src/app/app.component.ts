@@ -22,12 +22,13 @@ export class AppComponent {
   lastCopiedOrCuttedComponent: IComponent | undefined;
   lastCopiedOrCuttedParent: IComponent[] | undefined;
   componentToEdit: IComponent | null = null;
+  mouseEventForComponentEdit: MouseEvent | null = null;
   app: IApplication = applicationMockData;
   constructor() {
     this.app.pages[0].components = [
       AlertMockData(),
       AlertMockData(),
-      AlertMockData()
+      AlertMockData(),
     ];
   }
   getActivePage(): any {
@@ -35,7 +36,10 @@ export class AppComponent {
   }
   isCutInProgress(): boolean {
     // @ts-ignore
-    return ( this.lastCopiedOrCuttedComponent && this.lastCopiedOrCuttedComponent.isCutted);
+    return (
+      this.lastCopiedOrCuttedComponent &&
+      this.lastCopiedOrCuttedComponent.isCutted
+    );
   }
   copy({ component, parent }: ICutCopyPateValueObject): void {
     if (this.lastCopiedOrCuttedComponent) {
@@ -58,19 +62,23 @@ export class AppComponent {
     this.lastCopiedOrCuttedParent = parent;
   }
 
-  updateIdsForAllChildren(component: IComponent):void{
-    if(component.components){
-      component.components.forEach((comp: IComponent)=>{
+  updateIdsForAllChildren(component: IComponent): void {
+    if (component.components) {
+      component.components.forEach((comp: IComponent) => {
         comp.id = window._.uniqueId('component_');
         this.updateIdsForAllChildren(comp);
       });
     }
   }
 
-  pasteComponent({ component, parent }: ICutCopyPateValueObject, isAfter:boolean, isInside = false): void {
+  pasteComponent(
+    { component, parent }: ICutCopyPateValueObject,
+    isAfter: boolean,
+    isInside = false
+  ): void {
     const oldId = this.lastCopiedOrCuttedComponent?.id;
     const cloned = window._.cloneDeep(this.lastCopiedOrCuttedComponent);
-    if(isInside){
+    if (isInside) {
       cloned.id = window._.uniqueId('component_');
       this.updateIdsForAllChildren(cloned);
       if (component.components) {
@@ -79,7 +87,7 @@ export class AppComponent {
         component.components = [];
         component.components.push(cloned);
       }
-    }else{
+    } else {
       cloned.id = window._.uniqueId('component_');
       this.updateIdsForAllChildren(cloned);
       const addIndex = window._.findIndex(parent, ['id', component.id]);
@@ -87,15 +95,17 @@ export class AppComponent {
         parent.splice(addIndex + (isAfter ? 1 : 0), 0, cloned);
       }
     }
-    if ( this.isCutInProgress() ) {
+    if (this.isCutInProgress() && this.lastCopiedOrCuttedComponent) {
       // @ts-ignore
-      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, ['id', this.lastCopiedOrCuttedComponent.id,]);
+      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, [
+        'id',
+        this.lastCopiedOrCuttedComponent.id,
+      ]);
       // @ts-ignore
       this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
       cloned.id = oldId;
       this.pasteCancel({ component, parent });
     }
-
   }
 
   pasteCancel({ component, parent }: ICutCopyPateValueObject): void {
@@ -121,8 +131,15 @@ export class AppComponent {
       }
     }, 50);
   }
-  editComponent({ component }: { component: IComponent | null }): void {
+  editComponent({
+    component,
+    event,
+  }: {
+    component: IComponent;
+    event: MouseEvent;
+  }): void {
     this.componentToEdit = component;
+    this.mouseEventForComponentEdit = event;
   }
   addComponent(value: IAddComponentValueObject): void {
     switch (value.componentName) {

@@ -30,8 +30,13 @@ export class AlertWraperComponent implements OnInit {
     new EventEmitter<ICutCopyPateValueObject>();
   @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> =
     new EventEmitter<ICutCopyPateValueObject>();
-  @Output() editComponent: EventEmitter<{ component: IComponent }> =
-    new EventEmitter<{ component: IComponent }>();
+  @Output() editComponent: EventEmitter<{
+    component: IComponent;
+    event: MouseEvent;
+  }> = new EventEmitter<{
+    component: IComponent;
+    event: MouseEvent;
+  }>();
   @Output() addComponent: EventEmitter<IAddComponentValueObject> =
     new EventEmitter<IAddComponentValueObject>();
   constructor() {}
@@ -77,7 +82,7 @@ export class AlertWraperComponent implements OnInit {
           if (evtent.actions) {
             evtent.actions.forEach((action) => {
               if (
-                (action.type == ACTION_TYPE.LINK) &&
+                action.type == ACTION_TYPE.LINK &&
                 (action.value as string).trim().length > 0
               ) {
                 window.open(action.value.trim());
