@@ -92,6 +92,7 @@ export class AlertWraperComponent implements OnInit {
     events: IEvent[] | undefined,
     eventTargeted: string
   ) {
+    console.log($event);
     if (events) {
       events.forEach((evtent) => {
         if (evtent.name == eventTargeted) {
