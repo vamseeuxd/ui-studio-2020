@@ -4,10 +4,10 @@
   role="alert"
   (click)="onClick($event, component?.events, 'click')"
 >
-  <!-- {{ getPropValueByName("innterText") }} -->
+  {{ getPropValueByName("innterText") }}
   <!-- <pre>{{getActions() | json}}</pre> -->
   <!-- {{component?.id}} -->
-  {{activePageId}}
+  <!-- {{activePageId}} -->
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"
   >
