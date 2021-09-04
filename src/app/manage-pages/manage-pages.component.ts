@@ -1,3 +1,4 @@
+import { IApplication } from './../interfaces/application.interface';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgForm } from '@angular/forms';
 import { IPage } from './../interfaces/page.interface';
@@ -16,11 +17,11 @@ import {
   styleUrls: ['./manage-pages.component.scss'],
 })
 export class ManagePagesComponent implements OnInit {
-  @Input() pages: IPage[] = [];
   @Input() activePageId = '';
+  @Input() app: IApplication | undefined;
+  @Output() appChange: EventEmitter<IApplication | undefined> = new EventEmitter<IApplication | undefined>();
   @Input() showManagePages = false;
-  @Output() activePageIdChange: EventEmitter<string> =
-    new EventEmitter<string>();
+  @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() close: EventEmitter<any> = new EventEmitter<any>();
   newPageFormDefaultValue = {
     name: '',
@@ -33,7 +34,7 @@ export class ManagePagesComponent implements OnInit {
 
   addNewPage(form: NgForm, modal: ModalDirective) {
     if (!this.pageToEdit) {
-      this.pages.push({
+      this.app && this.app.pages.push({
         id: new Date().getTime().toString(),
         name: form.value.name,
         route: form.value.route.toLowerCase(),
@@ -41,7 +42,7 @@ export class ManagePagesComponent implements OnInit {
         components: [],
       });
     } else {
-      this.pages.forEach((page) => {
+      this.app && this.app.pages.forEach((page) => {
         page.isHomePage = false;
         if (this.pageToEdit && this.pageToEdit.id) {
           if (page.id === this.pageToEdit.id) {
@@ -70,7 +71,7 @@ export class ManagePagesComponent implements OnInit {
   }
 
   updateHomePage(selectedPage: IPage) {
-    this.pages.forEach((page) => {
+    this.app && this.app.pages.forEach((page) => {
       page.isHomePage = false;
       if (selectedPage.id === page.id) {
         selectedPage.isHomePage = true;
@@ -82,8 +83,8 @@ export class ManagePagesComponent implements OnInit {
     const isConfirmed = confirm(
       'Are you sure! Do you want to delete the Page?'
     );
-    if (isConfirmed) {
-      this.pages = this.pages.filter((p) => p.id != selectedPage.id);
+    if (isConfirmed && this.app) {
+      this.app.pages = this.app.pages.filter((p) => p.id != selectedPage.id);
     }
   }
 }

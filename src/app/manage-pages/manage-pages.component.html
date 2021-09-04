@@ -2,9 +2,11 @@
   Static modal {{showManagePages}}
 </button> -->
 
+<!-- *************************************** Manage Page List *************************************** -->
 <div
   [class.opacity-50]="addOrEditPageModal.isShown"
   class="modal fade"
+  *ngIf="app"
   bsModal
   (onHidden)="close.emit()"
   #managePageModal="bs-modal"
@@ -35,7 +37,7 @@
               class="list-group p-0 border-0"
             >
               <div
-                *ngFor="let page of pages"
+                *ngFor="let page of app.pages"
                 class="
                   shadow-sm
                   mb-2
@@ -103,12 +105,9 @@
                   </button>
                   <button
                     container="#manage_page_tooltip_container"
-                    (click)="
-                      activePageId = page.id;
-                      activePageIdChange.emit(activePageId)
-                    "
-                    [class.btn-outline-primary]="page.id == activePageId"
-                    [disabled]="page.id == activePageId"
+                    (click)="app.defaultPage = page.id"
+                    [class.btn-outline-primary]="page.id == app.defaultPage"
+                    [disabled]="page.id == app.defaultPage"
                     tooltip="Make as Active Page"
                     class="btn shadow-sm btn-primary ms-2 btn-sm"
                   >
@@ -133,7 +132,9 @@
     </div>
   </div>
 </div>
+<!-- *************************************** Manage Page List *************************************** -->
 
+<!-- *************************************** New Page Form *************************************** -->
 <div
   class="modal fade"
   bsModal
@@ -219,3 +220,4 @@
     </div>
   </div>
 </div>
+<!-- *************************************** New Page Form *************************************** -->

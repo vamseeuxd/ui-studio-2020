@@ -18,19 +18,28 @@ import { ADD_OR_PASTE_WHERE } from './interfaces/paster-where-enum';
 })
 export class AppComponent {
   headerHeight = '60px';
-  activePageId = 'page_140';
   lastCopiedOrCuttedComponent: IComponent | undefined;
   lastCopiedOrCuttedParent: IComponent[] | undefined;
   componentToEdit: IComponent | null = null;
   mouseEventForComponentEdit: MouseEvent | null = null;
-  app: IApplication = applicationMockData;
+  app: IApplication | undefined = applicationMockData;
   showManagePages = false;
   constructor() {
-    this.app.pages[0].components = [ AlertMockData(), AlertMockData(), AlertMockData(), ];
-    this.app.pages[1].components = [ AlertMockData('page_140'), AlertMockData('page_140'), AlertMockData('page_140'), ];
+    if (this.app) {
+      this.app.pages[0].components = [
+        AlertMockData('page_180'),
+        AlertMockData('page_180'),
+        AlertMockData('page_180'),
+      ];
+      this.app.pages[1].components = [
+        AlertMockData('page_140'),
+        AlertMockData('page_140'),
+        AlertMockData('page_140'),
+      ];
+    }
   }
   getActivePage(): any {
-    return this.app.pages.find((page) => page.id === this.activePageId);
+    return this.app && this.app.pages.find((page) => page.id === (this.app && this.app.defaultPage));
   }
   isCutInProgress(): boolean {
     // @ts-ignore
