@@ -140,7 +140,6 @@ export class AppComponent {
     this.mouseEventForComponentEdit = event;
   }
   addComponent(value: IAddComponentValueObject): void {
-    debugger;
     switch (value.componentName) {
       case 'ALERT':
         const config: IComponent = AlertMockData();
@@ -152,7 +151,6 @@ export class AppComponent {
     }
   }
   addNewComponent(details: IAddComponentValueObject, newComponent: any) {
-    debugger;
     switch (details.where) {
       case ADD_OR_PASTE_WHERE.INSIDE_PAGE:
         newComponent.col = [COL.ALL_4];

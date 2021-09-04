@@ -1,3 +1,4 @@
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgForm } from '@angular/forms';
 import { IPage } from './../interfaces/page.interface';
 import {
@@ -21,17 +22,51 @@ export class ManagePagesComponent implements OnInit {
   @Output() activePageIdChange: EventEmitter<string> =
     new EventEmitter<string>();
   @Output() close: EventEmitter<any> = new EventEmitter<any>();
+  newPageFormDefaultValue = {
+    name: '',
+    route: '',
+  };
+  pageToEdit: IPage | undefined = undefined;
   constructor() {}
 
   ngOnInit(): void {}
 
-  addNewPage(form: NgForm) {
-    this.pages.push({
-      id: new Date().getTime().toString(),
-      ...form.value,
-      components: [],
-    });
-    // form.resetForm({});
+  addNewPage(form: NgForm, modal: ModalDirective) {
+    if (!this.pageToEdit) {
+      this.pages.push({
+        id: new Date().getTime().toString(),
+        name: form.value.name,
+        route: form.value.route.toLowerCase(),
+        isHomePage: false,
+        components: [],
+      });
+    } else {
+      this.pages.forEach((page) => {
+        page.isHomePage = false;
+        if (this.pageToEdit && this.pageToEdit.id) {
+          if (page.id === this.pageToEdit.id) {
+            page.name = form.value.name;
+            page.route = form.value.route;
+          }
+        }
+      });
+    }
+    this.pageToEdit = undefined;
+    this.newPageFormDefaultValue = {
+      name: '',
+      route: '',
+    };
+    form.resetForm({});
+    modal.hide();
+  }
+
+  editClick(selectedPage: IPage, modal: ModalDirective) {
+    this.pageToEdit = JSON.parse(JSON.stringify(selectedPage));
+    if (this.pageToEdit) {
+      this.newPageFormDefaultValue.name = this.pageToEdit.name;
+      this.newPageFormDefaultValue.route = this.pageToEdit.route;
+    }
+    modal.show();
   }
 
   updateHomePage(selectedPage: IPage) {

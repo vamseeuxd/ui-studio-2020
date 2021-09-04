@@ -51,4 +51,4 @@
 ></app-component-editor>
 
 
-<app-manage-pages (close)="showManagePages = false;" [showManagePages]="showManagePages" [(activePageId)]="activePageId" [pages]="app.pages"></app-manage-pages>
+<app-manage-pages (close)="showManagePages = false;" *ngIf="showManagePages" [pages]="app.pages"></app-manage-pages>

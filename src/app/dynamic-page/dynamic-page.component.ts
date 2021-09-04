@@ -112,7 +112,6 @@ export class DynamicPageComponent implements OnInit {
     menu: any;
     event: MouseEvent;
   }): void {
-    debugger;
     switch (action) {
       case 'paste-cancel':
         // @ts-ignore
