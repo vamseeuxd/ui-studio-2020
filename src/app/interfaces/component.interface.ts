@@ -186,6 +186,7 @@ export enum PROP_TYPE {
 
 export interface IACTION {
   value: any;
+  id: string;
   target?: '_blank' | '_self' | '_parent' | '_top';
   label: string;
   description: string;

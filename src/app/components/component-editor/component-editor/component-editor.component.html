@@ -130,14 +130,14 @@
                 <ul class="list-group">
                   <li
                     role="button"
-                    (click)="popoverBtn.hide()"
+                    (click)="addNavigateToPageAction(popoverBtn, event)"
                     class="list-group-item list-group-item-action"
                   >
                     Navigate to Page
                   </li>
                   <li
                     role="button"
-                    (click)="popoverBtn.hide()"
+                    (click)="addExternalLinkAction(popoverBtn, event)"
                     class="list-group-item list-group-item-action"
                   >
                     Open External Link
@@ -189,6 +189,9 @@
                     }}</code>
                     <button
                       title="Delete Action"
+                      (click)="
+                        $event.stopPropagation(); deleteAction(action, event)
+                      "
                       class="ms-auto btn btn-outline-danger btn-sm"
                     >
                       <i class="fa fa-trash"></i>
@@ -196,17 +199,26 @@
                   </button>
 
                   <div class="p-3">
-
                     <!-- ************************** Navigate to Page ************************** -->
-                    <ng-container *ngIf="action.type === ActionType.PAGE && app && app.pages">
-                      <p class="m-0 p-0 mb-2 text-muted">Selete Page to Navigate :</p>
+                    <ng-container
+                      *ngIf="
+                        action.type === ActionType.PAGE && app && app.pages
+                      "
+                    >
+                      <p class="m-0 p-0 mb-2 text-muted">
+                        Selete Page to Navigate :
+                      </p>
                       <select class="form-control" [(ngModel)]="action.value">
                         <option value="">Select Page to Navigate</option>
-                        <option [value]="page.id" *ngFor="let page of app.pages">{{page.name}}</option>
+                        <option
+                          [value]="page.id"
+                          *ngFor="let page of app.pages"
+                        >
+                          {{ page.name }}
+                        </option>
                       </select>
                     </ng-container>
                     <!-- ************************** Navigate to Page ************************** -->
-
 
                     <!-- ************************** External Link URL ************************** -->
                     <ng-container *ngIf="action.type === ActionType.LINK">
@@ -217,6 +229,7 @@
                         class="form-control"
                         [(ngModel)]="action.value"
                       />
+                      <p>add <code>https://</code> infront of URL</p>
                       <p class="m-0 p-0 mb-2 text-muted">Target :</p>
                       <select class="form-control" [(ngModel)]="action.target">
                         <option>_blank</option>
@@ -227,7 +240,6 @@
                     </ng-container>
                     <!-- ************************** External Link URL ************************** -->
                   </div>
-
                 </accordion-group>
               </accordion>
             </div>
@@ -237,3 +249,39 @@
     </tabset>
   </div>
 </div>
+
+<!-- *************************************** Manage Page List *************************************** -->
+<div
+  class="modal fade"
+  *ngIf="app"
+  bsModal
+  #addNewExctionModalRef="bs-modal"
+  [config]="{
+    backdrop: true,
+    ignoreBackdropClick: true,
+    show: false,
+    keyboard: false
+  }"
+  tabindex="-1"
+>
+  <div class="modal-dialog" id="manage_page_tooltip_container">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Manage Pages</h5>
+        <button
+          (click)="
+            addNewExctionModalRef.hide(); close.emit(); $event.stopPropagation()
+          "
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body"></div>
+
+      <div class="modal-footer p-0 pe-2 pt-1 pb-1"></div>
+    </div>
+  </div>
+</div>
+<!-- *************************************** Manage Page List *************************************** -->

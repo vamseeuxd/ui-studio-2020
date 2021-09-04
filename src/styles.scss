@@ -65,3 +65,7 @@ $antcolor: red;
 .panel-collapse {
   border-radius: 0;
 }
+
+body {
+  overscroll-behavior: contain;
+}

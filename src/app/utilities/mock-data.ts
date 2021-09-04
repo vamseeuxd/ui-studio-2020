@@ -58,7 +58,7 @@ export const AlertMockData = (activePageId='page_150'): IComponent => {
         description:
           'A pointing device button has been pressed and released on an Alert.',
         actions: [
-          {
+          /* {
             label: 'Navigate to Page',
             type: ACTION_TYPE.PAGE,
             value: activePageId,
@@ -82,7 +82,7 @@ export const AlertMockData = (activePageId='page_150'): IComponent => {
             type: ACTION_TYPE.COMMAND,
             value: 'https://www.google.com/',
             description: '',
-          },
+          }, */
         ],
       },
       {

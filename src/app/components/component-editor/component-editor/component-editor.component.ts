@@ -4,6 +4,8 @@ import {
   PROP_TYPE,
   COMPONENT_TYPE,
   ACTION_TYPE,
+  IEvent,
+  IACTION,
 } from './../../../interfaces/component.interface';
 import {
   AfterContentInit,
@@ -16,6 +18,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { PopoverDirective } from 'ngx-bootstrap/popover';
 
 @Component({
   selector: 'app-component-editor',
@@ -39,6 +42,50 @@ export class ComponentEditorComponent implements AfterViewInit {
       this.el.nativeElement.style.zIndex = '100000';
       this.el.nativeElement.style.left = pageX - clientWidth / 2 + 'px';
       this.el.nativeElement.style.top = pageY - clientHeight / 2 + 'px';
+    }
+  }
+
+  addNavigateToPageAction(popoverBtn: PopoverDirective, event: IEvent): void {
+    const newAction: IACTION = {
+      label: 'Navigate to Page',
+      id: new Date().getTime().toString(),
+      type: ACTION_TYPE.PAGE,
+      value: '',
+      description: '',
+    };
+    if (event.actions && event.actions.length > 0) {
+      event.actions.push(newAction);
+    } else {
+      event.actions = [];
+      event.actions.push(newAction);
+    }
+    popoverBtn.hide();
+  }
+
+  addExternalLinkAction(popoverBtn: PopoverDirective, event: IEvent): void {
+    const newAction: IACTION = {
+      label: 'Open External Link',
+      type: ACTION_TYPE.LINK,
+      id: new Date().getTime().toString(),
+      value: '',
+      target: '_blank',
+      description: '',
+    };
+    if (event.actions && event.actions.length > 0) {
+      event.actions.push(newAction);
+    } else {
+      event.actions = [];
+      event.actions.push(newAction);
+    }
+    popoverBtn.hide();
+  }
+
+  deleteAction(action: IACTION, event: IEvent) {
+    const isConfirmed = confirm('Are you sure!Do you want to delete action?');
+    if (isConfirmed) {
+      if (event.actions && event.actions.length > 0) {
+        event.actions = event.actions.filter((act) => act.id != action.id);
+      }
     }
   }
 }
