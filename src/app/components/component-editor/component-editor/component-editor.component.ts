@@ -62,6 +62,23 @@ export class ComponentEditorComponent implements AfterViewInit {
     popoverBtn.hide();
   }
 
+  addModalWindowAction(popoverBtn: PopoverDirective, event: IEvent): void {
+    const newAction: IACTION = {
+      label: 'Open Modal Dialog',
+      id: new Date().getTime().toString(),
+      type: ACTION_TYPE.MODAL,
+      value: '',
+      description: '',
+    };
+    if (event.actions && event.actions.length > 0) {
+      event.actions.push(newAction);
+    } else {
+      event.actions = [];
+      event.actions.push(newAction);
+    }
+    popoverBtn.hide();
+  }
+
   addExternalLinkAction(popoverBtn: PopoverDirective, event: IEvent): void {
     const newAction: IACTION = {
       label: 'Open External Link',

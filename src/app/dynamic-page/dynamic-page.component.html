@@ -5,6 +5,8 @@
       [component]="component"
       [componentToEdit]="componentToEdit"
       [showManagePages]="showManagePages"
+      [app]="app"
+      [isModalWindow]="isModalWindow"
       [(activePageId)]="activePageId"
       (activePageIdChange)="activePageIdChange.emit($event)"
       [parentList]="activePage.components"

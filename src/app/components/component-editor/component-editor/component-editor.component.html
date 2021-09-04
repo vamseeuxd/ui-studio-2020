@@ -144,7 +144,7 @@
                   </li>
                   <li
                     role="button"
-                    (click)="popoverBtn.hide()"
+                    (click)="addModalWindowAction(popoverBtn, event)"
                     class="list-group-item list-group-item-action"
                   >
                     Open Modal Dialog
@@ -220,6 +220,27 @@
                     </ng-container>
                     <!-- ************************** Navigate to Page ************************** -->
 
+                    <!-- ************************** Modal Dialog ************************** -->
+                    <ng-container
+                      *ngIf="
+                        action.type === ActionType.MODAL && app && app.pages
+                      "
+                    >
+                      <p class="m-0 p-0 mb-2 text-muted">
+                        Selete Page for Modal Dialog :
+                      </p>
+                      <select class="form-control" [(ngModel)]="action.value">
+                        <option value="">Selete Page for Modal Dialog </option>
+                        <option
+                          [value]="page.id"
+                          *ngFor="let page of app.pages"
+                        >
+                          {{ page.name }}
+                        </option>
+                      </select>
+                    </ng-container>
+                    <!-- ************************** Modal Dialog ************************** -->
+
                     <!-- ************************** External Link URL ************************** -->
                     <ng-container *ngIf="action.type === ActionType.LINK">
                       <p class="m-0 p-0 mb-2 text-muted">External Link URL :</p>
@@ -250,38 +271,4 @@
   </div>
 </div>
 
-<!-- *************************************** Manage Page List *************************************** -->
-<div
-  class="modal fade"
-  *ngIf="app"
-  bsModal
-  #addNewExctionModalRef="bs-modal"
-  [config]="{
-    backdrop: true,
-    ignoreBackdropClick: true,
-    show: false,
-    keyboard: false
-  }"
-  tabindex="-1"
->
-  <div class="modal-dialog" id="manage_page_tooltip_container">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Manage Pages</h5>
-        <button
-          (click)="
-            addNewExctionModalRef.hide(); close.emit(); $event.stopPropagation()
-          "
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body"></div>
 
-      <div class="modal-footer p-0 pe-2 pt-1 pb-1"></div>
-    </div>
-  </div>
-</div>
-<!-- *************************************** Manage Page List *************************************** -->

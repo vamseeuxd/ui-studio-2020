@@ -21,6 +21,7 @@ export class ManagePagesComponent implements OnInit {
   @Input() app: IApplication | undefined;
   @Output() appChange: EventEmitter<IApplication | undefined> = new EventEmitter<IApplication | undefined>();
   @Input() showManagePages = false;
+  @Input() isModalWindow = false;
   @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() close: EventEmitter<any> = new EventEmitter<any>();
   newPageFormDefaultValue = {

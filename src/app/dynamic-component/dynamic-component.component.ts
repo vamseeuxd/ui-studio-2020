@@ -1,3 +1,4 @@
+import { IApplication } from './../interfaces/application.interface';
 import { IAddComponentValueObject } from './../interfaces/add-component-vo';
 import { ICutCopyPateValueObject } from './../interfaces/cut-copy-paste-vo';
 import {
@@ -55,6 +56,8 @@ export class DynamicComponentComponent implements OnInit {
   @Input() isChild = false;
   @Input() componentToEdit: IComponent | null = null;
   @Input() showManagePages = false;
+  @Input() isModalWindow = false;
+  @Input() app: IApplication | undefined;
   @Input() activePageId = '';
   @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() copy: EventEmitter<ICutCopyPateValueObject> =
@@ -135,7 +138,7 @@ export class DynamicComponentComponent implements OnInit {
   updateContextMenuPosition($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
-    if (!this.componentToEdit) {
+    if (!this.componentToEdit && !this.showManagePages && !this.isModalWindow) {
       this.showContextMenu = true;
       this.cssClass = this.getColClasses();
       this.contextMenuLeftAlign =

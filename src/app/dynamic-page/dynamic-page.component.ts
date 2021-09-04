@@ -1,3 +1,4 @@
+import { IApplication } from './../interfaces/application.interface';
 import { ADD_OR_PASTE_WHERE } from './../interfaces/paster-where-enum';
 import { IAddComponentValueObject } from './../interfaces/add-component-vo';
 import { ICutCopyPateValueObject } from './../interfaces/cut-copy-paste-vo';
@@ -23,7 +24,9 @@ export class DynamicPageComponent implements OnInit {
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
   @Input() showManagePages = false;
+  @Input() isModalWindow = false;
   @Input() activePageId = '';
+  @Input() app: IApplication | undefined;
   @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() copy: EventEmitter<ICutCopyPateValueObject> =
     new EventEmitter<ICutCopyPateValueObject>();
@@ -99,7 +102,7 @@ export class DynamicPageComponent implements OnInit {
   updateContextMenuPosition($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
-    if (!this.componentToEdit && !this.showManagePages) {
+    if (!this.componentToEdit && !this.showManagePages && !this.isModalWindow) {
       this.showContextMenu = true;
       this.contextMenuPageX = $event.pageX;
       this.contextMenuPageY = $event.pageY;

@@ -1,3 +1,4 @@
+import { IApplication } from './../../interfaces/application.interface';
 import { ICutCopyPateValueObject } from './../../interfaces/cut-copy-paste-vo';
 import { IAddComponentValueObject } from './../../interfaces/add-component-vo';
 import {
@@ -16,12 +17,14 @@ export class AlertWraperComponent implements OnInit {
   @Input() component: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
   @Input() showManagePages = false;
+  @Input() isModalWindow = false;
   @Input() activePageId = '';
+  @Input() app: IApplication | undefined;
+  @Output() appChange: EventEmitter<IApplication> = new EventEmitter<IApplication>();
   @Output() activePageIdChange: EventEmitter<string> =
     new EventEmitter<string>();
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
-  @Output() copy: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() copy: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
   @Output() cut: EventEmitter<ICutCopyPateValueObject> =
     new EventEmitter<ICutCopyPateValueObject>();
   @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> =
@@ -83,6 +86,7 @@ export class AlertWraperComponent implements OnInit {
   ) {
     if (events) {
       events.forEach((evtent) => {
+        debugger;
         if (evtent.name == eventTargeted) {
           if (evtent.actions) {
             evtent.actions.forEach((action) => {
@@ -96,9 +100,16 @@ export class AlertWraperComponent implements OnInit {
                 action.type == ACTION_TYPE.PAGE &&
                 (action.value as string).trim().length > 0
               ) {
-                // window.open(action.value.trim(), action.target);
                 this.activePageId = action.value.trim();
                 this.activePageIdChange.emit(action.value.trim());
+              }
+              if (
+                this.app &&
+                action.type == ACTION_TYPE.MODAL &&
+                (action.value as string).trim().length > 0
+              ) {
+                this.app.modalPageId = action.value.trim();
+                this.appChange.emit(this.app);
               }
             });
           }
