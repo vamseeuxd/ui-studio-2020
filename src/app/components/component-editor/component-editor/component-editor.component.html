@@ -73,7 +73,7 @@
         [rzMinWidth]="332"
         [rzMaxWidth]="332"
         class="border border-top-0 p-2"
-        style="min-height: 200px"
+        style="min-height: 200px;"
         heading="Events"
       >
         <accordion *ngIf="component" [closeOthers]="false" [isAnimated]="true">
@@ -104,7 +104,7 @@
               [rzMinWidth]="300"
               [rzMaxWidth]="300"
               class="pb-3 d-flex flex-column"
-              style="min-height: 150px"
+              style="min-height: 150px;"
             >
               <div class="row mb-3 mt-2">
                 <div class="col">
@@ -161,6 +161,7 @@
 
               <accordion
                 *ngIf="event.actions && event.actions.length > 0"
+                style="overflow: hidden auto;"
                 [closeOthers]="true"
                 [isAnimated]="true"
               >
@@ -198,7 +199,7 @@
                     </button>
                   </button>
 
-                  <div class="p-3">
+                  <div class="p-3 h-100">
                     <!-- ************************** Navigate to Page ************************** -->
                     <ng-container
                       *ngIf="
@@ -221,23 +222,38 @@
                     <!-- ************************** Navigate to Page ************************** -->
 
                     <!-- ************************** Modal Dialog ************************** -->
-                    <ng-container
-                      *ngIf="
-                        action.type === ActionType.MODAL && app && app.pages
-                      "
-                    >
-                      <p class="m-0 p-0 mb-2 text-muted">
-                        Selete Page for Modal Dialog :
-                      </p>
+                    <ng-container *ngIf=" action.type === ActionType.MODAL && app && app.pages">
+                      <p class="m-0 p-0 mb-2 text-muted">Selete Page for Modal Dialog :</p>
                       <select class="form-control" [(ngModel)]="action.value">
                         <option value="">Selete Page for Modal Dialog </option>
-                        <option
-                          [value]="page.id"
-                          *ngFor="let page of app.pages"
-                        >
-                          {{ page.name }}
-                        </option>
+                        <option [value]="page.id" *ngFor="let page of app.pages"> {{ page.name }}</option>
                       </select>
+
+                      <p class="m-0 p-0 mb-2 text-muted">Modal Backdrop :</p>
+                      <select class="form-control" [(ngModel)]="action.backdrop">
+                        <option [ngValue]="true">Show</option>
+                        <option [ngValue]="false">Hide</option>
+                        <option [ngValue]="'static'">Show & Don't Close on Click</option>
+                      </select>
+
+                      <p class="m-0 p-0 mb-2 text-muted">Closes the modal when escape key is pressed :</p>
+                      <select class="form-control" [(ngModel)]="action.keyboard">
+                        <option [ngValue]="true">Yes</option>
+                        <option [ngValue]="false">No</option>
+                      </select>
+
+                      <p class="m-0 p-0 mb-2 text-muted">Ignore the backdrop click :</p>
+                      <select class="form-control" [(ngModel)]="action.ignoreBackdropClick">
+                        <option [ngValue]="true">Yes</option>
+                        <option [ngValue]="false">No</option>
+                      </select>
+
+                      <p class="m-0 p-0 mb-2 text-muted">Show Animation :</p>
+                      <select class="form-control" [(ngModel)]="action.animated">
+                        <option [ngValue]="true">Yes</option>
+                        <option [ngValue]="false">No</option>
+                      </select>
+
                     </ng-container>
                     <!-- ************************** Modal Dialog ************************** -->
 

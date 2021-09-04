@@ -8,7 +8,7 @@ import {
 import { IApplication } from './../interfaces/application.interface';
 // import '../../../node_modules/@popperjs/core/dist/umd/popper.min.js';
 
-export const AlertMockData = (activePageId='page_150'): IComponent => {
+export const AlertMockData = (activePageId = 'page_150'): IComponent => {
   return {
     offset: [],
     col: [COL.ALL_4],
@@ -55,9 +55,19 @@ export const AlertMockData = (activePageId='page_150'): IComponent => {
       {
         name: 'click',
         label: 'On Alert Click',
-        description:
-          'A pointing device button has been pressed and released on an Alert.',
+        description: 'A pointing device button has been pressed and released on an Alert.',
         actions: [
+          {
+            label: 'Open Modal Dialog',
+            id: new Date().getTime().toString(),
+            type: ACTION_TYPE.MODAL,
+            value: 'page_140',
+            backdrop: true,
+            keyboard: true,
+            ignoreBackdropClick: false,
+            animated: true,
+            description: '',
+          },
           /* {
             label: 'Navigate to Page',
             type: ACTION_TYPE.PAGE,

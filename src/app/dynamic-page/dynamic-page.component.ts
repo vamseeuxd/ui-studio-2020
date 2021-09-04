@@ -68,29 +68,19 @@ export class DynamicPageComponent implements OnInit {
     this.showContextMenu = false;
   }
 
-  @HostListener('window:dblclick', ['$event'])
+  /* @HostListener('window:dblclick', ['$event'])
   // tslint:disable-next-line:typedef
   onDblclick($event: MouseEvent) {
     // To prevent browser's default contextmenu
     this.updateContextMenuPosition($event);
-  }
+  } */
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
   windowClick($event: MouseEvent) {
     // this.showContextMenu = false;
-    const hostElement: HTMLElement =
-      this.hostElement.nativeElement.getElementsByTagName(
-        'app-action-context-menu'
-      )[0];
-    if (
-      !(
-        $event &&
-        $event.target &&
-        hostElement &&
-        hostElement.contains($event.target as HTMLElement)
-      )
-    ) {
+    const hostElement: HTMLElement = this.hostElement.nativeElement.getElementsByTagName( 'app-action-context-menu' )[0];
+    if ( !( $event && $event.target && hostElement && hostElement.contains($event.target as HTMLElement) ) ) {
       this.showContextMenu = false;
     }
   }

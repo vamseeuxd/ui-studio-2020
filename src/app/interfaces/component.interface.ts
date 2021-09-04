@@ -189,6 +189,10 @@ export interface IACTION {
   id: string;
   target?: '_blank' | '_self' | '_parent' | '_top';
   label: string;
+  backdrop?: boolean | 'static';
+  keyboard?: boolean;
+  ignoreBackdropClick?: boolean;
+  animated?: boolean;
   description: string;
   type: ACTION_TYPE;
 }

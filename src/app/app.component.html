@@ -17,7 +17,7 @@
       [componentToEdit]="componentToEdit"
       [showManagePages]="showManagePages"
       [app]="app"
-      [isModalWindow]="false"
+      [isModalWindow]="!!app.modalPageId"
       [(activePageId)]="app.defaultPage"
       (copy)="copy($event)"
       (cut)="cut($event)"
@@ -56,50 +56,6 @@
     [(app)]="app"
   ></app-manage-pages>
 
-  <!-- *************************************** Manage Page List *************************************** -->
-  <ng-container
-    *ngIf="app && app.modalPageId ? app.modalPageId.length > 0 : false"
-  >
-    <div
-      class="modal fade"
-      *ngIf="app"
-      bsModal
-      (onHidden)="app.modalPageId = ''"
-      #appModalWindowContainer="bs-modal"
-      [config]="{
-        backdrop: true,
-        ignoreBackdropClick: true,
-        show: true,
-        keyboard: false
-      }"
-      tabindex="-1"
-    >
-      <div class="modal-dialog modal-lg" id="manage_page_tooltip_container">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Manage Pages</h5>
-            <button
-              type="button"
-              class="btn-close"
-              (click)="appModalWindowContainer.hide()"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <app-dynamic-page
-              [isModalWindow]="true"
-              [activePage]="app.pages[getModalPageIndex()]"
-            ></app-dynamic-page>
-          </div>
-
-          <div class="modal-footer p-0 pe-2 pt-1 pb-1"></div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  <!-- *************************************** Manage Page List *************************************** -->
-</ng-container>
 
 <app-create-or-import-application
   [show]="!app"

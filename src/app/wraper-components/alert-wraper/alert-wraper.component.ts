@@ -1,3 +1,4 @@
+import { IPage } from './../../interfaces/page.interface';
 import { IApplication } from './../../interfaces/application.interface';
 import { ICutCopyPateValueObject } from './../../interfaces/cut-copy-paste-vo';
 import { IAddComponentValueObject } from './../../interfaces/add-component-vo';
@@ -7,7 +8,10 @@ import {
   IEvent,
 } from './../../interfaces/component.interface';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { DynamicPageComponent } from 'src/app/dynamic-page/dynamic-page.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-alert-wraper',
@@ -20,6 +24,7 @@ export class AlertWraperComponent implements OnInit {
   @Input() showManagePages = false;
   @Input() isModalWindow = false;
   @Input() activePageId = '';
+  @Input() activePage: IPage | undefined = undefined;
   @Input() app: IApplication | undefined;
   @Output() appChange: EventEmitter<IApplication> =
     new EventEmitter<IApplication>();
@@ -89,7 +94,6 @@ export class AlertWraperComponent implements OnInit {
   ) {
     if (events) {
       events.forEach((evtent) => {
-        debugger;
         if (evtent.name == eventTargeted) {
           if (evtent.actions) {
             evtent.actions.forEach((action) => {
@@ -111,8 +115,35 @@ export class AlertWraperComponent implements OnInit {
                 action.type == ACTION_TYPE.MODAL &&
                 (action.value as string).trim().length > 0
               ) {
-                this.app.modalPageId = action.value.trim();
-                this.appChange.emit(this.app);
+                this.app.pages.forEach((page) => {
+                  if (this.app && page.id === action.value.trim()) {
+                    /* this.activePage = page; */
+                    console.log(page);
+                    const modalRef: BsModalRef = this.modalService.show(
+                      DynamicPageComponent,
+                      {
+                        backdrop: action.backdrop,
+                        keyboard: action.keyboard,
+                        ignoreBackdropClick: action.ignoreBackdropClick,
+                        animated: action.animated,
+                        initialState: {
+                          isModalWindow: true,
+                          activePage: page,
+                          app: this.app,
+                        },
+                      }
+                    );
+                    this.app.modalPageId = action.value.trim();
+                    const subscription: Subscription | undefined =
+                      modalRef.onHidden?.subscribe((next) => {
+                        // @ts-ignore
+                        if (this.app && this.modalService.modalsCount === 0) {
+                          this.app.modalPageId = undefined;
+                          subscription && subscription.unsubscribe();
+                        }
+                      });
+                  }
+                });
               }
             });
           }
