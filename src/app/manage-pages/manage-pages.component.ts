@@ -17,6 +17,7 @@ import {
 export class ManagePagesComponent implements OnInit {
   @Input() pages: IPage[] = [];
   @Input() activePageId = '';
+  @Input() showManagePages = false;
   @Output() activePageIdChange: EventEmitter<string> =
     new EventEmitter<string>();
   @Output() close: EventEmitter<any> = new EventEmitter<any>();

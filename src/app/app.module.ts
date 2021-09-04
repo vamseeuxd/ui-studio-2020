@@ -33,8 +33,10 @@ import { AlertWraperComponent } from './wraper-components/alert-wraper/alert-wra
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ComponentEditorComponent } from './components/component-editor/component-editor/component-editor.component';
 import { ManagePagesComponent } from './manage-pages/manage-pages.component';
+import { NumbersOnlyDirective } from './directives/numbersOnly/numbers-only.directive';
+import { AlphaNumericOnlyDirective } from './directives/alphaNumericOnly/alpha-numeric-only.directive';
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective],
   imports: [
     FormsModule,
     BrowserModule,
