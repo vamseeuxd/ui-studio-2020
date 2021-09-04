@@ -15,6 +15,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class AlertWraperComponent implements OnInit {
   @Input() component: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
+  @Input() showManagePages = false;
   @Input() activePageId = '';
   @Output() activePageIdChange: EventEmitter<string> =
     new EventEmitter<string>();

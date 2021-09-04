@@ -22,6 +22,7 @@ export class DynamicPageComponent implements OnInit {
   @Input() activePage: IPage | undefined;
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
+  @Input() showManagePages = false;
   @Input() activePageId = '';
   @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() copy: EventEmitter<ICutCopyPateValueObject> =
@@ -98,7 +99,7 @@ export class DynamicPageComponent implements OnInit {
   updateContextMenuPosition($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
-    if (!this.componentToEdit) {
+    if (!this.componentToEdit && !this.showManagePages) {
       this.showContextMenu = true;
       this.contextMenuPageX = $event.pageX;
       this.contextMenuPageY = $event.pageY;
