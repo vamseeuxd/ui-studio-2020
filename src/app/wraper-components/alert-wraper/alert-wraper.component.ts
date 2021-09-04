@@ -7,6 +7,7 @@ import {
   IEvent,
 } from './../../interfaces/component.interface';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-alert-wraper',
@@ -20,11 +21,13 @@ export class AlertWraperComponent implements OnInit {
   @Input() isModalWindow = false;
   @Input() activePageId = '';
   @Input() app: IApplication | undefined;
-  @Output() appChange: EventEmitter<IApplication> = new EventEmitter<IApplication>();
+  @Output() appChange: EventEmitter<IApplication> =
+    new EventEmitter<IApplication>();
   @Output() activePageIdChange: EventEmitter<string> =
     new EventEmitter<string>();
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
-  @Output() copy: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() copy: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
   @Output() cut: EventEmitter<ICutCopyPateValueObject> =
     new EventEmitter<ICutCopyPateValueObject>();
   @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> =
@@ -47,7 +50,7 @@ export class AlertWraperComponent implements OnInit {
   @Output() addComponent: EventEmitter<IAddComponentValueObject> =
     new EventEmitter<IAddComponentValueObject>();
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
-  constructor() {}
+  constructor(private modalService: BsModalService) {}
 
   ngOnInit(): void {}
 
