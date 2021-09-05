@@ -32,7 +32,7 @@
               </div>
               <div class="form-group">
                 <label>Default Page Name <code>*</code></label>
-                <input type="text" [class.is-invalid]="applicationDefaultPage.invalid" [class.is-valid]="applicationDefaultPage.valid" name="defaultPage" #applicationDefaultPage="ngModel" ngModel required [maxlength]="40" [minlength]="3" class="form-control" />
+                <input type="text" [class.is-invalid]="applicationDefaultPage.invalid" [class.is-valid]="applicationDefaultPage.valid" name="isHomePage" #applicationDefaultPage="ngModel" ngModel required [maxlength]="40" [minlength]="3" class="form-control" />
                 <div [class.invalid-feedback]="applicationDefaultPage.invalid" [class.valid-feedback]="applicationDefaultPage.valid">
                   <b>Default Page Name</b> is required and between 3 to 40 characters
                 </div>

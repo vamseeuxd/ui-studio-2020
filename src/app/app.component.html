@@ -1,47 +1,70 @@
-<nav
-  class="navbar fixed-top navbar-dark bg-dark shadow"
-  *ngIf="app.name.length > 0"
->
-  <a class="navbar-brand">{{ app.name }}</a>
-</nav>
-<div
-  *ngIf="app.name.length > 0"
-  [style.marginTop]="headerHeight"
-  [style.height]="'calc(100vh - {{headerHeight}})'"
-  class="container-fluid"
-  style="overflow-y: auto; padding-bottom: 15px"
->
-  <app-dynamic-page
-    [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
-    [componentToEdit]="componentToEdit"
-    (copy)="copy($event)"
-    (cut)="cut($event)"
-    (pasteBefore)="pasteComponent($event, false)"
-    (pasteAfter)="pasteComponent($event, true)"
-    (pasteCancel)="pasteCancel($event)"
-    (pasteInside)="pasteComponent($event, false, true)"
-    (deleteComponent)="deleteComponent($event)"
-    (editComponent)="editComponent($event)"
-    (addComponent)="addComponent($event)"
-    [activePage]="getActivePage()"
-  ></app-dynamic-page>
-</div>
+<ng-container *ngIf="app">
+  <nav
+    class="navbar fixed-top navbar-dark bg-dark shadow"
+    *ngIf="app.name.length > 0"
+  >
+    <a class="navbar-brand ms-4">{{ app.name }}</a>
+  </nav>
+  <div
+    *ngIf="app.name.length > 0"
+    [style.marginTop]="headerHeight"
+    [style.height]="'calc(100vh - {{headerHeight}})'"
+    class="container-fluid"
+    style="overflow-y: auto; padding-bottom: 15px"
+  >
+    <app-dynamic-page
+      [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+      [componentToEdit]="componentToEdit"
+      [showManagePages]="showManagePages"
+      [app]="app"
+      [isModalWindow]="!!app.modalPageId"
+      [(activePageId)]="app.defaultPage"
+      (copy)="copy($event)"
+      (cut)="cut($event)"
+      (managePages)="showManagePages = true"
+      (managePageProperties)="showManagePageProperties = true"
+      (pasteBefore)="pasteComponent($event, false)"
+      (pasteAfter)="pasteComponent($event, true)"
+      (pasteCancel)="pasteCancel($event)"
+      (pasteInside)="pasteComponent($event, false, true)"
+      (deleteComponent)="deleteComponent($event)"
+      (editComponent)="editComponent($event)"
+      (addComponent)="addComponent($event)"
+      [activePage]="getActivePage()"
+    ></app-dynamic-page>
+  </div>
+
+  <div class="device-name-watermark">
+    <h1 class="d-block d-sm-none">Extra Small</h1>
+    <h1 class="d-none d-sm-block d-md-none">Small</h1>
+    <h1 class="d-none d-md-block d-lg-none">Medium</h1>
+    <h1 class="d-none d-lg-block d-xl-none">Large</h1>
+    <h1 class="d-none d-xl-block d-xxl-none">Extra Large</h1>
+    <h1 class="d-none d-xxl-block">Extra Extra Large</h1>
+  </div>
+
+  <app-component-editor
+    *ngIf="componentToEdit"
+    (close)="componentToEdit = null"
+    [component]="componentToEdit"
+    [app]="app"
+    [mouseEvent]="mouseEventForComponentEdit"
+  ></app-component-editor>
+
+  <app-manage-pages
+    (close)="showManagePages = false"
+    *ngIf="showManagePages"
+    [(app)]="app"
+  ></app-manage-pages>
+
+  <app-component-properties-editor
+    [app]="app"
+    *ngIf="showManagePageProperties"
+    (close)="showManagePageProperties = false"
+  ></app-component-properties-editor>
+</ng-container>
+
 <app-create-or-import-application
-  [show]="app.name.length < 1"
-  (create)="app = $event; activePageId = $event.pages[0].id"
+  [show]="!app"
+  (create)="app = $event; app.defaultPage = $event.pages[0].id"
 ></app-create-or-import-application>
-
-<div class="device-name-watermark">
-  <h1 class="d-block d-sm-none">Extra Small</h1>
-  <h1 class="d-none d-sm-block d-md-none">Small</h1>
-  <h1 class="d-none d-md-block d-lg-none">Medium</h1>
-  <h1 class="d-none d-lg-block d-xl-none">Large</h1>
-  <h1 class="d-none d-xl-block d-xxl-none">Extra Large</h1>
-  <h1 class="d-none d-xxl-block">Extra Extra Large</h1>
-</div>
-
-<app-component-editor
-  *ngIf="componentToEdit"
-  (close)="componentToEdit = null"
-  [component]="componentToEdit"
-></app-component-editor>

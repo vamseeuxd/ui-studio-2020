@@ -1,3 +1,4 @@
+import { IApplication } from './../interfaces/application.interface';
 import { IAddComponentValueObject } from './../interfaces/add-component-vo';
 import { ICutCopyPateValueObject } from './../interfaces/cut-copy-paste-vo';
 import {
@@ -54,19 +55,45 @@ export class DynamicComponentComponent implements OnInit {
   @Input() parentList: IComponent[] = [];
   @Input() isChild = false;
   @Input() componentToEdit: IComponent | null = null;
-  @Output() copy: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() cut: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
-  @Output() editComponent: EventEmitter<{ component: IComponent }> = new EventEmitter<{ component: IComponent }>();
-  @Output() addComponent: EventEmitter<IAddComponentValueObject> = new EventEmitter<IAddComponentValueObject>();
+  @Input() showManagePages = false;
+  @Input() isModalWindow = false;
+  @Input() app: IApplication | undefined;
+  @Input() activePageId = '';
+  @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() copy: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() cut: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> =
+    new EventEmitter<ICutCopyPateValueObject>();
+  @Output() editComponent: EventEmitter<{
+    component: IComponent;
+    event: MouseEvent;
+  }> = new EventEmitter<{ component: IComponent; event: MouseEvent }>();
+  @Output() addComponent: EventEmitter<IAddComponentValueObject> =
+    new EventEmitter<IAddComponentValueObject>();
+
+  @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
+  @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
   windowMousedown($event: MouseEvent) {
+    this.showContextMenu = false;
+    this.cssClass = this.getColClasses();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  // tslint:disable-next-line:typedef
+  windowResize($event: MouseEvent) {
     this.showContextMenu = false;
     this.cssClass = this.getColClasses();
   }
@@ -112,7 +139,7 @@ export class DynamicComponentComponent implements OnInit {
   updateContextMenuPosition($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
-    if (!this.componentToEdit) {
+    if (!this.componentToEdit && !this.showManagePages && !this.isModalWindow) {
       this.showContextMenu = true;
       this.cssClass = this.getColClasses();
       this.contextMenuLeftAlign =
@@ -139,7 +166,13 @@ export class DynamicComponentComponent implements OnInit {
     );
   }
 
-  onAction({ action, label }: any): void {
+  onAction({
+    menu: { action, label },
+    event,
+  }: {
+    menu: any;
+    event: MouseEvent;
+  }): void {
     switch (action) {
       case 'offset-size':
         this.component && this.addOrRemove(this.component.offset, label);
@@ -203,7 +236,7 @@ export class DynamicComponentComponent implements OnInit {
       case 'edit':
         // delete functionality
         this.component &&
-          this.editComponent.emit({ component: this.component });
+          this.editComponent.emit({ component: this.component, event });
         break;
       case 'add-alert-before':
         this.component &&
@@ -231,6 +264,12 @@ export class DynamicComponentComponent implements OnInit {
             where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT,
             componentName: 'ALERT',
           });
+        break;
+      case 'manage-pages':
+        this.managePages.emit();
+        break;
+      case 'manage-properties':
+        this.managePageProperties.emit();
         break;
 
       default:

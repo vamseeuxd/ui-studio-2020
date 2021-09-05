@@ -157,22 +157,49 @@ export interface IComponent {
   id: string;
   isCopied: boolean;
   isCutted: boolean;
-  props?: IProp[];
+  props?: IComponentProp[];
+  events?: IEvent[];
   components: any[];
 }
 
-export interface IProp {
+export interface IComponentProp {
   value: any;
   name: string;
   label: string;
   min: number;
   max: number;
-  propType: PROP_TYPE;
+  propType: COMPONENT_PROP_TYPE;
   dataProvider?: { label: string; value: any }[];
 }
+export interface IEvent {
+  name: string;
+  label: string;
+  description: string;
+  actions?: IACTION[];
+}
 
-export enum PROP_TYPE {
+export enum COMPONENT_PROP_TYPE {
   STRING = 'STRING',
   NUMBER = 'NUMBER',
   LIST = 'LIST',
+}
+
+export interface IACTION {
+  value: any;
+  id: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+  label: string;
+  backdrop?: boolean | 'static';
+  keyboard?: boolean;
+  ignoreBackdropClick?: boolean;
+  animated?: boolean;
+  description: string;
+  type: ACTION_TYPE;
+}
+
+export enum ACTION_TYPE {
+  PAGE = 'PAGE',
+  LINK = 'LINK',
+  MODAL = 'MODAL',
+  COMMAND = 'COMMAND',
 }

@@ -2,9 +2,12 @@
   [style.width.%]="getPropValueByName('width')"
   [class]="'mt-3 alert text-truncate ' + getPropValueByName('alertType')"
   role="alert"
+  (click)="onClick($event, component?.events, 'click')"
 >
-  <!-- {{ getPropValueByName("innterText") }} -->
-  {{component?.id}}
+  {{ getPropValueByName("innterText") }}
+  <!-- <pre>{{getActions() | json}}</pre> -->
+  <!-- {{component?.id}} -->
+  <!-- {{activePageId}} -->
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"
   >
@@ -12,8 +15,15 @@
       <app-dynamic-component
         [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
         [componentToEdit]="componentToEdit"
+        [showManagePages]="showManagePages"
+        [app]="app"
+        [isModalWindow]="isModalWindow"
         [component]="childComponent"
         [isChild]="true"
+        [(activePageId)]="activePageId"
+        (activePageIdChange)="activePageIdChange.emit($event)"
+        (managePages)="managePages.emit()"
+        (managePageProperties)="managePageProperties.emit()"
         [parentList]="component.components"
         (copy)="copy.emit($event)"
         (cut)="cut.emit($event)"
@@ -29,3 +39,5 @@
     </div>
   </ng-container>
 </div>
+
+

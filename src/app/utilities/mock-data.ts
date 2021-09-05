@@ -1,26 +1,18 @@
+import { PAGE_PROP_DATA_TYPE } from './../interfaces/page.interface';
 import {
-  PROP_TYPE,
+  COMPONENT_PROP_TYPE,
   COMPONENT_TYPE,
   IComponent,
+  COL,
+  ACTION_TYPE,
 } from './../interfaces/component.interface';
 import { IApplication } from './../interfaces/application.interface';
-export const applicationMockData: IApplication = {
-  name: 'Institutional Trade Processing',
-  layout: 'blank-layout',
-  defaultPage: 'page_140',
-  pages: [
-    {
-      name: 'Dashboard',
-      id: 'page_140',
-      components: [],
-    },
-  ],
-};
+// import '../../../node_modules/@popperjs/core/dist/umd/popper.min.js';
 
-export const AlertMockData = (): IComponent => {
+export const AlertMockData = (activePageId = 'page_150'): IComponent => {
   return {
     offset: [],
-    col: [],
+    col: [COL.ALL_4],
     id: window._.uniqueId('component_'),
     isCopied: false,
     isCutted: false,
@@ -31,7 +23,7 @@ export const AlertMockData = (): IComponent => {
         label: 'Alert Type',
         name: 'alertType',
         value: 'alert-success',
-        propType: PROP_TYPE.LIST,
+        propType: COMPONENT_PROP_TYPE.LIST,
         min: 0,
         max: 0,
         dataProvider: [
@@ -49,7 +41,7 @@ export const AlertMockData = (): IComponent => {
         min: 0,
         max: 0,
         value: 'simple danger alert',
-        propType: PROP_TYPE.STRING,
+        propType: COMPONENT_PROP_TYPE.STRING,
       },
       {
         label: 'Width in %',
@@ -57,8 +49,127 @@ export const AlertMockData = (): IComponent => {
         value: 100,
         min: 5,
         max: 100,
-        propType: PROP_TYPE.NUMBER,
+        propType: COMPONENT_PROP_TYPE.NUMBER,
+      },
+    ],
+    events: [
+      {
+        name: 'click',
+        label: 'On Alert Click',
+        description:
+          'A pointing device button has been pressed and released on an Alert.',
+        actions: [
+          {
+            label: 'Open Modal Dialog',
+            id: new Date().getTime().toString(),
+            type: ACTION_TYPE.MODAL,
+            value: 'page_140',
+            backdrop: true,
+            keyboard: true,
+            ignoreBackdropClick: false,
+            animated: true,
+            description: '',
+          },
+          /* {
+            label: 'Navigate to Page',
+            type: ACTION_TYPE.PAGE,
+            value: activePageId,
+            description: '',
+          },
+          {
+            label: 'Open External Link',
+            type: ACTION_TYPE.LINK,
+            value: 'https://www.google.com/',
+            target: '_blank',
+            description: '',
+          },
+          {
+            label: 'Open Modal Dialog',
+            type: ACTION_TYPE.MODAL,
+            value: 'https://www.google.com/',
+            description: '',
+          },
+          {
+            label: 'Call Command in Current Page',
+            type: ACTION_TYPE.COMMAND,
+            value: 'https://www.google.com/',
+            description: '',
+          }, */
+        ],
+      },
+      {
+        name: 'dblclick',
+        label: 'On Alert Double Click',
+        description: 'A pointing device button is clicked twice on an Alert.',
       },
     ],
   };
+};
+
+export const applicationMockData: IApplication = {
+  name: 'Institutional Trade Processing',
+  layout: 'blank-layout',
+  defaultPage: 'page_140',
+  pages: [
+    {
+      name: 'Dashboard',
+      id: 'page_140',
+      route: 'dashboard',
+      isHomePage: true,
+      properties: [
+        {
+          id:'test123',
+          name: 'dashboardPropertie1',
+          dataType: PAGE_PROP_DATA_TYPE.STRING,
+          description: 'For Testing',
+          defaultValue: '',
+        },
+        {
+          id:'test123456',
+          name: 'dashboardPropertie2',
+          dataType: PAGE_PROP_DATA_TYPE.BOOLEAN,
+          description: 'For Testing',
+          defaultValue: true,
+        },
+        {
+          id:'test123789',
+          name: 'dashboardPropertie3',
+          dataType: PAGE_PROP_DATA_TYPE.NUMBER,
+          description: 'For Testing',
+          defaultValue: 200,
+        },
+      ],
+      components: [],
+    },
+    {
+      name: 'Products',
+      id: 'page_150',
+      route: 'products',
+      properties: [
+        {
+          id:'test44',
+          name: 'productsPropertie1',
+          dataType: PAGE_PROP_DATA_TYPE.STRING,
+          description: 'For Testing',
+          defaultValue: '',
+        },
+        {
+          id:'test55',
+          name: 'productsPropertie2',
+          dataType: PAGE_PROP_DATA_TYPE.BOOLEAN,
+          description: 'For Testing',
+          defaultValue: true,
+        },
+        {
+          id:'test66',
+          name: 'productsPropertie3',
+          dataType: PAGE_PROP_DATA_TYPE.NUMBER,
+          description: 'For Testing',
+          defaultValue: 200,
+        },
+      ],
+      isHomePage: false,
+      components: [],
+    },
+  ],
 };

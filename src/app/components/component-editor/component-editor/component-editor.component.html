@@ -1,34 +1,290 @@
-<div class="card shadow mx-auto" style="width: 350px;" ngDraggable>
+<div class="card shadow mx-auto" style="width: 350px" ngDraggable>
   <div class="card-body p-2">
     <h6 class="card-title ps-3">
       Edit Component
-      <i (click)="close.emit();" class="fa fa-close float-end me-2" role="button"></i>
+      <i
+        (click)="close.emit()"
+        class="fa fa-close float-end me-2"
+        role="button"
+      ></i>
     </h6>
-      <tabset>
-        <tab ngResizable [rzMinWidth]="332" [rzMaxWidth]="332" class="border border-top-0 p-2" style="min-height: 200px;" heading="Properties">
-          <accordion *ngIf="component" [closeOthers]="true" [isAnimated]="true">
-            <accordion-group *ngFor="let prop of component.props" class="mb-1">
-              <button style="max-width: 100%;" [title]="prop.label+' : '+prop.value" accordion-heading type="button" class="rounded-0 btn btn-light btn-block align-items-center justify-content-start d-flex w-100  shadow-none">
-                <code class="text-dark text-truncate">{{prop.label}} :</code>
-                <code class="font-weight-bold ms-2 text-truncate">{{prop.value}}</code>
-              </button>
-                <ng-container *ngIf="prop.propType === PropType.LIST">
-                  <select class="form-control" [(ngModel)]="prop.value">
-                    <option [value]="data.value" *ngFor="let data of prop.dataProvider">{{data.label}}</option>
-                  </select>
-                </ng-container>
-                <ng-container *ngIf="prop.propType === PropType.STRING">
-                  <input type="text" class="form-control" [(ngModel)]="prop.value">
-                </ng-container>
-                <ng-container *ngIf="prop && prop.propType === PropType.NUMBER">
-                  <input [min]="prop.min" [max]="prop.max" type="number" class="form-control" [(ngModel)]="prop.value">
-                </ng-container>
-              </accordion-group>
-          </accordion>
+    <tabset>
+      <tab
+        ngResizable
+        [rzMinWidth]="332"
+        [rzMaxWidth]="332"
+        class="border border-top-0 p-2"
+        style="min-height: 200px"
+        heading="Properties"
+      >
+        <accordion *ngIf="component" [closeOthers]="true" [isAnimated]="true">
+          <accordion-group *ngFor="let prop of component.props" class="mb-1">
+            <button
+              style="max-width: 100%"
+              [title]="prop.label + ' : ' + prop.value"
+              accordion-heading
+              type="button"
+              class="
+                rounded-0
+                btn btn-light btn-block
+                align-items-center
+                justify-content-start
+                d-flex
+                w-100
+                shadow-none
+              "
+            >
+              <code class="text-dark text-truncate">{{ prop.label }} :</code>
+              <code class="font-weight-bold ms-2 text-truncate">{{
+                prop.value
+              }}</code>
+            </button>
+            <ng-container *ngIf="prop.propType === PropType.LIST">
+              <select class="form-control" [(ngModel)]="prop.value">
+                <option
+                  [value]="data.value"
+                  *ngFor="let data of prop.dataProvider"
+                >
+                  {{ data.label }}
+                </option>
+              </select>
+            </ng-container>
+            <ng-container *ngIf="prop.propType === PropType.STRING">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="prop.value"
+              />
+            </ng-container>
+            <ng-container *ngIf="prop && prop.propType === PropType.NUMBER">
+              <input
+                [min]="prop.min"
+                [max]="prop.max"
+                type="number"
+                class="form-control"
+                [(ngModel)]="prop.value"
+              />
+            </ng-container>
+          </accordion-group>
+        </accordion>
+      </tab>
+      <tab
+        ngResizable
+        [rzMinWidth]="332"
+        [rzMaxWidth]="332"
+        class="border border-top-0 p-2"
+        style="min-height: 200px;"
+        heading="Events"
+      >
+        <accordion *ngIf="component" [closeOthers]="false" [isAnimated]="true">
+          <accordion-group
+            #accordionGroup
+            *ngFor="let event of component.events"
+            class="mb-1 rounded-0 border-0 shadow-sm"
+          >
+            <button
+              style="max-width: 100%"
+              [title]="event.description"
+              accordion-heading
+              type="button"
+              class="
+                rounded-0
+                btn btn-light btn-block
+                align-items-center
+                justify-content-start
+                d-flex
+                w-100
+                shadow-none
+              "
+            >
+              <code class="text-truncate">{{ event.label }} :</code>
+            </button>
+            <div
+              ngResizable
+              [rzMinWidth]="300"
+              [rzMaxWidth]="300"
+              class="pb-3 d-flex flex-column"
+              style="min-height: 150px;"
+            >
+              <div class="row mb-3 mt-2">
+                <div class="col">
+                  <h5 class="text-muted me-auto">Actions List</h5>
+                </div>
+                <div class="col">
+                  <button
+                    #popoverBtn="bs-popover"
+                    type="button"
+                    [class.d-none]="!accordionGroup.isOpen"
+                    containerClass="edit-component"
+                    class="btn btn-sm btn-outline-primary float-end"
+                    [popover]="eventCategoriesTemplate"
+                    (click)="$event.preventDefault()"
+                    [outsideClick]="true"
+                  >
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add Action
+                  </button>
+                </div>
+              </div>
 
-        </tab>
-        <tab ngResizable class="border border-top-0 p-2" style="min-height: 300px;" heading="Events">Basic content 1</tab>
-      </tabset>
+              <ng-template #eventCategoriesTemplate>
+                <ul class="list-group">
+                  <li
+                    role="button"
+                    (click)="addNavigateToPageAction(popoverBtn, event)"
+                    class="list-group-item list-group-item-action"
+                  >
+                    Navigate to Page
+                  </li>
+                  <li
+                    role="button"
+                    (click)="addExternalLinkAction(popoverBtn, event)"
+                    class="list-group-item list-group-item-action"
+                  >
+                    Open External Link
+                  </li>
+                  <li
+                    role="button"
+                    (click)="addModalWindowAction(popoverBtn, event)"
+                    class="list-group-item list-group-item-action"
+                  >
+                    Open Modal Dialog
+                  </li>
+                  <li
+                    role="button"
+                    (click)="popoverBtn.hide()"
+                    class="list-group-item list-group-item-action"
+                  >
+                    Call Command in Current Page
+                  </li>
+                </ul>
+              </ng-template>
+
+              <accordion
+                *ngIf="event.actions && event.actions.length > 0"
+                style="overflow: hidden auto;"
+                [closeOthers]="true"
+                [isAnimated]="true"
+              >
+                <accordion-group
+                  #accordionGroup
+                  *ngFor="let action of event.actions"
+                  class="mb-1"
+                >
+                  <button
+                    style="max-width: 100%"
+                    [title]="action.description"
+                    accordion-heading
+                    type="button"
+                    class="
+                      rounded-0
+                      btn btn-light btn-block
+                      align-items-center
+                      justify-content-start
+                      d-flex
+                      w-100
+                      shadow-none
+                    "
+                  >
+                    <code class="text-truncate text-dark">{{
+                      action.label
+                    }}</code>
+                    <button
+                      title="Delete Action"
+                      (click)="
+                        $event.stopPropagation(); deleteAction(action, event)
+                      "
+                      class="ms-auto btn btn-outline-danger btn-sm"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </button>
+
+                  <div class="p-3 h-100">
+                    <!-- ************************** Navigate to Page ************************** -->
+                    <ng-container
+                      *ngIf="
+                        action.type === ActionType.PAGE && app && app.pages
+                      "
+                    >
+                      <p class="m-0 p-0 mb-2 text-muted">
+                        Selete Page to Navigate :
+                      </p>
+                      <select class="form-control" [(ngModel)]="action.value">
+                        <option value="">Select Page to Navigate</option>
+                        <option
+                          [value]="page.id"
+                          *ngFor="let page of app.pages"
+                        >
+                          {{ page.name }}
+                        </option>
+                      </select>
+                    </ng-container>
+                    <!-- ************************** Navigate to Page ************************** -->
+
+                    <!-- ************************** Modal Dialog ************************** -->
+                    <ng-container *ngIf=" action.type === ActionType.MODAL && app && app.pages">
+                      <p class="m-0 p-0 mb-2 text-muted">Selete Page for Modal Dialog :</p>
+                      <select class="form-control" [(ngModel)]="action.value">
+                        <option value="">Selete Page for Modal Dialog </option>
+                        <option [value]="page.id" *ngFor="let page of app.pages"> {{ page.name }}</option>
+                      </select>
+
+                      <p class="m-0 p-0 mb-2 text-muted">Modal Backdrop :</p>
+                      <select class="form-control" [(ngModel)]="action.backdrop">
+                        <option [ngValue]="true">Show</option>
+                        <option [ngValue]="false">Hide</option>
+                        <option [ngValue]="'static'">Show & Don't Close on Click</option>
+                      </select>
+
+                      <p class="m-0 p-0 mb-2 text-muted">Closes the modal when escape key is pressed :</p>
+                      <select class="form-control" [(ngModel)]="action.keyboard">
+                        <option [ngValue]="true">Yes</option>
+                        <option [ngValue]="false">No</option>
+                      </select>
+
+                      <p class="m-0 p-0 mb-2 text-muted">Ignore the backdrop click :</p>
+                      <select class="form-control" [(ngModel)]="action.ignoreBackdropClick">
+                        <option [ngValue]="true">Yes</option>
+                        <option [ngValue]="false">No</option>
+                      </select>
+
+                      <p class="m-0 p-0 mb-2 text-muted">Show Animation :</p>
+                      <select class="form-control" [(ngModel)]="action.animated">
+                        <option [ngValue]="true">Yes</option>
+                        <option [ngValue]="false">No</option>
+                      </select>
+
+                    </ng-container>
+                    <!-- ************************** Modal Dialog ************************** -->
+
+                    <!-- ************************** External Link URL ************************** -->
+                    <ng-container *ngIf="action.type === ActionType.LINK">
+                      <p class="m-0 p-0 mb-2 text-muted">External Link URL :</p>
+                      <input
+                        type="url"
+                        placeholder="External Link URL"
+                        class="form-control"
+                        [(ngModel)]="action.value"
+                      />
+                      <p>add <code>https://</code> infront of URL</p>
+                      <p class="m-0 p-0 mb-2 text-muted">Target :</p>
+                      <select class="form-control" [(ngModel)]="action.target">
+                        <option>_blank</option>
+                        <option>_self</option>
+                        <option>_parent</option>
+                        <option>_top</option>
+                      </select>
+                    </ng-container>
+                    <!-- ************************** External Link URL ************************** -->
+                  </div>
+                </accordion-group>
+              </accordion>
+            </div>
+          </accordion-group>
+        </accordion>
+      </tab>
+    </tabset>
   </div>
 </div>
+
 

@@ -32,8 +32,12 @@ import { ExpandableListGroupItemComponent } from './components/expandable-list-g
 import { AlertWraperComponent } from './wraper-components/alert-wraper/alert-wraper.component';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ComponentEditorComponent } from './components/component-editor/component-editor/component-editor.component';
+import { ManagePagesComponent } from './manage-pages/manage-pages.component';
+import { NumbersOnlyDirective } from './directives/numbersOnly/numbers-only.directive';
+import { AlphaNumericOnlyDirective } from './directives/alphaNumericOnly/alpha-numeric-only.directive';
+import { ComponentPropertiesEditorComponent } from './components/component-properties-editor/component-properties-editor.component';
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertiesEditorComponent],
   imports: [
     FormsModule,
     BrowserModule,
