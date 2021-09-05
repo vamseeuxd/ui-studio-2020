@@ -12,12 +12,65 @@
         <h5 class="modal-title">Manage Active Page Properties</h5>
         <button
           type="button"
+          [disabled]="addNewPagePropertyModalRef.isShown"
           class="btn-close"
+          (click)="addOrEditPagePropertyModal.hide()"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body"></div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li
+            *ngFor="let property of activePageProperties"
+            class="list-group-item position-relative"
+          >
+            <ul class="list-group">
+              <li class="list-group-item">
+                <span class="text-muted">Name :</span> {{ property.name }}
+              </li>
+              <li class="list-group-item text-danger">
+                <span class="text-muted">Data Type :</span>
+                {{ property.dataType }}
+              </li>
+              <li class="list-group-item text-info">
+                <span class="text-muted">Description :</span>
+                {{ property.description }}
+              </li>
+              <li class="list-group-item text-primary">
+                <span class="text-muted">Default Value :</span>
+                {{ property.defaultValue }}
+              </li>
+            </ul>
+
+            <div class="position-absolute top-0 end-0 mt-3 me-4">
+              <button
+                (click)="deletePage(property)"
+                tooltip="Delete Property"
+                class="btn btn-danger"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+              <button
+                tooltip="Edit Property"
+                (click)="editClick(property, addNewPagePropertyModalRef)"
+                class="ms-2 btn btn-warning"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button
+          [disabled]="addNewPagePropertyModalRef.isShown"
+          class="btn btn-primary"
+          (click)="addNewPagePropertyModalRef.show()"
+        >
+          Add New Property
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -28,7 +81,7 @@
   class="modal fade"
   bsModal
   #addNewPagePropertyModalRef="bs-modal"
-  [config]="{ show: true, backdrop: true, ignoreBackdropClick: true }"
+  [config]="{ show: false, backdrop: true, ignoreBackdropClick: true }"
   tabindex="-1"
 >
   <div class="modal-dialog modal-sm shadow" id="manage_page_tooltip_container">
@@ -38,14 +91,14 @@
         <button
           type="button"
           class="btn-close"
-          (click)="addNewPagePropertyModalRef.hide()"
+          (click)="addNewPagePropertyModalRef.hide();propertyToEdit = undefined"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
       <div class="modal-body">
         <form
-          *ngIf="addOrEditPagePropertyModal.isShown"
+          *ngIf="addNewPagePropertyModalRef.isShown"
           #addOrEditPageProperyFormRef="ngForm"
           class="modal-body pb-0"
         >
@@ -143,7 +196,12 @@
           <!-- ***************** Property Description ***************** -->
           <div class="d-flex">
             <button
-              (click)="addNewPage(addOrEditPageProperyFormRef, addOrEditPagePropertyModal)"
+              (click)="
+                addNewPageProperty(
+                  addOrEditPageProperyFormRef,
+                  addNewPagePropertyModalRef
+                )
+              "
               [disabled]="addOrEditPageProperyFormRef.invalid"
               class="btn btn-outline-primary mb-3 ms-auto"
               type="button"

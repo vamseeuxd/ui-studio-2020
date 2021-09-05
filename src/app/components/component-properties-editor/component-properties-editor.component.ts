@@ -1,3 +1,4 @@
+import { IPageProp } from './../../interfaces/page.interface';
 import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -17,38 +18,98 @@ export class ComponentPropertiesEditorComponent implements OnInit {
     description: '',
   };
 
-  pageToEdit: IPage | undefined = undefined;
+  propertyToEdit: IPageProp | undefined = undefined;
 
-  @Input() app: IApplication | undefined;
+  private _app: IApplication | undefined;
+  public get app(): IApplication | undefined {
+    return this._app;
+  }
+  @Input()
+  public set app(value: IApplication | undefined) {
+    this._app = value;
+  }
   @Output() appChange: EventEmitter<IApplication | undefined> =
     new EventEmitter<IApplication | undefined>();
+
+  get activePage(): IPage | undefined {
+    const activePage =
+      this.app && this.app.pages && this.app.pages.length
+        ? this.app.pages.find(
+            (p) =>
+              p.id ===
+              (this.app && this.app.defaultPage && this.app.defaultPage)
+          )
+        : undefined;
+    return activePage;
+  }
+
+  get activePageProperties(): IPageProp[] {
+    return this.activePage && this.activePage.properties
+      ? this.activePage.properties
+      : [];
+  }
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  addNewPage(form: NgForm, modal: ModalDirective) {
-    if (!this.pageToEdit) {
-      this.app &&
-        this.app.pages.push({
+  addNewPageProperty(form: NgForm, modal: ModalDirective) {
+    debugger;
+    if (!this.propertyToEdit) {
+      if (this.activePage && this.activePage.properties) {
+        this.activePage.properties.push({
           id: new Date().getTime().toString(),
-          name: form.value.name,
-          route: form.value.route.toLowerCase(),
-          isHomePage: false,
-          properties: [],
-          components: [],
+          ...form.value,
         });
+      }
     } else {
-      this.app &&
-        this.app.pages.forEach((page) => {
-          page.isHomePage = false;
-          if (this.pageToEdit && this.pageToEdit.id) {
-            if (page.id === this.pageToEdit.id) {
-              page.name = form.value.name;
-              page.route = form.value.route;
+      if (this.activePage && this.activePage.properties) {
+        this.activePage.properties.forEach((prop) => {
+          if (this.propertyToEdit && this.propertyToEdit.id) {
+            if (prop.id === this.propertyToEdit.id) {
+              prop.name = form.value.name;
+              prop.dataType = form.value.dataType;
+              prop.defaultValue = form.value.defaultValue;
+              prop.description = form.value.description;
             }
           }
         });
+      }
+    }
+    this.resetAddNewPropertyForm(form);
+    modal.hide();
+  }
+
+  resetAddNewPropertyForm(form: NgForm) {
+    form.resetForm({});
+    this.formDefaultValue = {
+      name: '',
+      dataType: '',
+      defaultValue: '',
+      description: '',
+    };
+    this.propertyToEdit = undefined;
+  }
+
+  editClick(selectedPageProperty: IPageProp, modal: ModalDirective) {
+    this.propertyToEdit = JSON.parse(JSON.stringify(selectedPageProperty));
+    if (this.propertyToEdit) {
+      this.formDefaultValue.name = this.propertyToEdit.name;
+      this.formDefaultValue.dataType = this.propertyToEdit.dataType;
+      this.formDefaultValue.defaultValue = this.propertyToEdit.defaultValue;
+      this.formDefaultValue.description = this.propertyToEdit.description;
+    }
+    modal.show();
+  }
+
+  deletePage(selectedPage: IPageProp) {
+    const isConfirmed = confirm(
+      'Are you sure! Do you want to delete the Page Property?'
+    );
+    if (isConfirmed && this.activePage && this.activePage.properties) {
+      this.activePage.properties = this.activePageProperties.filter(
+        (p) => p.id != selectedPage.id
+      );
     }
   }
 }

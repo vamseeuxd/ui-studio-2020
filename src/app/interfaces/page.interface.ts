@@ -4,19 +4,19 @@ export interface IPage {
   id: string;
   route: string;
   isHomePage: boolean;
-  properties:IPageProp[];
+  properties:IPageProp[] | undefined;
   components: IComponent[];
 }
 
 export interface IPageProp {
+  id: string;
   name: string;
-  defaultValue: string;
-  dataType: string;
+  defaultValue: any;
   description: string;
-  propType: PAGE_PROP_TYPE;
+  dataType: PAGE_PROP_DATA_TYPE;
 }
 
-export enum PAGE_PROP_TYPE {
+export enum PAGE_PROP_DATA_TYPE {
   STRING = 'string',
   NUMBER = 'number',
   BOOLEAN = 'boolean',

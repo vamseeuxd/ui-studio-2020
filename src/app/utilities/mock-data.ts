@@ -1,3 +1,4 @@
+import { PAGE_PROP_DATA_TYPE } from './../interfaces/page.interface';
 import {
   COMPONENT_PROP_TYPE,
   COMPONENT_TYPE,
@@ -115,14 +116,58 @@ export const applicationMockData: IApplication = {
       id: 'page_140',
       route: 'dashboard',
       isHomePage: true,
-      properties: [],
+      properties: [
+        {
+          id:'test123',
+          name: 'dashboardPropertie1',
+          dataType: PAGE_PROP_DATA_TYPE.STRING,
+          description: 'For Testing',
+          defaultValue: '',
+        },
+        {
+          id:'test123456',
+          name: 'dashboardPropertie2',
+          dataType: PAGE_PROP_DATA_TYPE.BOOLEAN,
+          description: 'For Testing',
+          defaultValue: true,
+        },
+        {
+          id:'test123789',
+          name: 'dashboardPropertie3',
+          dataType: PAGE_PROP_DATA_TYPE.NUMBER,
+          description: 'For Testing',
+          defaultValue: 200,
+        },
+      ],
       components: [],
     },
     {
       name: 'Products',
       id: 'page_150',
       route: 'products',
-      properties: [],
+      properties: [
+        {
+          id:'test44',
+          name: 'productsPropertie1',
+          dataType: PAGE_PROP_DATA_TYPE.STRING,
+          description: 'For Testing',
+          defaultValue: '',
+        },
+        {
+          id:'test55',
+          name: 'productsPropertie2',
+          dataType: PAGE_PROP_DATA_TYPE.BOOLEAN,
+          description: 'For Testing',
+          defaultValue: true,
+        },
+        {
+          id:'test66',
+          name: 'productsPropertie3',
+          dataType: PAGE_PROP_DATA_TYPE.NUMBER,
+          description: 'For Testing',
+          defaultValue: 200,
+        },
+      ],
       isHomePage: false,
       components: [],
     },
