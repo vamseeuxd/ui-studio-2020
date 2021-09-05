@@ -1,5 +1,5 @@
 import {
-  PROP_TYPE,
+  COMPONENT_PROP_TYPE,
   COMPONENT_TYPE,
   IComponent,
   COL,
@@ -22,7 +22,7 @@ export const AlertMockData = (activePageId = 'page_150'): IComponent => {
         label: 'Alert Type',
         name: 'alertType',
         value: 'alert-success',
-        propType: PROP_TYPE.LIST,
+        propType: COMPONENT_PROP_TYPE.LIST,
         min: 0,
         max: 0,
         dataProvider: [
@@ -40,7 +40,7 @@ export const AlertMockData = (activePageId = 'page_150'): IComponent => {
         min: 0,
         max: 0,
         value: 'simple danger alert',
-        propType: PROP_TYPE.STRING,
+        propType: COMPONENT_PROP_TYPE.STRING,
       },
       {
         label: 'Width in %',
@@ -48,14 +48,15 @@ export const AlertMockData = (activePageId = 'page_150'): IComponent => {
         value: 100,
         min: 5,
         max: 100,
-        propType: PROP_TYPE.NUMBER,
+        propType: COMPONENT_PROP_TYPE.NUMBER,
       },
     ],
     events: [
       {
         name: 'click',
         label: 'On Alert Click',
-        description: 'A pointing device button has been pressed and released on an Alert.',
+        description:
+          'A pointing device button has been pressed and released on an Alert.',
         actions: [
           {
             label: 'Open Modal Dialog',
@@ -114,12 +115,14 @@ export const applicationMockData: IApplication = {
       id: 'page_140',
       route: 'dashboard',
       isHomePage: true,
+      properties: [],
       components: [],
     },
     {
       name: 'Products',
       id: 'page_150',
       route: 'products',
+      properties: [],
       isHomePage: false,
       components: [],
     },

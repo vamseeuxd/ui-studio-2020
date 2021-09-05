@@ -35,8 +35,9 @@ import { ComponentEditorComponent } from './components/component-editor/componen
 import { ManagePagesComponent } from './manage-pages/manage-pages.component';
 import { NumbersOnlyDirective } from './directives/numbersOnly/numbers-only.directive';
 import { AlphaNumericOnlyDirective } from './directives/alphaNumericOnly/alpha-numeric-only.directive';
+import { ComponentPropertiesEditorComponent } from './components/component-properties-editor/component-properties-editor.component';
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertiesEditorComponent],
   imports: [
     FormsModule,
     BrowserModule,

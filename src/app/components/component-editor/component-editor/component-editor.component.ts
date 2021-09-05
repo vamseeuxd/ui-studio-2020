@@ -1,7 +1,7 @@
 import { IApplication } from './../../../interfaces/application.interface';
 import {
   IComponent,
-  PROP_TYPE,
+  COMPONENT_PROP_TYPE,
   COMPONENT_TYPE,
   ACTION_TYPE,
   IEvent,
@@ -26,7 +26,7 @@ import { PopoverDirective } from 'ngx-bootstrap/popover';
   styleUrls: ['./component-editor.component.scss'],
 })
 export class ComponentEditorComponent implements AfterViewInit {
-  readonly PropType = PROP_TYPE;
+  readonly PropType = COMPONENT_PROP_TYPE;
   readonly ActionType = ACTION_TYPE;
   @Output() close: EventEmitter<any> = new EventEmitter<any>();
   @Input() component: IComponent | null = null;

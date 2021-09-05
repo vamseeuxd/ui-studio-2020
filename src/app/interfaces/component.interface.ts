@@ -157,18 +157,18 @@ export interface IComponent {
   id: string;
   isCopied: boolean;
   isCutted: boolean;
-  props?: IProp[];
+  props?: IComponentProp[];
   events?: IEvent[];
   components: any[];
 }
 
-export interface IProp {
+export interface IComponentProp {
   value: any;
   name: string;
   label: string;
   min: number;
   max: number;
-  propType: PROP_TYPE;
+  propType: COMPONENT_PROP_TYPE;
   dataProvider?: { label: string; value: any }[];
 }
 export interface IEvent {
@@ -178,7 +178,7 @@ export interface IEvent {
   actions?: IACTION[];
 }
 
-export enum PROP_TYPE {
+export enum COMPONENT_PROP_TYPE {
   STRING = 'STRING',
   NUMBER = 'NUMBER',
   LIST = 'LIST',

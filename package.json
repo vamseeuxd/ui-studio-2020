@@ -9,7 +9,7 @@
     "test": "ng test",
     "directive": "ng g directive directives/alphaNumericOnly/alphaNumericOnly",
     "main-component": "ng g c manage-pages",
-    "component": "ng g c components/component-editor/component-editor",
+    "component": "ng g c components/component-properties-editor",
     "wraperComponent": "ng g c wraper-components/alert-wraper"
   },
   "private": true,

@@ -19,10 +19,12 @@ import {
 export class ManagePagesComponent implements OnInit {
   @Input() activePageId = '';
   @Input() app: IApplication | undefined;
-  @Output() appChange: EventEmitter<IApplication | undefined> = new EventEmitter<IApplication | undefined>();
+  @Output() appChange: EventEmitter<IApplication | undefined> =
+    new EventEmitter<IApplication | undefined>();
   @Input() showManagePages = false;
   @Input() isModalWindow = false;
-  @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() activePageIdChange: EventEmitter<string> =
+    new EventEmitter<string>();
   @Output() close: EventEmitter<any> = new EventEmitter<any>();
   newPageFormDefaultValue = {
     name: '',
@@ -35,23 +37,26 @@ export class ManagePagesComponent implements OnInit {
 
   addNewPage(form: NgForm, modal: ModalDirective) {
     if (!this.pageToEdit) {
-      this.app && this.app.pages.push({
-        id: new Date().getTime().toString(),
-        name: form.value.name,
-        route: form.value.route.toLowerCase(),
-        isHomePage: false,
-        components: [],
-      });
+      this.app &&
+        this.app.pages.push({
+          id: new Date().getTime().toString(),
+          name: form.value.name,
+          route: form.value.route.toLowerCase(),
+          isHomePage: false,
+          properties: [],
+          components: [],
+        });
     } else {
-      this.app && this.app.pages.forEach((page) => {
-        page.isHomePage = false;
-        if (this.pageToEdit && this.pageToEdit.id) {
-          if (page.id === this.pageToEdit.id) {
-            page.name = form.value.name;
-            page.route = form.value.route;
+      this.app &&
+        this.app.pages.forEach((page) => {
+          page.isHomePage = false;
+          if (this.pageToEdit && this.pageToEdit.id) {
+            if (page.id === this.pageToEdit.id) {
+              page.name = form.value.name;
+              page.route = form.value.route;
+            }
           }
-        }
-      });
+        });
     }
     this.pageToEdit = undefined;
     this.newPageFormDefaultValue = {
@@ -72,12 +77,13 @@ export class ManagePagesComponent implements OnInit {
   }
 
   updateHomePage(selectedPage: IPage) {
-    this.app && this.app.pages.forEach((page) => {
-      page.isHomePage = false;
-      if (selectedPage.id === page.id) {
-        selectedPage.isHomePage = true;
-      }
-    });
+    this.app &&
+      this.app.pages.forEach((page) => {
+        page.isHomePage = false;
+        if (selectedPage.id === page.id) {
+          selectedPage.isHomePage = true;
+        }
+      });
   }
 
   deletePage(selectedPage: IPage) {

@@ -7,7 +7,7 @@ import {
   COL,
   COMPONENT_TYPE,
   IComponent,
-  PROP_TYPE,
+  COMPONENT_PROP_TYPE,
 } from './interfaces/component.interface';
 import { ADD_OR_PASTE_WHERE } from './interfaces/paster-where-enum';
 

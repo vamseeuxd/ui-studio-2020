@@ -1,0 +1,159 @@
+<!-- *************************************** Manage Active Page Properties *************************************** -->
+<div
+  class="modal fade"
+  bsModal
+  #addOrEditPagePropertyModal="bs-modal"
+  [config]="{ show: true, backdrop: true, ignoreBackdropClick: true }"
+  tabindex="-1"
+>
+  <div class="modal-dialog shadow" id="manage_page_tooltip_container">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Manage Active Page Properties</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+</div>
+<!-- *************************************** Manage Active Page Properties *************************************** -->
+
+<!-- *************************************** Add New Page Property *************************************** -->
+<div
+  class="modal fade"
+  bsModal
+  #addNewPagePropertyModalRef="bs-modal"
+  [config]="{ show: true, backdrop: true, ignoreBackdropClick: true }"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-sm shadow" id="manage_page_tooltip_container">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Page Property</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="addNewPagePropertyModalRef.hide()"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          *ngIf="addOrEditPagePropertyModal.isShown"
+          #addOrEditPageProperyFormRef="ngForm"
+          class="modal-body pb-0"
+        >
+          <!-- ***************** Property Name ***************** -->
+          <div class="mb-3">
+            <label class="form-label">Property Name <code>*</code></label>
+            <input
+              [class.is-valid]="PropertyName.valid"
+              [class.is-invalid]="PropertyName.invalid"
+              autocomplete="off"
+              #PropertyName="ngModel"
+              name="name"
+              required
+              minlength="3"
+              maxlength="30"
+              type="text"
+              [ngModel]="formDefaultValue.name"
+              appAlphaNumericOnly
+              class="form-control"
+              placeholder="Property Name"
+            />
+            <div class="valid-feedback">
+              required and allowed Alphanumeric with 3 to 20 characters only
+            </div>
+            <div class="invalid-feedback">
+              required and allowed Alphanumeric with 3 to 20 characters only
+            </div>
+          </div>
+          <!-- ***************** Property Name ***************** -->
+
+          <!-- ***************** Property Default Value ***************** -->
+          <div class="mb-3">
+            <label class="form-label">Property Default Value</label>
+            <input
+              autocomplete="off"
+              #PropertyDefaultValue="ngModel"
+              name="defaultValue"
+              type="text"
+              [ngModel]="formDefaultValue.defaultValue"
+              class="form-control"
+              placeholder="Property Default Value"
+            />
+          </div>
+          <!-- ***************** Property Default Value ***************** -->
+
+          <!-- ***************** Property Data Type ***************** -->
+          <div class="mb-3">
+            <label class="form-label">Property Data Type <code>*</code></label>
+            <select
+              [class.is-valid]="PropertyDataType.valid"
+              [class.is-invalid]="PropertyDataType.invalid"
+              #PropertyDataType="ngModel"
+              name="dataType"
+              required
+              [ngModel]="formDefaultValue.dataType"
+              class="form-control"
+            >
+              <option selected disabled value="">Choose...</option>
+              <option value="string">String</option>
+              <option value="number">Number</option>
+              <option value="boolean">Boolean</option>
+              <option value="date">Date</option>
+              <option value="array">Array</option>
+              <option value="object">Object</option>
+            </select>
+            <div class="valid-feedback">required</div>
+            <div class="invalid-feedback">required</div>
+          </div>
+          <!-- ***************** Property Data Type ***************** -->
+
+          <!-- ***************** Property Description ***************** -->
+          <div class="mb-3">
+            <label class="form-label"
+              >Property Description <code>*</code></label
+            >
+            <textarea
+              [class.is-valid]="pageRoute.valid"
+              [class.is-invalid]="pageRoute.invalid"
+              autocomplete="off"
+              #pageRoute="ngModel"
+              [ngModel]="formDefaultValue.description"
+              name="description"
+              required
+              minlength="3"
+              maxlength="120"
+              type="text"
+              class="form-control text-lowercase"
+              placeholder="Property Description"
+            ></textarea>
+            <div class="valid-feedback">required 3 to 120 characters only</div>
+            <div class="invalid-feedback">
+              required 3 to 120 characters only
+            </div>
+          </div>
+          <!-- ***************** Property Description ***************** -->
+          <div class="d-flex">
+            <button
+              (click)="addNewPage(addOrEditPageProperyFormRef, addOrEditPagePropertyModal)"
+              [disabled]="addOrEditPageProperyFormRef.invalid"
+              class="btn btn-outline-primary mb-3 ms-auto"
+              type="button"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- *************************************** Manage Active Property Property *************************************** -->
