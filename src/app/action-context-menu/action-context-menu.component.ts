@@ -11,7 +11,7 @@ export class ActionContextMenuComponent implements OnInit {
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() isPage = false;
   @Input() leftAlign = false;
-  @Output() action: EventEmitter<any> = new EventEmitter<any>();
+  @Output() action: EventEmitter<{ menu: any; event: MouseEvent }> = new EventEmitter<{ menu: any; event: MouseEvent }>();
   activeMenu = '';
 
   menu: any[] = [
@@ -449,14 +449,13 @@ export class ActionContextMenuComponent implements OnInit {
     { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages' },
     /* -------------------- Manage Pages Menu -------------------- */
 
-    /* -------------------- Manage Event Menu -------------------- */
-    {
-      hideMenuIspage: true,
-      icon: 'fa fa-book',
-      action: 'manage-event',
-      label: 'Manage Event',
-    },
-    /* -------------------- Manage Event Menu -------------------- */
+    /* -------------------- Manage Properties Menu -------------------- */
+    { icon: 'fa fa-book', action: 'manage-properties', label: 'Manage Properties in Page',},
+    /* -------------------- Manage Properties Menu -------------------- */
+
+    /* -------------------- Manage Commands Menu -------------------- */
+    { icon: 'fa fa-book', action: 'manage-commands', label: 'Manage Commands in Page',},
+    /* -------------------- Manage Commands Menu -------------------- */
 
     /* -------------------- Manage API Menu -------------------- */
     { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' },
@@ -468,7 +467,7 @@ export class ActionContextMenuComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onItemClick(item: any): void {
+  onItemClick(item: { menu: any; event: MouseEvent }): void {
     this.action.emit(item);
   }
 

@@ -1,0 +1,223 @@
+<!-- <button type="button" class="btn btn-primary" (click)="managePageModal.show()">
+  Static modal {{showManagePages}}
+</button> -->
+
+<!-- *************************************** Manage Page List *************************************** -->
+<div
+  [class.opacity-50]="addOrEditPageModal.isShown"
+  class="modal fade"
+  *ngIf="app"
+  bsModal
+  (onHidden)="close.emit()"
+  #managePageModal="bs-modal"
+  [config]="{ backdrop: true, ignoreBackdropClick: true, show: true }"
+  tabindex="-1"
+>
+  <div class="modal-dialog" id="manage_page_tooltip_container">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Manage Pages</h5>
+        <button
+          (click)="managePageModal.hide(); close.emit()"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="list-group">
+          <div class="list-group-item p-0 border-0">
+            <div
+              style="
+                max-height: calc(100vh - 250px);
+                overflow-y: auto;
+                overflow-x: hidden;
+              "
+              class="list-group p-0 border-0"
+            >
+              <div
+                *ngFor="let page of app.pages"
+                class="
+                  shadow-sm
+                  mb-2
+                  list-group-item
+                  p-2
+                  border
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                "
+              >
+                <div class="list-group w-100">
+                  <div class="list-group-item py-1 border-0 border-bottom">
+                    Name : {{ page.name }}
+                  </div>
+                  <div class="list-group-item py-1 border-0">
+                    Route : {{ page.route }}
+                  </div>
+                </div>
+                <div
+                  class="
+                    bg-white
+                    shadow-sm
+                    border
+                    p-2
+                    position-absolute
+                    d-flex
+                    justify-content-center
+                    flex-row
+                    top-25
+                    end-0
+                    me-3
+                    rounded
+                  "
+                >
+                  <button
+                    container="#manage_page_tooltip_container"
+                    (click)="deletePage(page)"
+                    [class.btn-outline-danger]="
+                      page.isHomePage || page.id == activePageId
+                    "
+                    [disabled]="page.isHomePage || page.id == activePageId"
+                    tooltip="Delete Page"
+                    class="btn shadow-sm btn-danger btn-sm"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                  <button
+                    (click)="editClick(page, addOrEditPageModal)"
+                    container="#manage_page_tooltip_container"
+                    tooltip="Edit Page"
+                    class="btn shadow-sm btn-warning ms-2 btn-sm"
+                  >
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button
+                    container="#manage_page_tooltip_container"
+                    (click)="updateHomePage(page)"
+                    [class.btn-outline-secondary]="page.isHomePage"
+                    [disabled]="page.isHomePage"
+                    tooltip="Make as Home Page"
+                    class="btn shadow-sm btn-secondary ms-2 btn-sm"
+                  >
+                    <i class="fa fa-home"></i>
+                  </button>
+                  <button
+                    container="#manage_page_tooltip_container"
+                    (click)="app.defaultPage = page.id"
+                    [class.btn-outline-primary]="page.id == app.defaultPage"
+                    [disabled]="page.id == app.defaultPage"
+                    tooltip="Make as Active Page"
+                    class="btn shadow-sm btn-primary ms-2 btn-sm"
+                  >
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer p-0 pe-2 pt-1 pb-1">
+        <button
+          (click)="addOrEditPageModal.show()"
+          type="button"
+          class="btn btn-primary btn-sm"
+        >
+          Add New Page
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- *************************************** Manage Page List *************************************** -->
+
+<!-- *************************************** New Page Form *************************************** -->
+<div
+  class="modal fade"
+  bsModal
+  #addOrEditPageModal="bs-modal"
+  [config]="{ backdrop: true, ignoreBackdropClick: true }"
+  tabindex="-1"
+>
+  <div class="modal-dialog shadow" id="manage_page_tooltip_container">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add new Page</h5>
+        <button
+          (click)="addOrEditPageModal.hide()"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form
+        *ngIf="addOrEditPageModal.isShown"
+        #addOrEditPageFormRef="ngForm"
+        class="modal-body pb-0"
+      >
+        <div class="mb-3">
+          <label class="form-label">Page Name <code>*</code></label>
+          <input
+            [class.is-valid]="pageName.valid"
+            [class.is-invalid]="pageName.invalid"
+            autocomplete="off"
+            #pageName="ngModel"
+            name="name"
+            required
+            minlength="3"
+            maxlength="30"
+            type="text"
+            [ngModel]="newPageFormDefaultValue.name"
+            class="form-control"
+            placeholder="Page Name"
+          />
+          <div class="valid-feedback">
+            required and allowed 3 to 30 characters only
+          </div>
+          <div class="invalid-feedback">
+            required and allowed 3 to 30 characters only
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Page Route <code>*</code></label>
+          <input
+            [class.is-valid]="pageRoute.valid"
+            [class.is-invalid]="pageRoute.invalid"
+            autocomplete="off"
+            #pageRoute="ngModel"
+            [ngModel]="newPageFormDefaultValue.route"
+            appAlphaNumericOnly
+            name="route"
+            required
+            minlength="3"
+            maxlength="20"
+            type="text"
+            class="form-control text-lowercase"
+            placeholder="Page Route"
+          />
+          <div class="valid-feedback">
+            required and allowed Alphanumeric with 3 to 20 characters only
+          </div>
+          <div class="invalid-feedback">
+            required and allowed Alphanumeric with 3 to 20 characters only
+          </div>
+        </div>
+        <div class="d-flex">
+          <button
+            (click)="addNewPage(addOrEditPageFormRef, addOrEditPageModal)"
+            [disabled]="addOrEditPageFormRef.invalid"
+            class="btn btn-outline-primary mb-3 ms-auto"
+            type="button"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- *************************************** New Page Form *************************************** -->
