@@ -1,6 +1,6 @@
-import { applicationMockData } from './../utilities/mock-data';
-import { COMPONENT_TYPE } from './../interfaces/component.interface';
-import { IApplication } from './../interfaces/application.interface';
+import { applicationMockData } from '../../utilities/mock-data';
+import { COMPONENT_TYPE } from '../../interfaces/component.interface';
+import { IApplication } from '../../interfaces/application.interface';
 import {
   Component,
   EventEmitter,
@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { COL } from '../interfaces/component.interface';
+import { COL } from '../../interfaces/component.interface';
 
 @Component({
   selector: 'app-create-or-import-application',

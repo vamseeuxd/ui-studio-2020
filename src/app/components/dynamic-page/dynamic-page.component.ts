@@ -1,9 +1,9 @@
-import { IApplication } from './../interfaces/application.interface';
-import { ADD_OR_PASTE_WHERE } from './../interfaces/paster-where-enum';
-import { IAddComponentValueObject } from './../interfaces/add-component-vo';
-import { ICutCopyPateValueObject } from './../interfaces/cut-copy-paste-vo';
-import { IComponent } from './../interfaces/component.interface';
-import { IPage } from './../interfaces/page.interface';
+import { IApplication } from '../../interfaces/application.interface';
+import { ADD_OR_PASTE_WHERE } from '../../interfaces/paster-where-enum';
+import { IAddComponentValueObject } from '../../interfaces/add-component-vo';
+import { ICutCopyPateValueObject } from '../../interfaces/cut-copy-paste-vo';
+import { IComponent } from '../../interfaces/component.interface';
+import { IPage } from '../../interfaces/page.interface';
 import {
   Component,
   ElementRef,

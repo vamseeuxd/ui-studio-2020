@@ -1,11 +1,11 @@
-import { IApplication } from './../interfaces/application.interface';
-import { IAddComponentValueObject } from './../interfaces/add-component-vo';
-import { ICutCopyPateValueObject } from './../interfaces/cut-copy-paste-vo';
+import { IApplication } from '../../interfaces/application.interface';
+import { IAddComponentValueObject } from '../../interfaces/add-component-vo';
+import { ICutCopyPateValueObject } from '../../interfaces/cut-copy-paste-vo';
 import {
   COL,
   IComponent,
   COMPONENT_TYPE,
-} from './../interfaces/component.interface';
+} from '../../interfaces/component.interface';
 import {
   Component,
   ElementRef,
@@ -16,7 +16,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ADD_OR_PASTE_WHERE } from '../interfaces/paster-where-enum';
+import { ADD_OR_PASTE_WHERE } from '../../interfaces/paster-where-enum';
 
 @Component({
   selector: 'app-dynamic-component',

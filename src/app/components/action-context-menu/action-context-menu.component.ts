@@ -1,4 +1,4 @@
-import { IComponent } from './../interfaces/component.interface';
+import { IComponent } from '../../interfaces/component.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
