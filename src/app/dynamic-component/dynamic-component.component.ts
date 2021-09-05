@@ -82,6 +82,7 @@ export class DynamicComponentComponent implements OnInit {
     new EventEmitter<IAddComponentValueObject>();
 
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
+  @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -266,6 +267,9 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'manage-pages':
         this.managePages.emit();
+        break;
+      case 'manage-properties':
+        this.managePageProperties.emit();
         break;
 
       default:

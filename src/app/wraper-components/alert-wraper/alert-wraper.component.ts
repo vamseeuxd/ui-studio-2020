@@ -55,6 +55,7 @@ export class AlertWraperComponent implements OnInit {
   @Output() addComponent: EventEmitter<IAddComponentValueObject> =
     new EventEmitter<IAddComponentValueObject>();
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
+  @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
   constructor(private modalService: BsModalService) {}
 
   ngOnInit(): void {}

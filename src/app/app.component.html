@@ -1,4 +1,4 @@
-<<ng-container *ngIf="app">
+<ng-container *ngIf="app">
   <nav
     class="navbar fixed-top navbar-dark bg-dark shadow"
     *ngIf="app.name.length > 0"
@@ -22,6 +22,7 @@
       (copy)="copy($event)"
       (cut)="cut($event)"
       (managePages)="showManagePages = true"
+      (managePageProperties)="showManagePageProperties = true"
       (pasteBefore)="pasteComponent($event, false)"
       (pasteAfter)="pasteComponent($event, true)"
       (pasteCancel)="pasteCancel($event)"
@@ -56,11 +57,14 @@
     [(app)]="app"
   ></app-manage-pages>
 
+  <app-component-properties-editor
+    [app]="app"
+    *ngIf="showManagePageProperties"
+    (close)="showManagePageProperties = false"
+  ></app-component-properties-editor>
+</ng-container>
 
 <app-create-or-import-application
   [show]="!app"
   (create)="app = $event; app.defaultPage = $event.pages[0].id"
 ></app-create-or-import-application>
-
-
-<app-component-properties-editor [app]="app"></app-component-properties-editor>

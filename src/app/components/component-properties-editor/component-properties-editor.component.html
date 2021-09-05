@@ -2,6 +2,7 @@
 <div
   class="modal fade"
   bsModal
+  (onHidden)="close.emit()"
   #addOrEditPagePropertyModal="bs-modal"
   [config]="{ show: true, backdrop: true, ignoreBackdropClick: true }"
   tabindex="-1"

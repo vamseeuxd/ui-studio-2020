@@ -31,6 +31,7 @@ export class ComponentPropertiesEditorComponent implements OnInit {
   @Output() appChange: EventEmitter<IApplication | undefined> =
     new EventEmitter<IApplication | undefined>();
 
+  @Output() close: EventEmitter<any> = new EventEmitter<any>();
   get activePage(): IPage | undefined {
     const activePage =
       this.app && this.app.pages && this.app.pages.length

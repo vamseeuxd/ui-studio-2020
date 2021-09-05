@@ -24,6 +24,7 @@ export class AppComponent {
   mouseEventForComponentEdit: MouseEvent | null = null;
   app: IApplication | undefined = applicationMockData;
   showManagePages = false;
+  showManagePageProperties = false;
   constructor() {
     if (this.app) {
       this.app.pages[0].components = [
