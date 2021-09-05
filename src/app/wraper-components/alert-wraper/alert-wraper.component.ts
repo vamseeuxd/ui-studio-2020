@@ -10,7 +10,7 @@ import {
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { DynamicPageComponent } from 'src/app/dynamic-page/dynamic-page.component';
+import { DynamicPageComponent } from 'src/app/components/dynamic-page/dynamic-page.component';
 import { Subscription } from 'rxjs';
 
 @Component({

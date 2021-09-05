@@ -1,7 +1,7 @@
-import { IApplication } from './../interfaces/application.interface';
+import { IApplication } from '../../interfaces/application.interface';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgForm } from '@angular/forms';
-import { IPage } from './../interfaces/page.interface';
+import { IPage } from '../../interfaces/page.interface';
 import {
   Component,
   EventEmitter,
