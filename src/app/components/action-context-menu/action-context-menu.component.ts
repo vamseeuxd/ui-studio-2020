@@ -450,15 +450,15 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Manage Pages Menu -------------------- */
 
     /* -------------------- Manage Properties Menu -------------------- */
-    { icon: 'fa fa-book', action: 'manage-properties', label: 'Manage Properties in Page',},
+    /* { icon: 'fa fa-book', action: 'manage-properties', label: 'Manage Properties in Page',}, */
     /* -------------------- Manage Properties Menu -------------------- */
 
     /* -------------------- Manage Commands Menu -------------------- */
-    { icon: 'fa fa-book', action: 'manage-commands', label: 'Manage Commands in Page',},
+    /* { icon: 'fa fa-book', action: 'manage-commands', label: 'Manage Commands in Page',}, */
     /* -------------------- Manage Commands Menu -------------------- */
 
     /* -------------------- Manage API Menu -------------------- */
-    { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' },
+    /* { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' }, */
     /* -------------------- Manage API Menu -------------------- */
 
   ];
