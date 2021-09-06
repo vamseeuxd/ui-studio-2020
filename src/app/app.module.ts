@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -36,8 +36,10 @@ import { ManagePagesComponent } from './components/manage-pages/manage-pages.com
 import { NumbersOnlyDirective } from './directives/numbersOnly/numbers-only.directive';
 import { AlphaNumericOnlyDirective } from './directives/alphaNumericOnly/alpha-numeric-only.directive';
 import { ComponentPropertiesEditorComponent } from './components/component-properties-editor/component-properties-editor.component';
+import { CodingEditorComponent } from './components/coding-editor/coding-editor.component';
+
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertiesEditorComponent],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertiesEditorComponent, CodingEditorComponent],
   imports: [
     FormsModule,
     BrowserModule,
@@ -63,6 +65,7 @@ import { ComponentPropertiesEditorComponent } from './components/component-prope
     AngularDraggableModule,
   ],
   providers: [],
+  schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

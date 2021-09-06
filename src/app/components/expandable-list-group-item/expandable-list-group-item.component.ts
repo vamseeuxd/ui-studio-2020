@@ -70,6 +70,17 @@ export class ExpandableListGroupItemComponent implements OnInit {
     // this.isSubMenu ? 'list-group-item px-2 py-1' : 'list-group-item list-group-item-action px-2 py-1';
   }
 
+  /* isActive(value: any): boolean {
+    return (
+      (this.component && this.component.col
+        ? this.component.col.indexOf(value) >= 0
+        : false) ||
+      (this.component && this.component.offset
+        ? this.component.offset.indexOf(value) >= 0
+        : false)
+    );
+  } */
+
   isActive(value: any): boolean {
     return (
       (this.component && this.component.col
@@ -77,6 +88,24 @@ export class ExpandableListGroupItemComponent implements OnInit {
         : false) ||
       (this.component && this.component.offset
         ? this.component.offset.indexOf(value) >= 0
+        : false) ||
+      (this.component && this.component.borderAdditive
+        ? this.component.borderAdditive.indexOf(value) >= 0
+        : false) ||
+      (this.component && this.component.borderSubtractive
+        ? this.component.borderSubtractive.indexOf(value) >= 0
+        : false) ||
+      (this.component && this.component.borderColor
+        ? this.component.borderColor.indexOf(value) >= 0
+        : false) ||
+      (this.component && this.component.borderWidth
+        ? this.component.borderWidth.indexOf(value) >= 0
+        : false) ||
+      (this.component && this.component.borderRadius
+        ? this.component.borderRadius.indexOf(value) >= 0
+        : false) ||
+      (this.component && this.component.borderSize
+        ? this.component.borderSize.indexOf(value) >= 0
         : false)
     );
   }

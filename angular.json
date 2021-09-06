@@ -35,7 +35,11 @@
             ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/blockly/blockly_compressed.js",
+              "node_modules/blockly/blocks_compressed.js",
+              "node_modules/blockly/javascript.js",
+              "node_modules/blockly/msg/en.js"
             ]
           },
           "configurations": {

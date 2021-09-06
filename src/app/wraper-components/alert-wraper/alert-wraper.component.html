@@ -1,6 +1,6 @@
 <div
   [style.width.%]="getPropValueByName('width')"
-  [class]="'mt-3 alert text-truncate ' + getPropValueByName('alertType')"
+  [class]="'mt-3 alert text-truncate ' + getPropValueByName('alertType') + ' ' + getUtilitClasses()"
   role="alert"
   (click)="onClick($event, component?.events, 'click')"
 >

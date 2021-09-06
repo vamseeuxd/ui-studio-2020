@@ -59,7 +59,8 @@ export class DynamicComponentComponent implements OnInit {
   @Input() isModalWindow = false;
   @Input() app: IApplication | undefined;
   @Input() activePageId = '';
-  @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() activePageIdChange: EventEmitter<string> =
+    new EventEmitter<string>();
   @Output() copy: EventEmitter<ICutCopyPateValueObject> =
     new EventEmitter<ICutCopyPateValueObject>();
   @Output() cut: EventEmitter<ICutCopyPateValueObject> =
@@ -180,6 +181,26 @@ export class DynamicComponentComponent implements OnInit {
       case 'col-size':
         this.component && this.addOrRemove(this.component.col, label);
         break;
+      case 'border-additive':
+        this.component &&
+          this.toggelValue(this.component.borderAdditive, label);
+        break;
+      case 'border-subtractive':
+        this.component &&
+          this.toggelValue(this.component.borderSubtractive, label);
+        break;
+      case 'border-color':
+        this.component && this.addOrRemove(this.component.borderColor, label);
+        break;
+      case 'border-width':
+        this.component && this.addOrRemove(this.component.borderWidth, label);
+        break;
+      case 'border-radius':
+        this.component && this.toggelValue(this.component.borderRadius, label);
+        break;
+      case 'border-size':
+        this.component && this.addOrRemove(this.component.borderSize, label);
+        break;
       case 'copy':
         // copy functionality
         this.component &&
@@ -279,14 +300,29 @@ export class DynamicComponentComponent implements OnInit {
     this.component = this.component;
   }
 
+  toggelValue(array: string[], newVal: string): void {
+    let removeIndex = -1;
+    array.forEach((oldVal, index) => {
+      if (oldVal === newVal) {
+        removeIndex = index;
+      }
+    });
+    if (removeIndex >= 0) {
+      array.splice(removeIndex, 1);
+    } else {
+      array.push(newVal);
+    }
+  }
+
   addOrRemove(array: string[], value: string): void {
     let removeIndex = -1;
     let oldValue = '';
     array.forEach((val, index) => {
-      if (
-        val.split('-').slice(0, -1).join('-') ===
-        value.split('-').slice(0, -1).join('-')
-      ) {
+      /* const oldVal = value.includes('-') ? value.split('-').slice(0, -1).join('-') : value;
+      const newVal = val.includes('-') ? val.split('-').slice(0, -1).join('-') : val; */
+      const oldVal = value.split('-').slice(0, -1).join('-');
+      const newVal = val.split('-').slice(0, -1).join('-');
+      if (oldVal === newVal) {
         removeIndex = index;
         oldValue = val;
       }

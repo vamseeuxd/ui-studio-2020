@@ -23,6 +23,12 @@ export class ExpandableListGroupComponent implements OnInit {
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() component: IComponent | undefined = {
     offset: [],
+    borderAdditive : [],
+    borderSubtractive : [],
+    borderColor : [],
+    borderWidth : [],
+    borderRadius : [],
+    borderSize : [],
     col: [COL.LG_12],
     id: '1.1',
     isCopied: false,
