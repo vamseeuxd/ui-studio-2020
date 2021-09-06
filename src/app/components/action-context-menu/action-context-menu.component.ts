@@ -22,7 +22,6 @@ export class ActionContextMenuComponent implements OnInit {
       label: 'Col Size',
       menu: [
         {
-          icon: 'fa fa-globe',
           label: 'All',
           showValueInLabel: true,
           dataField: 'col',
@@ -152,7 +151,6 @@ export class ActionContextMenuComponent implements OnInit {
       label: 'Offset Size',
       menu: [
         {
-          icon: 'fa fa-globe',
           label: 'All',
           menu: [
             { action: 'offset-size', label: 'offset-0' },
@@ -266,6 +264,93 @@ export class ActionContextMenuComponent implements OnInit {
             { action: 'offset-size', label: 'offset-xs-12' },
           ],
         },
+      ],
+    },
+    /* -------------------- Offset Size Menu -------------------- */
+
+    /* -------------------- Offset Size Menu -------------------- */
+    {
+      icon: 'fa fa-braille',
+      hideMenuIspage: true,
+      label: 'CSS Utilities',
+      menu: [
+        {
+          hideMenuIspage: true,
+          label: 'Borders',
+          menu: [
+            {
+                hideMenuIspage: true,
+                label: 'Border Additive',
+                menu: [
+                  { action: 'border-additive', hideMenuIspage: true, label: 'border'},
+                  { action: 'border-additive', hideMenuIspage: true, label: 'border-top'},
+                  { action: 'border-additive', hideMenuIspage: true, label: 'border-end'},
+                  { action: 'border-additive', hideMenuIspage: true, label: 'border-bottom'},
+                  { action: 'border-additive', hideMenuIspage: true, label: 'border-start'}
+                ],
+            },
+            {
+                hideMenuIspage: true,
+                label: 'Border Subtractive',
+                menu: [
+                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-0'},
+                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-top-0'},
+                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-end-0'},
+                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-bottom-0'},
+                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-start-0'}
+                ],
+            },
+            {
+                hideMenuIspage: true,
+                label: 'Border Color',
+                menu: [
+                  { action: 'border-color', hideMenuIspage: true, label: 'border-primary'},
+                  { action: 'border-color', hideMenuIspage: true, label: 'border-secondary'},
+                  { action: 'border-color', hideMenuIspage: true, label: 'border-success'},
+                  { action: 'border-color', hideMenuIspage: true, label: 'border-danger'},
+                  { action: 'border-color', hideMenuIspage: true, label: 'border-warning'},
+                  { action: 'border-color', hideMenuIspage: true, label: 'border-info'},
+                  { action: 'border-color', hideMenuIspage: true, label: 'border-light'},
+                  { action: 'border-color', hideMenuIspage: true, label: 'border-dark'},
+                  { action: 'border-color', hideMenuIspage: true, label: 'border-white'},
+                ],
+            },
+            {
+                hideMenuIspage: true,
+                label: 'Border Width',
+                menu: [
+                  { action: 'border-width', hideMenuIspage: true, label: 'border-1'},
+                  { action: 'border-width', hideMenuIspage: true, label: 'border-2'},
+                  { action: 'border-width', hideMenuIspage: true, label: 'border-3'},
+                  { action: 'border-width', hideMenuIspage: true, label: 'border-4'},
+                  { action: 'border-width', hideMenuIspage: true, label: 'border-5'}
+                ],
+            },
+            {
+                hideMenuIspage: true,
+                label: 'Border Radius',
+                menu: [
+                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded'},
+                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-top'},
+                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-end'},
+                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-bottom'},
+                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-start'},
+                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-circle'},
+                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-pill'},
+                ],
+            },
+            {
+                hideMenuIspage: true,
+                label: 'Border Size',
+                menu: [
+                  { action: 'border-size', hideMenuIspage: true, label: 'rounded-0'},
+                  { action: 'border-size', hideMenuIspage: true, label: 'rounded-1'},
+                  { action: 'border-size', hideMenuIspage: true, label: 'rounded-2'},
+                  { action: 'border-size', hideMenuIspage: true, label: 'rounded-3'},
+                ],
+            },
+          ]
+        }
       ],
     },
     /* -------------------- Offset Size Menu -------------------- */
@@ -458,7 +543,6 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Manage Commands Menu -------------------- */
 
     /* -------------------- Manage API Menu -------------------- */
-    /* { icon: 'fa fa-globe', action: 'manage-api', label: 'Manage API Calls' }, */
     /* -------------------- Manage API Menu -------------------- */
 
   ];
@@ -469,33 +553,5 @@ export class ActionContextMenuComponent implements OnInit {
 
   onItemClick(item: { menu: any; event: MouseEvent }): void {
     this.action.emit(item);
-  }
-
-  isActive(value: any): boolean {
-    return (
-      (this.component && this.component.col
-        ? this.component.col.indexOf(value) >= 0
-        : false) ||
-      (this.component && this.component.offset
-        ? this.component.offset.indexOf(value) >= 0
-        : false)
-    );
-  }
-
-  isMenuDisabled(data: any): boolean {
-    return !data?.alwaysEnabled
-      ? !!data.lastCopiedOrCutted
-        ? !this.lastCopiedOrCuttedComponent
-        : this.lastCopiedOrCuttedComponent
-        ? true
-        : false
-      : false;
-  }
-
-  isMenuHidden(data: any): boolean {
-    return (
-      (data?.hideMenuIspage && this.isPage) ||
-      (data?.showIfOnlyComponent && !this.isPage)
-    );
   }
 }

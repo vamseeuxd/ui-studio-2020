@@ -153,6 +153,12 @@ export enum COL {
 export interface IComponent {
   type: COMPONENT_TYPE;
   col: COL[];
+  borderAdditive : string[],
+  borderSubtractive : string[],
+  borderColor : string[],
+  borderWidth : string[],
+  borderRadius : string[],
+  borderSize : string[],
   offset: OFFSET[];
   id: string;
   isCopied: boolean;

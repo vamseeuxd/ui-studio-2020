@@ -60,6 +60,21 @@ export class AlertWraperComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  getUtilitClasses(): string {
+    if (this.component) {
+      return [
+        ...this.component.borderAdditive,
+        ...this.component.borderAdditive,
+        ...this.component.borderSubtractive,
+        ...this.component.borderColor,
+        ...this.component.borderWidth,
+        ...this.component.borderRadius,
+        ...this.component.borderSize,
+      ].join(' ');
+    }
+    return '';
+  }
+
   getPropValueByName(propName: string): any {
     if (
       this.component &&

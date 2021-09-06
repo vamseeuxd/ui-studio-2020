@@ -12,6 +12,12 @@ import { IApplication } from './../interfaces/application.interface';
 export const AlertMockData = (activePageId = 'page_150'): IComponent => {
   return {
     offset: [],
+    borderAdditive : ['border'],
+    borderSubtractive : [],
+    borderColor : [],
+    borderWidth : [],
+    borderRadius : [],
+    borderSize : [],
     col: [COL.ALL_4],
     id: window._.uniqueId('component_'),
     isCopied: false,
