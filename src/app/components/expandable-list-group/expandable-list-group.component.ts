@@ -41,7 +41,7 @@ export class ExpandableListGroupComponent implements OnInit {
   @Input() menu: any[] = [
     {
       icon: 'fa fa-arrows-h',
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       label: 'Col Size',
       menu: [
         {
@@ -156,7 +156,7 @@ export class ExpandableListGroupComponent implements OnInit {
     },
     {
       icon: 'fa fa-long-arrow-right',
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       label: 'Offset Size',
       menu: [
         {
@@ -271,20 +271,20 @@ export class ExpandableListGroupComponent implements OnInit {
     },
     {
       alwaysEnabled: true,
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-scissors',
       action: 'cut',
       label: 'Cut',
     },
     {
       alwaysEnabled: true,
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-clone',
       action: 'copy',
       label: 'Copy',
     },
     {
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-clipboard',
       lastCopiedOrCut: true,
       label: 'Paste',
@@ -323,7 +323,7 @@ export class ExpandableListGroupComponent implements OnInit {
     },
     { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages' },
     {
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-book',
       action: 'manage-event',
       label: 'Manage Event',
@@ -336,7 +336,7 @@ export class ExpandableListGroupComponent implements OnInit {
       menu: [
         {
           icon: 'fa fa-arrow-left',
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           action: 'add-component',
           label: 'Add Before',
           menu: [
@@ -352,7 +352,7 @@ export class ExpandableListGroupComponent implements OnInit {
         },
         {
           icon: 'fa fa-arrow-right',
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           action: 'add-component',
           label: 'Add After',
           menu: [
@@ -368,7 +368,7 @@ export class ExpandableListGroupComponent implements OnInit {
         },
         {
           icon: 'fa fa-arrow-down',
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           action: 'add-component',
           label: 'Add Inside',
           menu: [
@@ -426,7 +426,7 @@ export class ExpandableListGroupComponent implements OnInit {
   }
   isMenuHidden(data: any): boolean {
     return (
-      (data?.hideMenuIspage && this.isPage) ||
+      (data?.hideMenuIfPage && this.isPage) ||
       (data?.showIfOnlyComponent && !this.isPage)
     );
   }

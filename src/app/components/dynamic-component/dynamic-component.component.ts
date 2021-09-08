@@ -83,7 +83,7 @@ export class DynamicComponentComponent implements OnInit {
     new EventEmitter<IAddComponentValueObject>();
 
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
-  @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
+  @Output() managePagePropertys: EventEmitter<any> = new EventEmitter<any>();
 
   @HostListener('click', ['$event'])
   // tslint:disable-next-line:typedef
@@ -296,7 +296,7 @@ export class DynamicComponentComponent implements OnInit {
         this.managePages.emit();
         break;
       case 'manage-properties':
-        this.managePageProperties.emit();
+        this.managePagePropertys.emit();
         break;
 
       default:

@@ -55,7 +55,7 @@ export class WrapperComponentBase {
   @Output() addComponent: EventEmitter<IAddComponentValueObject> =
     new EventEmitter<IAddComponentValueObject>();
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
-  @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
+  @Output() managePagePropertys: EventEmitter<any> = new EventEmitter<any>();
   constructor(private modalService: BsModalService) {}
 
   ngOnInit(): void {}
@@ -109,10 +109,10 @@ export class WrapperComponentBase {
     eventTargeted: string
   ) {
     if (events) {
-      events.forEach((evtent) => {
-        if (evtent.name == eventTargeted) {
-          if (evtent.actions) {
-            evtent.actions.forEach((action) => {
+      events.forEach((event) => {
+        if (event.name == eventTargeted) {
+          if (event.actions) {
+            event.actions.forEach((action) => {
               if (
                 action.type == ACTION_TYPE.LINK &&
                 (action.value as string).trim().length > 0

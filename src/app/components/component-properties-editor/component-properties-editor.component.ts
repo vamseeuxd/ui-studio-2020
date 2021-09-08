@@ -10,7 +10,7 @@ import { IPage } from 'src/app/interfaces/page.interface';
   templateUrl: './component-properties-editor.component.html',
   styleUrls: ['./component-properties-editor.component.scss'],
 })
-export class ComponentPropertiesEditorComponent implements OnInit {
+export class ComponentPropertysEditorComponent implements OnInit {
   formDefaultValue = {
     name: '',
     dataType: '',
@@ -44,7 +44,7 @@ export class ComponentPropertiesEditorComponent implements OnInit {
     return activePage;
   }
 
-  get activePageProperties(): IPageProp[] {
+  get activePagePropertys(): IPageProp[] {
     return this.activePage && this.activePage.properties
       ? this.activePage.properties
       : [];
@@ -108,7 +108,7 @@ export class ComponentPropertiesEditorComponent implements OnInit {
       'Are you sure! Do you want to delete the Page Property?'
     );
     if (isConfirmed && this.activePage && this.activePage.properties) {
-      this.activePage.properties = this.activePageProperties.filter(
+      this.activePage.properties = this.activePagePropertys.filter(
         (p) => p.id != selectedPage.id
       );
     }

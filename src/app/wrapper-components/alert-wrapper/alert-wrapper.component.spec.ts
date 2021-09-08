@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AlertWrapperComponent } from './alert-wrapper.component';
 
-describe('AlertWraperComponent', () => {
+describe('AlertWrapperComponent', () => {
   let component: AlertWrapperComponent;
   let fixture: ComponentFixture<AlertWrapperComponent>;
 

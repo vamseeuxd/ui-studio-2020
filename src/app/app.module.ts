@@ -35,13 +35,13 @@ import { ComponentEditorComponent } from './components/component-editor/componen
 import { ManagePagesComponent } from './components/manage-pages/manage-pages.component';
 import { NumbersOnlyDirective } from './directives/numbersOnly/numbers-only.directive';
 import { AlphaNumericOnlyDirective } from './directives/alphaNumericOnly/alpha-numeric-only.directive';
-import { ComponentPropertiesEditorComponent } from './components/component-properties-editor/component-properties-editor.component';
+import { ComponentPropertysEditorComponent } from './components/component-properties-editor/component-properties-editor.component';
 import { CodingEditorComponent } from './components/coding-editor/coding-editor.component';
 import { AccordionWrapperComponent } from './wrapper-components/accordion-wrapper/accordion-wrapper.component';
 import { AccordionGroupWrapperComponent } from './wrapper-components/accordion-group-wrapper/accordion-group-wrapper.component';
 
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWrapperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertiesEditorComponent, CodingEditorComponent, AccordionWrapperComponent, AccordionGroupWrapperComponent],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWrapperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertysEditorComponent, CodingEditorComponent, AccordionWrapperComponent, AccordionGroupWrapperComponent],
   imports: [
     FormsModule,
     BrowserModule,

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccordionWrapperComponent } from './accordion-wrapper.component';
 
-describe('AccordionWraperComponent', () => {
+describe('AccordionWrapperComponent', () => {
   let component: AccordionWrapperComponent;
   let fixture: ComponentFixture<AccordionWrapperComponent>;
 

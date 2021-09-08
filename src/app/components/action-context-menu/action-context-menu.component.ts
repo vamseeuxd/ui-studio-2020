@@ -20,7 +20,7 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Col Size Menu -------------------- */
     {
       icon: 'fa fa-arrows-h',
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       label: 'Col Size',
       menu: [
         {
@@ -149,7 +149,7 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Offset Size Menu -------------------- */
     {
       icon: 'fa fa-long-arrow-right',
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       label: 'Offset Size',
       menu: [
         {
@@ -273,220 +273,220 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Offset Size Menu -------------------- */
     {
       icon: 'fa fa-braille',
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       label: 'CSS Utilities',
       menu: [
         {
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           label: 'Borders',
           menu: [
             {
-              hideMenuIspage: true,
+              hideMenuIfPage: true,
               label: 'Border Additive',
               menu: [
                 {
                   action: 'border-additive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border',
                 },
                 {
                   action: 'border-additive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-top',
                 },
                 {
                   action: 'border-additive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-end',
                 },
                 {
                   action: 'border-additive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-bottom',
                 },
                 {
                   action: 'border-additive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-start',
                 },
               ],
             },
             {
-              hideMenuIspage: true,
+              hideMenuIfPage: true,
               label: 'Border Subtractive',
               menu: [
                 {
                   action: 'border-subtractive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-0',
                 },
                 {
                   action: 'border-subtractive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-top-0',
                 },
                 {
                   action: 'border-subtractive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-end-0',
                 },
                 {
                   action: 'border-subtractive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-bottom-0',
                 },
                 {
                   action: 'border-subtractive',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-start-0',
                 },
               ],
             },
             {
-              hideMenuIspage: true,
+              hideMenuIfPage: true,
               label: 'Border Color',
               menu: [
                 {
                   action: 'border-color',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-primary',
                 },
                 {
                   action: 'border-color',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-secondary',
                 },
                 {
                   action: 'border-color',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-success',
                 },
                 {
                   action: 'border-color',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-danger',
                 },
                 {
                   action: 'border-color',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-warning',
                 },
                 {
                   action: 'border-color',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-info',
                 },
                 {
                   action: 'border-color',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-light',
                 },
                 {
                   action: 'border-color',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-dark',
                 },
                 {
                   action: 'border-color',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-white',
                 },
               ],
             },
             {
-              hideMenuIspage: true,
+              hideMenuIfPage: true,
               label: 'Border Width',
               menu: [
                 {
                   action: 'border-width',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-1',
                 },
                 {
                   action: 'border-width',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-2',
                 },
                 {
                   action: 'border-width',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-3',
                 },
                 {
                   action: 'border-width',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-4',
                 },
                 {
                   action: 'border-width',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'border-5',
                 },
               ],
             },
             {
-              hideMenuIspage: true,
+              hideMenuIfPage: true,
               label: 'Border Radius',
               menu: [
                 {
                   action: 'border-radius',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded',
                 },
                 {
                   action: 'border-radius',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-top',
                 },
                 {
                   action: 'border-radius',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-end',
                 },
                 {
                   action: 'border-radius',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-bottom',
                 },
                 {
                   action: 'border-radius',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-start',
                 },
                 {
                   action: 'border-radius',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-circle',
                 },
                 {
                   action: 'border-radius',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-pill',
                 },
               ],
             },
             {
-              hideMenuIspage: true,
+              hideMenuIfPage: true,
               label: 'Border Size',
               menu: [
                 {
                   action: 'border-size',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-0',
                 },
                 {
                   action: 'border-size',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-1',
                 },
                 {
                   action: 'border-size',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-2',
                 },
                 {
                   action: 'border-size',
-                  hideMenuIspage: true,
+                  hideMenuIfPage: true,
                   label: 'rounded-3',
                 },
               ],
@@ -505,21 +505,21 @@ export class ActionContextMenuComponent implements OnInit {
       menu: [
         {
           icon: 'fa fa-arrow-left',
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           action: 'add-component',
           label: 'Add Before',
           menu: UIStudioComponents('before'),
         },
         {
           icon: 'fa fa-arrow-right',
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           action: 'add-component',
           label: 'Add After',
           menu: UIStudioComponents('after'),
         },
         {
           icon: 'fa fa-arrow-down',
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           action: 'add-component',
           label: 'Add Inside',
           menu: UIStudioComponents('inside'),
@@ -561,7 +561,7 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Delete Component Menu -------------------- */
     {
       alwaysEnabled: true,
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-trash',
       action: 'delete',
       label: 'Delete Component',
@@ -571,7 +571,7 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Edit Component Menu -------------------- */
     {
       alwaysEnabled: true,
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-edit',
       action: 'edit',
       label: 'Edit Component',
@@ -581,7 +581,7 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Cut Component Menu -------------------- */
     {
       alwaysEnabled: true,
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-scissors',
       action: 'cut',
       label: 'Cut',
@@ -591,7 +591,7 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Copy Component Menu -------------------- */
     {
       alwaysEnabled: true,
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-clone',
       action: 'copy',
       label: 'Copy',
@@ -600,7 +600,7 @@ export class ActionContextMenuComponent implements OnInit {
 
     /* -------------------- Paste Component Menu -------------------- */
     {
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-clipboard',
       lastCopiedOrCut: true,
       label: 'Paste',
@@ -646,9 +646,9 @@ export class ActionContextMenuComponent implements OnInit {
     { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages' },
     /* -------------------- Manage Pages Menu -------------------- */
 
-    /* -------------------- Manage Properties Menu -------------------- */
-    /* { icon: 'fa fa-book', action: 'manage-properties', label: 'Manage Properties in Page',}, */
-    /* -------------------- Manage Properties Menu -------------------- */
+    /* -------------------- Manage Propertys Menu -------------------- */
+    /* { icon: 'fa fa-book', action: 'manage-properties', label: 'Manage Propertys in Page',}, */
+    /* -------------------- Manage Propertys Menu -------------------- */
 
     /* -------------------- Manage Commands Menu -------------------- */
     /* { icon: 'fa fa-book', action: 'manage-commands', label: 'Manage Commands in Page',}, */
@@ -664,10 +664,9 @@ export class ActionContextMenuComponent implements OnInit {
     if (this.component && this.component.isGroupComponent) {
       const addMenu = this.menu.find((menu) => menu.action == 'add');
       const addSubMenu = addMenu.menu.find(
-        (menu: { hideMenuIspage: any; label: string; }) => menu.hideMenuIspage && menu.label == 'Add Inside'
+        (menu: { hideMenuIfPage: any; label: string; }) => menu.hideMenuIfPage && menu.label == 'Add Inside'
       );
       addSubMenu.menu = [];
-      console.log(addSubMenu);
     }
   }
 

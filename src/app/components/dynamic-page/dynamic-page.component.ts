@@ -52,7 +52,7 @@ export class DynamicPageComponent implements OnInit {
   @Output() addComponent: EventEmitter<IAddComponentValueObject> =
     new EventEmitter<IAddComponentValueObject>();
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
-  @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
+  @Output() managePagePropertys: EventEmitter<any> = new EventEmitter<any>();
 
   showContextMenu = false;
   contextMenuPageX = 884;
@@ -124,7 +124,7 @@ export class DynamicPageComponent implements OnInit {
         this.managePages.emit();
         break;
       case 'manage-properties':
-        this.managePageProperties.emit();
+        this.managePagePropertys.emit();
         break;
       default:
         break;
