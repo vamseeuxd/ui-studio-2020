@@ -1,7 +1,7 @@
 <!--
   <pre>{{ component | json }}</pre>
 -->
-<app-alert-wraper
+<app-alert-wrapper
   [component]="component"
   [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
   [componentToEdit]="componentToEdit"
@@ -22,9 +22,9 @@
   (editComponent)="editComponent.emit($event)"
   (addComponent)="addComponent.emit($event)"
   *ngIf="component?.type === component_type.ALERT"
-></app-alert-wraper>
+></app-alert-wrapper>
 
-<app-accordion-wraper
+<app-accordion-wrapper
   [component]="component"
   [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
   [componentToEdit]="componentToEdit"
@@ -45,7 +45,7 @@
   (editComponent)="editComponent.emit($event)"
   (addComponent)="addComponent.emit($event)"
   *ngIf="component?.type === component_type.ACCORDION"
-></app-accordion-wraper>
+></app-accordion-wrapper>
 
 <app-accordion-group-wrapper
   [component]="component"

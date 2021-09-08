@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlertWraperComponent } from './alert-wraper.component';
+import { AccordionWrapperComponent } from './accordion-wrapper.component';
 
-describe('AlertWraperComponent', () => {
-  let component: AlertWraperComponent;
-  let fixture: ComponentFixture<AlertWraperComponent>;
+describe('AccordionWraperComponent', () => {
+  let component: AccordionWrapperComponent;
+  let fixture: ComponentFixture<AccordionWrapperComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AlertWraperComponent ]
+      declarations: [ AccordionWrapperComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlertWraperComponent);
+    fixture = TestBed.createComponent(AccordionWrapperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

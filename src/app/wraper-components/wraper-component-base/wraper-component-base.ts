@@ -13,7 +13,7 @@ import { DynamicPageComponent } from 'src/app/components/dynamic-page/dynamic-pa
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-alert-wraper',
+  selector: 'app-alert-wrapper',
   template: '<h1>This is a Base Class for All Wrapper Components</h1>',
   styleUrls: [],
 })
