@@ -20,7 +20,7 @@ export class ExpandableListGroupComponent implements OnInit {
   @Input() isPage = true;
   @Input() level = 1;
   @Output() itemClick: EventEmitter<{ menu: any; event: MouseEvent }> = new EventEmitter<{ menu: any; event: MouseEvent }>();
-  @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
+  @Input() lastCopiedOrCutComponent: IComponent | undefined;
   @Input() component: IComponent | undefined = {
     offset: [],
     borderAdditive : [],
@@ -33,7 +33,7 @@ export class ExpandableListGroupComponent implements OnInit {
     id: '1.1',
     isGroupComponent: false,
     isCopied: false,
-    isCutted: false,
+    isCut: false,
     type: COMPONENT_TYPE.ALERT,
     components: [],
   };
@@ -286,29 +286,29 @@ export class ExpandableListGroupComponent implements OnInit {
     {
       hideMenuIspage: true,
       icon: 'fa fa-clipboard',
-      lastCopiedOrCutted: true,
+      lastCopiedOrCut: true,
       label: 'Paste',
       menu: [
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-arrow-left',
           action: 'paste-before',
           label: 'Paste Before',
         },
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-arrow-right',
           action: 'paste-after',
           label: 'Paste After',
         },
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-arrow-down',
           action: 'paste-inside',
           label: 'Paste Inside',
         },
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-close',
           action: 'paste-cancel',
           label: 'Cancel Paste',
@@ -316,7 +316,7 @@ export class ExpandableListGroupComponent implements OnInit {
       ],
     },
     {
-      lastCopiedOrCutted: true,
+      lastCopiedOrCut: true,
       icon: 'fa fa-close',
       action: 'paste-cancel',
       label: 'Cancel Paste',
@@ -432,9 +432,9 @@ export class ExpandableListGroupComponent implements OnInit {
   }
   isMenuDisabled(data: any): boolean {
     return !data?.alwaysEnabled
-      ? !!data?.lastCopiedOrCutted
-        ? !this.lastCopiedOrCuttedComponent
-        : this.lastCopiedOrCuttedComponent
+      ? !!data?.lastCopiedOrCut
+        ? !this.lastCopiedOrCutComponent
+        : this.lastCopiedOrCutComponent
         ? true
         : false
       : false;

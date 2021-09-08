@@ -21,7 +21,7 @@ import {
 })
 export class DynamicPageComponent implements OnInit {
   @Input() activePage: IPage | undefined;
-  @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
+  @Input() lastCopiedOrCutComponent: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
   @Input() showManagePages = false;
   @Input() isModalWindow = false;

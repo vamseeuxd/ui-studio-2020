@@ -12,12 +12,13 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DynamicPageComponent } from 'src/app/components/dynamic-page/dynamic-page.component';
 import { Subscription } from 'rxjs';
 
+// noinspection AngularMissingOrInvalidDeclarationInModule
 @Component({
   selector: 'app-alert-wrapper',
   template: '<h1>This is a Base Class for All Wrapper Components</h1>',
   styleUrls: [],
 })
-export class WraperComponentBase {
+export class WrapperComponentBase {
   @Input() component: IComponent | undefined;
   @Input() componentToEdit: IComponent | null = null;
   @Input() showManagePages = false;
@@ -29,7 +30,7 @@ export class WraperComponentBase {
     new EventEmitter<IApplication>();
   @Output() activePageIdChange: EventEmitter<string> =
     new EventEmitter<string>();
-  @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
+  @Input() lastCopiedOrCutComponent: IComponent | undefined;
   @Output() copy: EventEmitter<ICutCopyPateValueObject> =
     new EventEmitter<ICutCopyPateValueObject>();
   @Output() cut: EventEmitter<ICutCopyPateValueObject> =
@@ -107,7 +108,6 @@ export class WraperComponentBase {
     events: IEvent[] | undefined,
     eventTargeted: string
   ) {
-    console.log($event);
     if (events) {
       events.forEach((evtent) => {
         if (evtent.name == eventTargeted) {
@@ -134,7 +134,6 @@ export class WraperComponentBase {
                 this.app.pages.forEach((page) => {
                   if (this.app && page.id === action.value.trim()) {
                     /* this.activePage = page; */
-                    console.log(page);
                     const modalRef: BsModalRef = this.modalService.show(
                       DynamicPageComponent,
                       {

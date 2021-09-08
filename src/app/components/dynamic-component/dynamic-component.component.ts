@@ -42,13 +42,13 @@ export class DynamicComponentComponent implements OnInit {
   }
 
   // tslint:disable-next-line:variable-name
-  private _lastCopiedOrCuttedComponent: IComponent | undefined;
-  public get lastCopiedOrCuttedComponent(): IComponent | undefined {
-    return this._lastCopiedOrCuttedComponent;
+  private _lastCopiedOrCutComponent: IComponent | undefined;
+  public get lastCopiedOrCutComponent(): IComponent | undefined {
+    return this._lastCopiedOrCutComponent;
   }
   @Input()
-  public set lastCopiedOrCuttedComponent(value: IComponent | undefined) {
-    this._lastCopiedOrCuttedComponent = value;
+  public set lastCopiedOrCutComponent(value: IComponent | undefined) {
+    this._lastCopiedOrCutComponent = value;
     this.cssClass = this.getColClasses();
   }
 
@@ -84,6 +84,12 @@ export class DynamicComponentComponent implements OnInit {
 
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
   @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
+
+  @HostListener('click', ['$event'])
+  // tslint:disable-next-line:typedef
+  onClick($event: MouseEvent) {
+    $event.stopPropagation();
+  }
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -156,8 +162,8 @@ export class DynamicComponentComponent implements OnInit {
       ' ' +
       (this.component && this.component.offset.join(' ')) +
       ' ' +
-      (this.lastCopiedOrCuttedComponent &&
-      this.component?.id == this.lastCopiedOrCuttedComponent.id
+      (this.lastCopiedOrCutComponent &&
+      this.component?.id == this.lastCopiedOrCutComponent.id
         ? ' ants '
         : '') +
       ' ' +

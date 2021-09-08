@@ -165,7 +165,7 @@ export interface IComponent {
   id: string;
   isGroupComponent: boolean;
   isCopied: boolean;
-  isCutted: boolean;
+  isCut: boolean;
   props?: IComponentProp[];
   events?: IEvent[];
   components: any[];

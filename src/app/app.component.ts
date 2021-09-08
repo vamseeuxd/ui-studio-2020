@@ -18,8 +18,8 @@ import { ADD_OR_PASTE_WHERE } from './interfaces/paster-where-enum';
 })
 export class AppComponent {
   headerHeight = '60px';
-  lastCopiedOrCuttedComponent: IComponent | undefined;
-  lastCopiedOrCuttedParent: IComponent[] | undefined;
+  lastCopiedOrCutComponent: IComponent | undefined;
+  lastCopiedOrCutParent: IComponent[] | undefined;
   componentToEdit: IComponent | null = null;
   mouseEventForComponentEdit: MouseEvent | null = null;
   app: IApplication | undefined = applicationMockData;
@@ -47,29 +47,29 @@ export class AppComponent {
   isCutInProgress(): boolean {
     // @ts-ignore
     return (
-      this.lastCopiedOrCuttedComponent &&
-      this.lastCopiedOrCuttedComponent.isCutted
+      this.lastCopiedOrCutComponent &&
+      this.lastCopiedOrCutComponent.isCut
     );
   }
   copy({ component, parent }: ICutCopyPateValueObject): void {
-    if (this.lastCopiedOrCuttedComponent) {
-      this.lastCopiedOrCuttedComponent.isCopied = false;
-      this.lastCopiedOrCuttedComponent.isCutted = false;
+    if (this.lastCopiedOrCutComponent) {
+      this.lastCopiedOrCutComponent.isCopied = false;
+      this.lastCopiedOrCutComponent.isCut = false;
     }
     component.isCopied = true;
-    component.isCutted = false;
-    this.lastCopiedOrCuttedComponent = component;
-    this.lastCopiedOrCuttedParent = parent;
+    component.isCut = false;
+    this.lastCopiedOrCutComponent = component;
+    this.lastCopiedOrCutParent = parent;
   }
   cut({ component, parent }: ICutCopyPateValueObject): void {
-    if (this.lastCopiedOrCuttedComponent) {
-      this.lastCopiedOrCuttedComponent.isCopied = false;
-      this.lastCopiedOrCuttedComponent.isCutted = false;
+    if (this.lastCopiedOrCutComponent) {
+      this.lastCopiedOrCutComponent.isCopied = false;
+      this.lastCopiedOrCutComponent.isCut = false;
     }
-    component.isCutted = true;
+    component.isCut = true;
     component.isCopied = false;
-    this.lastCopiedOrCuttedComponent = component;
-    this.lastCopiedOrCuttedParent = parent;
+    this.lastCopiedOrCutComponent = component;
+    this.lastCopiedOrCutParent = parent;
   }
 
   updateIdsForAllChildren(component: IComponent): void {
@@ -86,8 +86,8 @@ export class AppComponent {
     isAfter: boolean,
     isInside = false
   ): void {
-    const oldId = this.lastCopiedOrCuttedComponent?.id;
-    const cloned = window._.cloneDeep(this.lastCopiedOrCuttedComponent);
+    const oldId = this.lastCopiedOrCutComponent?.id;
+    const cloned = window._.cloneDeep(this.lastCopiedOrCutComponent);
     if (isInside) {
       cloned.id = window._.uniqueId('component_');
       this.updateIdsForAllChildren(cloned);
@@ -105,24 +105,24 @@ export class AppComponent {
         parent.splice(addIndex + (isAfter ? 1 : 0), 0, cloned);
       }
     }
-    if (this.isCutInProgress() && this.lastCopiedOrCuttedComponent) {
+    if (this.isCutInProgress() && this.lastCopiedOrCutComponent) {
       // @ts-ignore
-      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, [
+      const removeIndex = window._.findIndex(this.lastCopiedOrCutParent, [
         'id',
-        this.lastCopiedOrCuttedComponent.id,
+        this.lastCopiedOrCutComponent.id,
       ]);
       // @ts-ignore
-      this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
+      this.lastCopiedOrCutParent.splice(removeIndex, 1);
       cloned.id = oldId;
       this.pasteCancel({ component, parent });
     }
   }
 
   pasteCancel({ component, parent }: ICutCopyPateValueObject): void {
-    if (this.lastCopiedOrCuttedComponent) {
-      this.lastCopiedOrCuttedComponent.isCopied = false;
-      this.lastCopiedOrCuttedComponent.isCutted = false;
-      this.lastCopiedOrCuttedComponent = undefined;
+    if (this.lastCopiedOrCutComponent) {
+      this.lastCopiedOrCutComponent.isCopied = false;
+      this.lastCopiedOrCutComponent.isCut = false;
+      this.lastCopiedOrCutComponent = undefined;
     }
   }
   deleteComponent({ component, parent }: ICutCopyPateValueObject): void {
@@ -133,10 +133,10 @@ export class AppComponent {
       if (isConfirmed) {
         const removeIndex = window._.findIndex(parent, ['id', component.id]);
         parent.splice(removeIndex, 1);
-        if (this.lastCopiedOrCuttedComponent) {
-          this.lastCopiedOrCuttedComponent.isCopied = false;
-          this.lastCopiedOrCuttedComponent.isCutted = false;
-          this.lastCopiedOrCuttedComponent = undefined;
+        if (this.lastCopiedOrCutComponent) {
+          this.lastCopiedOrCutComponent.isCopied = false;
+          this.lastCopiedOrCutComponent.isCut = false;
+          this.lastCopiedOrCutComponent = undefined;
         }
       }
     }, 50);

@@ -44,7 +44,7 @@ export const AlertMockData = (): IComponent => {
     id: window._.uniqueId('component_'),
     isGroupComponent: false,
     isCopied: false,
-    isCutted: false,
+    isCut: false,
     type: COMPONENT_TYPE.ALERT,
     components: [],
     props: [
@@ -123,7 +123,7 @@ export const AccordionGroupMockData = (): IComponent => {
     id: window._.uniqueId('component_'),
     isGroupComponent: true,
     isCopied: false,
-    isCutted: false,
+    isCut: false,
     type: COMPONENT_TYPE.ACCORDION_GROUP,
     components: [
       AlertMockData(),
@@ -148,7 +148,7 @@ export const AccordionMockData = (): IComponent => {
     id: window._.uniqueId('component_'),
     isGroupComponent: true,
     isCopied: false,
-    isCutted: false,
+    isCut: false,
     type: COMPONENT_TYPE.ACCORDION,
     components: [
       AccordionGroupMockData(),

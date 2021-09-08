@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ActionContextMenuComponent implements OnInit {
   @Input() component: IComponent | undefined;
-  @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
+  @Input() lastCopiedOrCutComponent: IComponent | undefined;
   @Input() isPage = false;
   @Input() leftAlign = false;
   @Output() action: EventEmitter<{ menu: any; event: MouseEvent }> =
@@ -602,29 +602,29 @@ export class ActionContextMenuComponent implements OnInit {
     {
       hideMenuIspage: true,
       icon: 'fa fa-clipboard',
-      lastCopiedOrCutted: true,
+      lastCopiedOrCut: true,
       label: 'Paste',
       menu: [
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-arrow-left',
           action: 'paste-before',
           label: 'Paste Before',
         },
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-arrow-right',
           action: 'paste-after',
           label: 'Paste After',
         },
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-arrow-down',
           action: 'paste-inside',
           label: 'Paste Inside',
         },
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-close',
           action: 'paste-cancel',
           label: 'Cancel Paste',
@@ -635,7 +635,7 @@ export class ActionContextMenuComponent implements OnInit {
 
     /* -------------------- Cancel Component Menu -------------------- */
     {
-      lastCopiedOrCutted: true,
+      lastCopiedOrCut: true,
       icon: 'fa fa-close',
       action: 'paste-cancel',
       label: 'Cancel Paste',

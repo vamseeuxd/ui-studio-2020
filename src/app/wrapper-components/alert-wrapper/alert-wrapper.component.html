@@ -1,9 +1,21 @@
-<accordion class="d-block w-100" [isAnimated]="true" [closeOthers]="true">
+<div
+  [style.width.%]="getPropValueByName('width')"
+  [class]="
+    'mt-3 alert text-truncate ' +
+    getPropValueByName('alertType') +
+    ' ' +
+    getUtilitClasses()
+  "
+  role="alert"
+  (click)="onClick($event, component?.events, 'click')"
+>
+  {{ getPropValueByName("innterText") }}
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"
   >
+    <div class="row">
       <app-dynamic-component
-        [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+        [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
         [componentToEdit]="componentToEdit"
         [showManagePages]="showManagePages"
         [app]="app"
@@ -26,5 +38,6 @@
         (addComponent)="addComponent.emit($event)"
         *ngFor="let childComponent of component.components"
       ></app-dynamic-component>
+    </div>
   </ng-container>
-</accordion>
+</div>

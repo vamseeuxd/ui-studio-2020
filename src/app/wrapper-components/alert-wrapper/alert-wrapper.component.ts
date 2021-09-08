@@ -1,4 +1,4 @@
-import { WraperComponentBase } from './../wraper-component-base/wraper-component-base';
+import { WrapperComponentBase } from '../wrapper-component-base/wrapper-component-base.component';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './alert-wrapper.component.html',
   styleUrls: ['./alert-wrapper.component.scss'],
 })
-export class AlertWrapperComponent extends WraperComponentBase {}
+export class AlertWrapperComponent extends WrapperComponentBase {}
