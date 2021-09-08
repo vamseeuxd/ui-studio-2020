@@ -184,7 +184,7 @@ export interface IEvent {
   name: string;
   label: string;
   description: string;
-  actions?: IACTION[];
+  actions?: IAction[];
 }
 
 export enum COMPONENT_PROP_TYPE {
@@ -193,7 +193,7 @@ export enum COMPONENT_PROP_TYPE {
   LIST = 'LIST',
 }
 
-export interface IACTION {
+export interface IAction {
   value: any;
   id: string;
   target?: '_blank' | '_self' | '_parent' | '_top';

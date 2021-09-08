@@ -189,11 +189,11 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'border-additive':
         this.component &&
-          this.toggelValue(this.component.borderAdditive, label);
+          this.toggleValue(this.component.borderAdditive, label);
         break;
       case 'border-subtractive':
         this.component &&
-          this.toggelValue(this.component.borderSubtractive, label);
+          this.toggleValue(this.component.borderSubtractive, label);
         break;
       case 'border-color':
         this.component && this.addOrRemove(this.component.borderColor, label);
@@ -202,7 +202,7 @@ export class DynamicComponentComponent implements OnInit {
         this.component && this.addOrRemove(this.component.borderWidth, label);
         break;
       case 'border-radius':
-        this.component && this.toggelValue(this.component.borderRadius, label);
+        this.component && this.toggleValue(this.component.borderRadius, label);
         break;
       case 'border-size':
         this.component && this.addOrRemove(this.component.borderSize, label);
@@ -306,7 +306,7 @@ export class DynamicComponentComponent implements OnInit {
     this.component = this.component;
   }
 
-  toggelValue(array: string[], newVal: string): void {
+  toggleValue(array: string[], newVal: string): void {
     let removeIndex = -1;
     array.forEach((oldVal, index) => {
       if (oldVal === newVal) {

@@ -5,7 +5,7 @@ import {
   COMPONENT_TYPE,
   ACTION_TYPE,
   IEvent,
-  IACTION,
+  IAction,
 } from './../../../interfaces/component.interface';
 import {
   AfterContentInit,
@@ -46,7 +46,7 @@ export class ComponentEditorComponent implements AfterViewInit {
   }
 
   addNavigateToPageAction(popoverBtn: PopoverDirective, event: IEvent): void {
-    const newAction: IACTION = {
+    const newAction: IAction = {
       label: 'Navigate to Page',
       id: new Date().getTime().toString(),
       type: ACTION_TYPE.PAGE,
@@ -63,7 +63,7 @@ export class ComponentEditorComponent implements AfterViewInit {
   }
 
   addModalWindowAction(popoverBtn: PopoverDirective, event: IEvent): void {
-    const newAction: IACTION = {
+    const newAction: IAction = {
       label: 'Open Modal Dialog',
       id: new Date().getTime().toString(),
       type: ACTION_TYPE.MODAL,
@@ -80,7 +80,7 @@ export class ComponentEditorComponent implements AfterViewInit {
   }
 
   addExternalLinkAction(popoverBtn: PopoverDirective, event: IEvent): void {
-    const newAction: IACTION = {
+    const newAction: IAction = {
       label: 'Open External Link',
       type: ACTION_TYPE.LINK,
       id: new Date().getTime().toString(),
@@ -97,7 +97,7 @@ export class ComponentEditorComponent implements AfterViewInit {
     popoverBtn.hide();
   }
 
-  deleteAction(action: IACTION, event: IEvent) {
+  deleteAction(action: IAction, event: IEvent) {
     const isConfirmed = confirm('Are you sure!Do you want to delete action?');
     if (isConfirmed) {
       if (event.actions && event.actions.length > 0) {
