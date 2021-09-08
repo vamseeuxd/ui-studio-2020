@@ -144,7 +144,7 @@ export const AccordionMockData = (): IComponent => {
     borderWidth: [],
     borderRadius: [],
     borderSize: [],
-    col: [COL.ALL_6],
+    col: [],
     id: window._.uniqueId('component_'),
     isGroupComponent: true,
     isCopied: false,
