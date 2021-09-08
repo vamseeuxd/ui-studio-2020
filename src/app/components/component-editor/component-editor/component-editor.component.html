@@ -15,7 +15,7 @@
         [rzMaxWidth]="332"
         class="border border-top-0 p-2"
         style="min-height: 200px"
-        heading="Propertys"
+        heading="Properties"
       >
         <accordion *ngIf="component" [closeOthers]="true" [isAnimated]="true">
           <accordion-group *ngFor="let prop of component.props" class="mb-1">
@@ -207,7 +207,7 @@
                       "
                     >
                       <p class="m-0 p-0 mb-2 text-muted">
-                        Selete Page to Navigate :
+                        Select Page to Navigate :
                       </p>
                       <select class="form-control" [(ngModel)]="action.value">
                         <option value="">Select Page to Navigate</option>
@@ -223,9 +223,9 @@
 
                     <!-- ************************** Modal Dialog ************************** -->
                     <ng-container *ngIf=" action.type === ActionType.MODAL && app && app.pages">
-                      <p class="m-0 p-0 mb-2 text-muted">Selete Page for Modal Dialog :</p>
+                      <p class="m-0 p-0 mb-2 text-muted">Select Page for Modal Dialog :</p>
                       <select class="form-control" [(ngModel)]="action.value">
-                        <option value="">Selete Page for Modal Dialog </option>
+                        <option value="">Select Page for Modal Dialog </option>
                         <option [value]="page.id" *ngFor="let page of app.pages"> {{ page.name }}</option>
                       </select>
 

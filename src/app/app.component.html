@@ -22,7 +22,7 @@
       (copy)="copy($event)"
       (cut)="cut($event)"
       (managePages)="showManagePages = true"
-      (managePagePropertys)="showManagePagePropertys = true"
+      (managePageProperties)="showManagePageProperties = true"
       (pasteBefore)="pasteComponent($event, false)"
       (pasteAfter)="pasteComponent($event, true)"
       (pasteCancel)="pasteCancel($event)"
@@ -59,8 +59,8 @@
 
   <app-component-properties-editor
     [app]="app"
-    *ngIf="showManagePagePropertys"
-    (close)="showManagePagePropertys = false"
+    *ngIf="showManagePageProperties"
+    (close)="showManagePageProperties = false"
   ></app-component-properties-editor>
 </ng-container>
 

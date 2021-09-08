@@ -4,7 +4,7 @@
     'mt-3 alert text-truncate ' +
     getPropValueByName('alertType') +
     ' ' +
-    getUtilitClasses()
+    getUtilitiesClasses()
   "
   role="alert"
   (click)="onClick($event, component?.events, 'click')"
@@ -25,7 +25,7 @@
         [(activePageId)]="activePageId"
         (activePageIdChange)="activePageIdChange.emit($event)"
         (managePages)="managePages.emit()"
-        (managePagePropertys)="managePagePropertys.emit()"
+        (managePageProperties)="managePageProperties.emit()"
         [parentList]="component.components"
         (copy)="copy.emit($event)"
         (cut)="cut.emit($event)"

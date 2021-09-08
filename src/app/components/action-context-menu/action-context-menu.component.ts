@@ -646,9 +646,9 @@ export class ActionContextMenuComponent implements OnInit {
     { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages' },
     /* -------------------- Manage Pages Menu -------------------- */
 
-    /* -------------------- Manage Propertys Menu -------------------- */
-    /* { icon: 'fa fa-book', action: 'manage-properties', label: 'Manage Propertys in Page',}, */
-    /* -------------------- Manage Propertys Menu -------------------- */
+    /* -------------------- Manage Properties Menu -------------------- */
+    /* { icon: 'fa fa-book', action: 'manage-properties', label: 'Manage Properties in Page',}, */
+    /* -------------------- Manage Properties Menu -------------------- */
 
     /* -------------------- Manage Commands Menu -------------------- */
     /* { icon: 'fa fa-book', action: 'manage-commands', label: 'Manage Commands in Page',}, */

@@ -55,12 +55,12 @@ export class WrapperComponentBase {
   @Output() addComponent: EventEmitter<IAddComponentValueObject> =
     new EventEmitter<IAddComponentValueObject>();
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
-  @Output() managePagePropertys: EventEmitter<any> = new EventEmitter<any>();
+  @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
   constructor(private modalService: BsModalService) {}
 
   ngOnInit(): void {}
 
-  getUtilitClasses(): string {
+  getUtilitiesClasses(): string {
     if (this.component) {
       return [
         ...this.component.borderAdditive,

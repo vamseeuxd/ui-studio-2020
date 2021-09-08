@@ -1,4 +1,4 @@
-<!-- *************************************** Manage Active Page Propertys *************************************** -->
+<!-- *************************************** Manage Active Page Properties *************************************** -->
 <div
   class="modal fade"
   bsModal
@@ -10,7 +10,7 @@
   <div class="modal-dialog shadow" id="manage_page_tooltip_container">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Manage Active Page Propertys</h5>
+        <h5 class="modal-title">Manage Active Page Properties</h5>
         <button
           type="button"
           [disabled]="addNewPagePropertyModalRef.isShown"
@@ -23,7 +23,7 @@
       <div class="modal-body">
         <ul class="list-group">
           <li
-            *ngFor="let property of activePagePropertys"
+            *ngFor="let property of activePageProperties"
             class="list-group-item position-relative"
           >
             <ul class="list-group">
@@ -75,7 +75,7 @@
     </div>
   </div>
 </div>
-<!-- *************************************** Manage Active Page Propertys *************************************** -->
+<!-- *************************************** Manage Active Page Properties *************************************** -->
 
 <!-- *************************************** Add New Page Property *************************************** -->
 <div
@@ -100,7 +100,7 @@
       <div class="modal-body">
         <form
           *ngIf="addNewPagePropertyModalRef.isShown"
-          #addOrEditPageProperyFormRef="ngForm"
+          #addOrEditPagePropertyFormRef="ngForm"
           class="modal-body pb-0"
         >
           <!-- ***************** Property Name ***************** -->
@@ -199,11 +199,11 @@
             <button
               (click)="
                 addNewPageProperty(
-                  addOrEditPageProperyFormRef,
+                  addOrEditPagePropertyFormRef,
                   addNewPagePropertyModalRef
                 )
               "
-              [disabled]="addOrEditPageProperyFormRef.invalid"
+              [disabled]="addOrEditPagePropertyFormRef.invalid"
               class="btn btn-outline-primary mb-3 ms-auto"
               type="button"
             >
