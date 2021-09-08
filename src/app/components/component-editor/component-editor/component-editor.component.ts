@@ -1,21 +1,18 @@
-import { IApplication } from './../../../interfaces/application.interface';
+import { IApplication } from '../../../interfaces/application.interface';
 import {
   IComponent,
   COMPONENT_PROP_TYPE,
-  COMPONENT_TYPE,
   ACTION_TYPE,
   IEvent,
   IAction,
-} from './../../../interfaces/component.interface';
+} from '../../../interfaces/component.interface';
 import {
-  AfterContentInit,
   AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
   HostBinding,
   Input,
-  OnInit,
   Output,
 } from '@angular/core';
 import { PopoverDirective } from 'ngx-bootstrap/popover';

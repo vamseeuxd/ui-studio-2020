@@ -5,9 +5,8 @@ import { IApplication } from './interfaces/application.interface';
 import { Component } from '@angular/core';
 import {
   COL,
-  COMPONENT_TYPE,
   IComponent,
-  COMPONENT_PROP_TYPE,
+
 } from './interfaces/component.interface';
 import { ADD_OR_PASTE_WHERE } from './interfaces/paster-where-enum';
 

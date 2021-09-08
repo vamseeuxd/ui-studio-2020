@@ -1,4 +1,4 @@
-import { UIStudioComponents } from './../../utilities/mock-data';
+import { UIStudioComponents } from '../../utilities/mock-data';
 import { IComponent } from '../../interfaces/component.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 

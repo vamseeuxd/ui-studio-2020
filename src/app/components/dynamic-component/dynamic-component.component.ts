@@ -2,7 +2,6 @@ import { IApplication } from '../../interfaces/application.interface';
 import { IAddComponentValueObject } from '../../interfaces/add-component-vo';
 import { ICutCopyPateValueObject } from '../../interfaces/cut-copy-paste-vo';
 import {
-  COL,
   IComponent,
   COMPONENT_TYPE,
 } from '../../interfaces/component.interface';

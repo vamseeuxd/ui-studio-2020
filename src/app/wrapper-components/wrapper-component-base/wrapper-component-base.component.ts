@@ -1,12 +1,12 @@
-import { IPage } from './../../interfaces/page.interface';
-import { IApplication } from './../../interfaces/application.interface';
-import { ICutCopyPateValueObject } from './../../interfaces/cut-copy-paste-vo';
-import { IAddComponentValueObject } from './../../interfaces/add-component-vo';
+import { IPage } from '../../interfaces/page.interface';
+import { IApplication } from '../../interfaces/application.interface';
+import { ICutCopyPateValueObject } from '../../interfaces/cut-copy-paste-vo';
+import { IAddComponentValueObject } from '../../interfaces/add-component-vo';
 import {
   ACTION_TYPE,
   IComponent,
   IEvent,
-} from './../../interfaces/component.interface';
+} from '../../interfaces/component.interface';
 import { Input, Output, EventEmitter, Component } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DynamicPageComponent } from 'src/app/components/dynamic-page/dynamic-page.component';

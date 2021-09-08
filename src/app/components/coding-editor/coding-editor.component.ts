@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 
 // declare var Blockly: any;
 import * as Blockly from 'blockly';

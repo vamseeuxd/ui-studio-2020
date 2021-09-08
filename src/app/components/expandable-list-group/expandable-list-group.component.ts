@@ -1,4 +1,4 @@
-import { IComponent, COL, COMPONENT_TYPE } from './../../interfaces/component.interface';
+import { IComponent, COL, COMPONENT_TYPE } from '../../interfaces/component.interface';
 import {
   Component,
   OnInit,

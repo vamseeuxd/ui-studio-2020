@@ -1,12 +1,12 @@
-import { PAGE_PROP_DATA_TYPE } from './../interfaces/page.interface';
+import { PAGE_PROP_DATA_TYPE } from '../interfaces/page.interface';
 import {
   COMPONENT_PROP_TYPE,
   COMPONENT_TYPE,
   IComponent,
   COL,
   ACTION_TYPE,
-} from './../interfaces/component.interface';
-import { IApplication } from './../interfaces/application.interface';
+} from '../interfaces/component.interface';
+import { IApplication } from '../interfaces/application.interface';
 // import '../../../node_modules/@popperjs/core/dist/umd/popper.min.js';
 
 export const UIStudioComponents = (action: 'before' | 'after' | 'inside') => {
