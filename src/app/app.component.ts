@@ -151,9 +151,14 @@ export class AppComponent {
     this.mouseEventForComponentEdit = event;
   }
   addComponent(value: IAddComponentValueObject): void {
+    let config: IComponent;
     switch (value.componentName) {
       case 'ALERT':
-        const config: IComponent = AlertMockData();
+        config = AlertMockData();
+        this.addNewComponent(value, config);
+        break;
+      case 'ACCORDION':
+        config = AccordionMockData();
         this.addNewComponent(value, config);
         break;
 

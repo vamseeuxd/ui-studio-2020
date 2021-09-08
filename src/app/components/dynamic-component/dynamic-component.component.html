@@ -73,6 +73,7 @@
 <app-action-context-menu
   appKeepElementInViewport
   [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
+  [addComponentContextMenu]="component?.addComponentContextMenu"
   [component]="component"
   [leftAlign]="contextMenuLeftAlign"
   (action)="onAction($event)"

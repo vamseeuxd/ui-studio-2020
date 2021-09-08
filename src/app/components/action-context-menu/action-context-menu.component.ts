@@ -1,6 +1,6 @@
-import { UIStudioComponents } from '../../utilities/mock-data';
-import { IComponent } from '../../interfaces/component.interface';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {UIStudioComponents} from '../../utilities/mock-data';
+import {IComponent} from '../../interfaces/component.interface';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-action-context-menu',
@@ -10,10 +10,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ActionContextMenuComponent implements OnInit {
   @Input() component: IComponent | undefined;
   @Input() lastCopiedOrCutComponent: IComponent | undefined;
+  @Input() addComponentContextMenu: any;
   @Input() isPage = false;
   @Input() leftAlign = false;
-  @Output() action: EventEmitter<{ menu: any; event: MouseEvent }> =
-    new EventEmitter<{ menu: any; event: MouseEvent }>();
+  @Output() action: EventEmitter<{ menu: any; event: MouseEvent }> = new EventEmitter<{ menu: any; event: MouseEvent }>();
   activeMenu = '';
 
   menu: any[] = [
@@ -28,18 +28,18 @@ export class ActionContextMenuComponent implements OnInit {
           showValueInLabel: true,
           dataField: 'col',
           menu: [
-            { action: 'col-size', label: 'col-1' },
-            { action: 'col-size', label: 'col-2' },
-            { action: 'col-size', label: 'col-3' },
-            { action: 'col-size', label: 'col-4' },
-            { action: 'col-size', label: 'col-5' },
-            { action: 'col-size', label: 'col-6' },
-            { action: 'col-size', label: 'col-7' },
-            { action: 'col-size', label: 'col-8' },
-            { action: 'col-size', label: 'col-9' },
-            { action: 'col-size', label: 'col-10' },
-            { action: 'col-size', label: 'col-11' },
-            { action: 'col-size', label: 'col-12' },
+            {action: 'col-size', label: 'col-1'},
+            {action: 'col-size', label: 'col-2'},
+            {action: 'col-size', label: 'col-3'},
+            {action: 'col-size', label: 'col-4'},
+            {action: 'col-size', label: 'col-5'},
+            {action: 'col-size', label: 'col-6'},
+            {action: 'col-size', label: 'col-7'},
+            {action: 'col-size', label: 'col-8'},
+            {action: 'col-size', label: 'col-9'},
+            {action: 'col-size', label: 'col-10'},
+            {action: 'col-size', label: 'col-11'},
+            {action: 'col-size', label: 'col-12'},
           ],
         },
         {
@@ -48,18 +48,18 @@ export class ActionContextMenuComponent implements OnInit {
           showValueInLabel: true,
           dataField: 'col',
           menu: [
-            { action: 'col-size', label: 'col-xl-1' },
-            { action: 'col-size', label: 'col-xl-2' },
-            { action: 'col-size', label: 'col-xl-3' },
-            { action: 'col-size', label: 'col-xl-4' },
-            { action: 'col-size', label: 'col-xl-5' },
-            { action: 'col-size', label: 'col-xl-6' },
-            { action: 'col-size', label: 'col-xl-7' },
-            { action: 'col-size', label: 'col-xl-8' },
-            { action: 'col-size', label: 'col-xl-9' },
-            { action: 'col-size', label: 'col-xl-10' },
-            { action: 'col-size', label: 'col-xl-11' },
-            { action: 'col-size', label: 'col-xl-12' },
+            {action: 'col-size', label: 'col-xl-1'},
+            {action: 'col-size', label: 'col-xl-2'},
+            {action: 'col-size', label: 'col-xl-3'},
+            {action: 'col-size', label: 'col-xl-4'},
+            {action: 'col-size', label: 'col-xl-5'},
+            {action: 'col-size', label: 'col-xl-6'},
+            {action: 'col-size', label: 'col-xl-7'},
+            {action: 'col-size', label: 'col-xl-8'},
+            {action: 'col-size', label: 'col-xl-9'},
+            {action: 'col-size', label: 'col-xl-10'},
+            {action: 'col-size', label: 'col-xl-11'},
+            {action: 'col-size', label: 'col-xl-12'},
           ],
         },
         {
@@ -68,18 +68,18 @@ export class ActionContextMenuComponent implements OnInit {
           showValueInLabel: true,
           dataField: 'col',
           menu: [
-            { action: 'col-size', label: 'col-lg-1' },
-            { action: 'col-size', label: 'col-lg-2' },
-            { action: 'col-size', label: 'col-lg-3' },
-            { action: 'col-size', label: 'col-lg-4' },
-            { action: 'col-size', label: 'col-lg-5' },
-            { action: 'col-size', label: 'col-lg-6' },
-            { action: 'col-size', label: 'col-lg-7' },
-            { action: 'col-size', label: 'col-lg-8' },
-            { action: 'col-size', label: 'col-lg-9' },
-            { action: 'col-size', label: 'col-lg-10' },
-            { action: 'col-size', label: 'col-lg-11' },
-            { action: 'col-size', label: 'col-lg-12' },
+            {action: 'col-size', label: 'col-lg-1'},
+            {action: 'col-size', label: 'col-lg-2'},
+            {action: 'col-size', label: 'col-lg-3'},
+            {action: 'col-size', label: 'col-lg-4'},
+            {action: 'col-size', label: 'col-lg-5'},
+            {action: 'col-size', label: 'col-lg-6'},
+            {action: 'col-size', label: 'col-lg-7'},
+            {action: 'col-size', label: 'col-lg-8'},
+            {action: 'col-size', label: 'col-lg-9'},
+            {action: 'col-size', label: 'col-lg-10'},
+            {action: 'col-size', label: 'col-lg-11'},
+            {action: 'col-size', label: 'col-lg-12'},
           ],
         },
         {
@@ -88,18 +88,18 @@ export class ActionContextMenuComponent implements OnInit {
           showValueInLabel: true,
           dataField: 'col',
           menu: [
-            { action: 'col-size', label: 'col-md-1' },
-            { action: 'col-size', label: 'col-md-2' },
-            { action: 'col-size', label: 'col-md-3' },
-            { action: 'col-size', label: 'col-md-4' },
-            { action: 'col-size', label: 'col-md-5' },
-            { action: 'col-size', label: 'col-md-6' },
-            { action: 'col-size', label: 'col-md-7' },
-            { action: 'col-size', label: 'col-md-8' },
-            { action: 'col-size', label: 'col-md-9' },
-            { action: 'col-size', label: 'col-md-10' },
-            { action: 'col-size', label: 'col-md-11' },
-            { action: 'col-size', label: 'col-md-12' },
+            {action: 'col-size', label: 'col-md-1'},
+            {action: 'col-size', label: 'col-md-2'},
+            {action: 'col-size', label: 'col-md-3'},
+            {action: 'col-size', label: 'col-md-4'},
+            {action: 'col-size', label: 'col-md-5'},
+            {action: 'col-size', label: 'col-md-6'},
+            {action: 'col-size', label: 'col-md-7'},
+            {action: 'col-size', label: 'col-md-8'},
+            {action: 'col-size', label: 'col-md-9'},
+            {action: 'col-size', label: 'col-md-10'},
+            {action: 'col-size', label: 'col-md-11'},
+            {action: 'col-size', label: 'col-md-12'},
           ],
         },
         {
@@ -108,18 +108,18 @@ export class ActionContextMenuComponent implements OnInit {
           showValueInLabel: true,
           dataField: 'col',
           menu: [
-            { action: 'col-size', label: 'col-sm-1' },
-            { action: 'col-size', label: 'col-sm-2' },
-            { action: 'col-size', label: 'col-sm-3' },
-            { action: 'col-size', label: 'col-sm-4' },
-            { action: 'col-size', label: 'col-sm-5' },
-            { action: 'col-size', label: 'col-sm-6' },
-            { action: 'col-size', label: 'col-sm-7' },
-            { action: 'col-size', label: 'col-sm-8' },
-            { action: 'col-size', label: 'col-sm-9' },
-            { action: 'col-size', label: 'col-sm-10' },
-            { action: 'col-size', label: 'col-sm-11' },
-            { action: 'col-size', label: 'col-sm-12' },
+            {action: 'col-size', label: 'col-sm-1'},
+            {action: 'col-size', label: 'col-sm-2'},
+            {action: 'col-size', label: 'col-sm-3'},
+            {action: 'col-size', label: 'col-sm-4'},
+            {action: 'col-size', label: 'col-sm-5'},
+            {action: 'col-size', label: 'col-sm-6'},
+            {action: 'col-size', label: 'col-sm-7'},
+            {action: 'col-size', label: 'col-sm-8'},
+            {action: 'col-size', label: 'col-sm-9'},
+            {action: 'col-size', label: 'col-sm-10'},
+            {action: 'col-size', label: 'col-sm-11'},
+            {action: 'col-size', label: 'col-sm-12'},
           ],
         },
         {
@@ -128,18 +128,18 @@ export class ActionContextMenuComponent implements OnInit {
           showValueInLabel: true,
           dataField: 'col',
           menu: [
-            { action: 'col-size', label: 'col-xs-1' },
-            { action: 'col-size', label: 'col-xs-2' },
-            { action: 'col-size', label: 'col-xs-3' },
-            { action: 'col-size', label: 'col-xs-4' },
-            { action: 'col-size', label: 'col-xs-5' },
-            { action: 'col-size', label: 'col-xs-6' },
-            { action: 'col-size', label: 'col-xs-7' },
-            { action: 'col-size', label: 'col-xs-8' },
-            { action: 'col-size', label: 'col-xs-9' },
-            { action: 'col-size', label: 'col-xs-10' },
-            { action: 'col-size', label: 'col-xs-11' },
-            { action: 'col-size', label: 'col-xs-12' },
+            {action: 'col-size', label: 'col-xs-1'},
+            {action: 'col-size', label: 'col-xs-2'},
+            {action: 'col-size', label: 'col-xs-3'},
+            {action: 'col-size', label: 'col-xs-4'},
+            {action: 'col-size', label: 'col-xs-5'},
+            {action: 'col-size', label: 'col-xs-6'},
+            {action: 'col-size', label: 'col-xs-7'},
+            {action: 'col-size', label: 'col-xs-8'},
+            {action: 'col-size', label: 'col-xs-9'},
+            {action: 'col-size', label: 'col-xs-10'},
+            {action: 'col-size', label: 'col-xs-11'},
+            {action: 'col-size', label: 'col-xs-12'},
           ],
         },
       ],
@@ -155,115 +155,115 @@ export class ActionContextMenuComponent implements OnInit {
         {
           label: 'All',
           menu: [
-            { action: 'offset-size', label: 'offset-0' },
-            { action: 'offset-size', label: 'offset-1' },
-            { action: 'offset-size', label: 'offset-2' },
-            { action: 'offset-size', label: 'offset-3' },
-            { action: 'offset-size', label: 'offset-4' },
-            { action: 'offset-size', label: 'offset-5' },
-            { action: 'offset-size', label: 'offset-6' },
-            { action: 'offset-size', label: 'offset-7' },
-            { action: 'offset-size', label: 'offset-8' },
-            { action: 'offset-size', label: 'offset-9' },
-            { action: 'offset-size', label: 'offset-10' },
-            { action: 'offset-size', label: 'offset-11' },
-            { action: 'offset-size', label: 'offset-12' },
+            {action: 'offset-size', label: 'offset-0'},
+            {action: 'offset-size', label: 'offset-1'},
+            {action: 'offset-size', label: 'offset-2'},
+            {action: 'offset-size', label: 'offset-3'},
+            {action: 'offset-size', label: 'offset-4'},
+            {action: 'offset-size', label: 'offset-5'},
+            {action: 'offset-size', label: 'offset-6'},
+            {action: 'offset-size', label: 'offset-7'},
+            {action: 'offset-size', label: 'offset-8'},
+            {action: 'offset-size', label: 'offset-9'},
+            {action: 'offset-size', label: 'offset-10'},
+            {action: 'offset-size', label: 'offset-11'},
+            {action: 'offset-size', label: 'offset-12'},
           ],
         },
         {
           icon: 'fa fa-film',
           label: 'Extra Large',
           menu: [
-            { action: 'offset-size', label: 'offset-xl-0' },
-            { action: 'offset-size', label: 'offset-xl-1' },
-            { action: 'offset-size', label: 'offset-xl-2' },
-            { action: 'offset-size', label: 'offset-xl-3' },
-            { action: 'offset-size', label: 'offset-xl-4' },
-            { action: 'offset-size', label: 'offset-xl-5' },
-            { action: 'offset-size', label: 'offset-xl-6' },
-            { action: 'offset-size', label: 'offset-xl-7' },
-            { action: 'offset-size', label: 'offset-xl-8' },
-            { action: 'offset-size', label: 'offset-xl-9' },
-            { action: 'offset-size', label: 'offset-xl-10' },
-            { action: 'offset-size', label: 'offset-xl-11' },
-            { action: 'offset-size', label: 'offset-xl-12' },
+            {action: 'offset-size', label: 'offset-xl-0'},
+            {action: 'offset-size', label: 'offset-xl-1'},
+            {action: 'offset-size', label: 'offset-xl-2'},
+            {action: 'offset-size', label: 'offset-xl-3'},
+            {action: 'offset-size', label: 'offset-xl-4'},
+            {action: 'offset-size', label: 'offset-xl-5'},
+            {action: 'offset-size', label: 'offset-xl-6'},
+            {action: 'offset-size', label: 'offset-xl-7'},
+            {action: 'offset-size', label: 'offset-xl-8'},
+            {action: 'offset-size', label: 'offset-xl-9'},
+            {action: 'offset-size', label: 'offset-xl-10'},
+            {action: 'offset-size', label: 'offset-xl-11'},
+            {action: 'offset-size', label: 'offset-xl-12'},
           ],
         },
         {
           icon: 'fa fa-desktop',
           label: 'Large',
           menu: [
-            { action: 'offset-size', label: 'offset-lg-0' },
-            { action: 'offset-size', label: 'offset-lg-1' },
-            { action: 'offset-size', label: 'offset-lg-1' },
-            { action: 'offset-size', label: 'offset-lg-2' },
-            { action: 'offset-size', label: 'offset-lg-3' },
-            { action: 'offset-size', label: 'offset-lg-4' },
-            { action: 'offset-size', label: 'offset-lg-5' },
-            { action: 'offset-size', label: 'offset-lg-6' },
-            { action: 'offset-size', label: 'offset-lg-7' },
-            { action: 'offset-size', label: 'offset-lg-8' },
-            { action: 'offset-size', label: 'offset-lg-9' },
-            { action: 'offset-size', label: 'offset-lg-10' },
-            { action: 'offset-size', label: 'offset-lg-11' },
-            { action: 'offset-size', label: 'offset-lg-12' },
+            {action: 'offset-size', label: 'offset-lg-0'},
+            {action: 'offset-size', label: 'offset-lg-1'},
+            {action: 'offset-size', label: 'offset-lg-1'},
+            {action: 'offset-size', label: 'offset-lg-2'},
+            {action: 'offset-size', label: 'offset-lg-3'},
+            {action: 'offset-size', label: 'offset-lg-4'},
+            {action: 'offset-size', label: 'offset-lg-5'},
+            {action: 'offset-size', label: 'offset-lg-6'},
+            {action: 'offset-size', label: 'offset-lg-7'},
+            {action: 'offset-size', label: 'offset-lg-8'},
+            {action: 'offset-size', label: 'offset-lg-9'},
+            {action: 'offset-size', label: 'offset-lg-10'},
+            {action: 'offset-size', label: 'offset-lg-11'},
+            {action: 'offset-size', label: 'offset-lg-12'},
           ],
         },
         {
           icon: 'fa fa-laptop',
           label: 'Medium',
           menu: [
-            { action: 'offset-size', label: 'offset-md-0' },
-            { action: 'offset-size', label: 'offset-md-1' },
-            { action: 'offset-size', label: 'offset-md-2' },
-            { action: 'offset-size', label: 'offset-md-3' },
-            { action: 'offset-size', label: 'offset-md-4' },
-            { action: 'offset-size', label: 'offset-md-5' },
-            { action: 'offset-size', label: 'offset-md-6' },
-            { action: 'offset-size', label: 'offset-md-7' },
-            { action: 'offset-size', label: 'offset-md-8' },
-            { action: 'offset-size', label: 'offset-md-9' },
-            { action: 'offset-size', label: 'offset-md-10' },
-            { action: 'offset-size', label: 'offset-md-11' },
-            { action: 'offset-size', label: 'offset-md-12' },
+            {action: 'offset-size', label: 'offset-md-0'},
+            {action: 'offset-size', label: 'offset-md-1'},
+            {action: 'offset-size', label: 'offset-md-2'},
+            {action: 'offset-size', label: 'offset-md-3'},
+            {action: 'offset-size', label: 'offset-md-4'},
+            {action: 'offset-size', label: 'offset-md-5'},
+            {action: 'offset-size', label: 'offset-md-6'},
+            {action: 'offset-size', label: 'offset-md-7'},
+            {action: 'offset-size', label: 'offset-md-8'},
+            {action: 'offset-size', label: 'offset-md-9'},
+            {action: 'offset-size', label: 'offset-md-10'},
+            {action: 'offset-size', label: 'offset-md-11'},
+            {action: 'offset-size', label: 'offset-md-12'},
           ],
         },
         {
           icon: 'fa fa-tablet',
           label: 'Small',
           menu: [
-            { action: 'offset-size', label: 'offset-sm-0' },
-            { action: 'offset-size', label: 'offset-sm-1' },
-            { action: 'offset-size', label: 'offset-sm-2' },
-            { action: 'offset-size', label: 'offset-sm-3' },
-            { action: 'offset-size', label: 'offset-sm-4' },
-            { action: 'offset-size', label: 'offset-sm-5' },
-            { action: 'offset-size', label: 'offset-sm-6' },
-            { action: 'offset-size', label: 'offset-sm-7' },
-            { action: 'offset-size', label: 'offset-sm-8' },
-            { action: 'offset-size', label: 'offset-sm-9' },
-            { action: 'offset-size', label: 'offset-sm-10' },
-            { action: 'offset-size', label: 'offset-sm-11' },
-            { action: 'offset-size', label: 'offset-sm-12' },
+            {action: 'offset-size', label: 'offset-sm-0'},
+            {action: 'offset-size', label: 'offset-sm-1'},
+            {action: 'offset-size', label: 'offset-sm-2'},
+            {action: 'offset-size', label: 'offset-sm-3'},
+            {action: 'offset-size', label: 'offset-sm-4'},
+            {action: 'offset-size', label: 'offset-sm-5'},
+            {action: 'offset-size', label: 'offset-sm-6'},
+            {action: 'offset-size', label: 'offset-sm-7'},
+            {action: 'offset-size', label: 'offset-sm-8'},
+            {action: 'offset-size', label: 'offset-sm-9'},
+            {action: 'offset-size', label: 'offset-sm-10'},
+            {action: 'offset-size', label: 'offset-sm-11'},
+            {action: 'offset-size', label: 'offset-sm-12'},
           ],
         },
         {
           icon: 'fa fa-mobile',
           label: 'Extra Small',
           menu: [
-            { action: 'offset-size', label: 'offset-xs-0' },
-            { action: 'offset-size', label: 'offset-xs-1' },
-            { action: 'offset-size', label: 'offset-xs-2' },
-            { action: 'offset-size', label: 'offset-xs-3' },
-            { action: 'offset-size', label: 'offset-xs-4' },
-            { action: 'offset-size', label: 'offset-xs-5' },
-            { action: 'offset-size', label: 'offset-xs-6' },
-            { action: 'offset-size', label: 'offset-xs-7' },
-            { action: 'offset-size', label: 'offset-xs-8' },
-            { action: 'offset-size', label: 'offset-xs-9' },
-            { action: 'offset-size', label: 'offset-xs-10' },
-            { action: 'offset-size', label: 'offset-xs-11' },
-            { action: 'offset-size', label: 'offset-xs-12' },
+            {action: 'offset-size', label: 'offset-xs-0'},
+            {action: 'offset-size', label: 'offset-xs-1'},
+            {action: 'offset-size', label: 'offset-xs-2'},
+            {action: 'offset-size', label: 'offset-xs-3'},
+            {action: 'offset-size', label: 'offset-xs-4'},
+            {action: 'offset-size', label: 'offset-xs-5'},
+            {action: 'offset-size', label: 'offset-xs-6'},
+            {action: 'offset-size', label: 'offset-xs-7'},
+            {action: 'offset-size', label: 'offset-xs-8'},
+            {action: 'offset-size', label: 'offset-xs-9'},
+            {action: 'offset-size', label: 'offset-xs-10'},
+            {action: 'offset-size', label: 'offset-xs-11'},
+            {action: 'offset-size', label: 'offset-xs-12'},
           ],
         },
       ],
@@ -498,7 +498,7 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Offset Size Menu -------------------- */
 
     /* -------------------- Add Component Menu -------------------- */
-    {
+    /*{
       icon: 'fa fa-plus',
       action: 'add',
       label: 'Add Component',
@@ -555,7 +555,7 @@ export class ActionContextMenuComponent implements OnInit {
           label: 'Data Grid',
         },
       ],
-    },
+    },*/
     /* -------------------- Add Component Menu -------------------- */
 
     /* -------------------- Delete Component Menu -------------------- */
@@ -643,7 +643,7 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Cancel Component Menu -------------------- */
 
     /* -------------------- Manage Pages Menu -------------------- */
-    { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages' },
+    {icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages'},
     /* -------------------- Manage Pages Menu -------------------- */
 
     /* -------------------- Manage Properties Menu -------------------- */
@@ -658,16 +658,11 @@ export class ActionContextMenuComponent implements OnInit {
     /* -------------------- Manage API Menu -------------------- */
   ];
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit(): void {
-    if (this.component && this.component.isGroupComponent) {
-      const addMenu = this.menu.find((menu) => menu.action == 'add');
-      const addSubMenu = addMenu.menu.find(
-        (menu: { hideMenuIfPage: any; label: string; }) => menu.hideMenuIfPage && menu.label == 'Add Inside'
-      );
-      addSubMenu.menu = [];
-    }
+    this.menu.splice(3, 0, this.addComponentContextMenu);
   }
 
   onItemClick(item: { menu: any; event: MouseEvent }): void {

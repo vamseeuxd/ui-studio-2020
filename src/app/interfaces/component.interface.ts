@@ -169,6 +169,12 @@ export interface IComponent {
   props?: IComponentProp[];
   events?: IEvent[];
   components: any[];
+  addComponentContextMenu?: {
+    icon: string,
+    action: string,
+    label: string,
+    menu: any[];
+  }
 }
 
 export interface IComponentProp {
@@ -180,6 +186,7 @@ export interface IComponentProp {
   propType: COMPONENT_PROP_TYPE;
   dataProvider?: { label: string; value: any }[];
 }
+
 export interface IEvent {
   name: string;
   label: string;

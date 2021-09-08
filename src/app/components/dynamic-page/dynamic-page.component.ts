@@ -1,9 +1,9 @@
-import { IApplication } from '../../interfaces/application.interface';
-import { ADD_OR_PASTE_WHERE } from '../../interfaces/paster-where-enum';
-import { IAddComponentValueObject } from '../../interfaces/add-component-vo';
-import { ICutCopyPateValueObject } from '../../interfaces/cut-copy-paste-vo';
-import { IComponent } from '../../interfaces/component.interface';
-import { IPage } from '../../interfaces/page.interface';
+import {IApplication} from '../../interfaces/application.interface';
+import {ADD_OR_PASTE_WHERE} from '../../interfaces/paster-where-enum';
+import {IAddComponentValueObject} from '../../interfaces/add-component-vo';
+import {ICutCopyPateValueObject} from '../../interfaces/cut-copy-paste-vo';
+import {IComponent} from '../../interfaces/component.interface';
+import {IPage} from '../../interfaces/page.interface';
 import {
   Component,
   ElementRef,
@@ -13,6 +13,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {allWrapperComponents, wrapperComponentsMainMenu} from "../../utilities/wrapper-component-menu-utilities";
 
 @Component({
   selector: 'app-dynamic-page',
@@ -28,31 +29,23 @@ export class DynamicPageComponent implements OnInit {
   @Input() activePageId = '';
   @Input() app: IApplication | undefined;
   @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
-  @Output() copy: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() cut: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() editComponent: EventEmitter<{
-    component: IComponent;
-    event: MouseEvent;
-  }> = new EventEmitter<{
-    component: IComponent;
-    event: MouseEvent;
-  }>();
-  @Output() addComponent: EventEmitter<IAddComponentValueObject> =
-    new EventEmitter<IAddComponentValueObject>();
+  @Output() copy: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() cut: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() editComponent: EventEmitter<{ component: IComponent; event: MouseEvent; }> = new EventEmitter<{ component: IComponent; event: MouseEvent; }>();
+  @Output() addComponent: EventEmitter<IAddComponentValueObject> = new EventEmitter<IAddComponentValueObject>();
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
   @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
+  addComponentContextMenu = wrapperComponentsMainMenu(
+    allWrapperComponents('inside-page'),
+    allWrapperComponents('before'),
+    allWrapperComponents('after'),
+    allWrapperComponents('inside'),
+  );
 
   showContextMenu = false;
   contextMenuPageX = 884;
@@ -80,15 +73,17 @@ export class DynamicPageComponent implements OnInit {
   // tslint:disable-next-line:typedef
   windowClick($event: MouseEvent) {
     // this.showContextMenu = false;
-    const hostElement: HTMLElement = this.hostElement.nativeElement.getElementsByTagName( 'app-action-context-menu' )[0];
-    if ( !( $event && $event.target && hostElement && hostElement.contains($event.target as HTMLElement) ) ) {
+    const hostElement: HTMLElement = this.hostElement.nativeElement.getElementsByTagName('app-action-context-menu')[0];
+    if (!($event && $event.target && hostElement && hostElement.contains($event.target as HTMLElement))) {
       this.showContextMenu = false;
     }
   }
 
-  constructor(private hostElement: ElementRef) {}
+  constructor(private hostElement: ElementRef) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   updateContextMenuPosition($event: MouseEvent) {
     $event.preventDefault();
@@ -101,16 +96,16 @@ export class DynamicPageComponent implements OnInit {
   }
 
   onAction({
-    menu: { action, label },
-    event,
-  }: {
+             menu: {action, label},
+             event,
+           }: {
     menu: any;
     event: MouseEvent;
   }): void {
     switch (action) {
       case 'paste-cancel':
         // @ts-ignore
-        this.pasteCancel.emit({ component: null, parent: null });
+        this.pasteCancel.emit({component: null, parent: null});
         break;
       case 'add-alert-inside-page':
         this.addComponent.emit({

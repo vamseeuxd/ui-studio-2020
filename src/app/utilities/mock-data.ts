@@ -1,4 +1,4 @@
-import { PAGE_PROP_DATA_TYPE } from '../interfaces/page.interface';
+import {PAGE_PROP_DATA_TYPE} from '../interfaces/page.interface';
 import {
   COMPONENT_PROP_TYPE,
   COMPONENT_TYPE,
@@ -6,28 +6,20 @@ import {
   COL,
   ACTION_TYPE,
 } from '../interfaces/component.interface';
-import { IApplication } from '../interfaces/application.interface';
-// import '../../../node_modules/@popperjs/core/dist/umd/popper.min.js';
+import {IApplication} from '../interfaces/application.interface';
+import {
+  accordionWrapperComponentsMenu,
+  allWrapperComponents,
+  wrapperComponentsMainMenu
+} from "./wrapper-component-menu-utilities";
 
 export const UIStudioComponents = (action: 'before' | 'after' | 'inside') => {
   return [
-    {
-      icon: 'fa fa-exclamation-triangle',
-      action: 'add-alert-' + action,
-      label: 'Alert',
-    },
-    {
-      icon: 'fa fa-list',
-      action: 'add-accordion-' + action,
-      label: 'Accordion',
-    },
-    { icon: 'fa fa-ellipsis-h', action: 'add-tab-' + action, label: 'Tab' },
-    {
-      icon: 'fa fa-address-card-o',
-      action: 'add-form-' + action,
-      label: 'Form',
-    },
-    { icon: 'fa fa-table', action: 'add-data-grid', label: 'Data Grid' },
+    {icon: 'fa fa-exclamation-triangle', action: 'add-alert-' + action, label: 'Alert'},
+    {icon: 'fa fa-list', action: 'add-accordion-' + action, label: 'Accordion'},
+    {icon: 'fa fa-ellipsis-h', action: 'add-tab-' + action, label: 'Tab'},
+    {icon: 'fa fa-address-card-o', action: 'add-form-' + action, label: 'Form',},
+    {icon: 'fa fa-table', action: 'add-data-grid', label: 'Data Grid'},
   ];
 };
 
@@ -47,6 +39,12 @@ export const AlertMockData = (): IComponent => {
     isCut: false,
     type: COMPONENT_TYPE.ALERT,
     components: [],
+    addComponentContextMenu: wrapperComponentsMainMenu(
+      allWrapperComponents('inside-page'),
+      allWrapperComponents('before'),
+      allWrapperComponents('after'),
+      allWrapperComponents('inside'),
+    ),
     props: [
       {
         label: 'Alert Type',
@@ -56,12 +54,12 @@ export const AlertMockData = (): IComponent => {
         min: 0,
         max: 0,
         dataProvider: [
-          { label: 'Alert Danger', value: 'alert-danger' },
-          { label: 'Alert Success', value: 'alert-success' },
-          { label: 'Alert Warning', value: 'alert-warning' },
-          { label: 'Alert Primary', value: 'alert-primary' },
-          { label: 'Alert Info', value: 'alert-info' },
-          { label: 'Alert Secondary', value: 'alert-secondary' },
+          {label: 'Alert Danger', value: 'alert-danger'},
+          {label: 'Alert Success', value: 'alert-success'},
+          {label: 'Alert Warning', value: 'alert-warning'},
+          {label: 'Alert Primary', value: 'alert-primary'},
+          {label: 'Alert Info', value: 'alert-info'},
+          {label: 'Alert Secondary', value: 'alert-secondary'},
         ],
       },
       {
@@ -125,6 +123,12 @@ export const AccordionGroupMockData = (): IComponent => {
     isCopied: false,
     isCut: false,
     type: COMPONENT_TYPE.ACCORDION_GROUP,
+    addComponentContextMenu: wrapperComponentsMainMenu(
+      allWrapperComponents('inside-page'),
+      allWrapperComponents('before'),
+      allWrapperComponents('after'),
+      allWrapperComponents('inside'),
+    ),
     components: [
       AlertMockData(),
       AlertMockData(),
@@ -150,6 +154,12 @@ export const AccordionMockData = (): IComponent => {
     isCopied: false,
     isCut: false,
     type: COMPONENT_TYPE.ACCORDION,
+    addComponentContextMenu: wrapperComponentsMainMenu(
+      allWrapperComponents('inside-page'),
+      allWrapperComponents('before'),
+      allWrapperComponents('after'),
+      accordionWrapperComponentsMenu(),
+    ),
     components: [
       AccordionGroupMockData(),
       AccordionGroupMockData(),
@@ -164,12 +174,12 @@ export const AccordionMockData = (): IComponent => {
         min: 0,
         max: 0,
         dataProvider: [
-          { label: 'Alert Danger', value: 'alert-danger' },
-          { label: 'Alert Success', value: 'alert-success' },
-          { label: 'Alert Warning', value: 'alert-warning' },
-          { label: 'Alert Primary', value: 'alert-primary' },
-          { label: 'Alert Info', value: 'alert-info' },
-          { label: 'Alert Secondary', value: 'alert-secondary' },
+          {label: 'Alert Danger', value: 'alert-danger'},
+          {label: 'Alert Success', value: 'alert-success'},
+          {label: 'Alert Warning', value: 'alert-warning'},
+          {label: 'Alert Primary', value: 'alert-primary'},
+          {label: 'Alert Info', value: 'alert-info'},
+          {label: 'Alert Secondary', value: 'alert-secondary'},
         ],
       },
       {
