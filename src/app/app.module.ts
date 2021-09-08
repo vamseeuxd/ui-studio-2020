@@ -37,9 +37,11 @@ import { NumbersOnlyDirective } from './directives/numbersOnly/numbers-only.dire
 import { AlphaNumericOnlyDirective } from './directives/alphaNumericOnly/alpha-numeric-only.directive';
 import { ComponentPropertiesEditorComponent } from './components/component-properties-editor/component-properties-editor.component';
 import { CodingEditorComponent } from './components/coding-editor/coding-editor.component';
+import { AccordionWraperComponent } from './wraper-components/accordion-wraper/accordion-wraper.component';
+import { AccordionGroupWrapperComponent } from './wraper-components/accordion-group-wraper/accordion-group-wrapper.component';
 
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertiesEditorComponent, CodingEditorComponent],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWraperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertiesEditorComponent, CodingEditorComponent, AccordionWraperComponent, AccordionGroupWrapperComponent],
   imports: [
     FormsModule,
     BrowserModule,

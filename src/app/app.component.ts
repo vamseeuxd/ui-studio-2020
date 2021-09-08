@@ -1,6 +1,6 @@
 import { IAddComponentValueObject } from './interfaces/add-component-vo';
 import { ICutCopyPateValueObject } from './interfaces/cut-copy-paste-vo';
-import { applicationMockData, AlertMockData } from './utilities/mock-data';
+import { applicationMockData, AlertMockData, AccordionMockData } from './utilities/mock-data';
 import { IApplication } from './interfaces/application.interface';
 import { Component } from '@angular/core';
 import {
@@ -28,11 +28,12 @@ export class AppComponent {
   constructor() {
     if (this.app) {
       this.app.pages[0].components = [
-        AlertMockData('page_180'),
-        AlertMockData('page_180'),
-        AlertMockData('page_180'),
+        AlertMockData(),
+        AlertMockData(),
+        AlertMockData(),
+        AccordionMockData(),
       ];
-      this.app.pages[1].components = [AlertMockData('page_140')];
+      this.app.pages[1].components = [AlertMockData()];
     }
   }
   getActivePage(): any {

@@ -1,15 +1,4 @@
-<div
-  [style.width.%]="getPropValueByName('width')"
-  [class]="
-    'mt-3 alert text-truncate ' +
-    getPropValueByName('alertType') +
-    ' ' +
-    getUtilitClasses()
-  "
-  role="alert"
-  (click)="onClick($event, component?.events, 'click')"
->
-  {{ getPropValueByName("innterText") }}
+<accordion-group heading="Static Header"ng-container>
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"
   >
@@ -40,4 +29,5 @@
       ></app-dynamic-component>
     </div>
   </ng-container>
-</div>
+</accordion-group>
+

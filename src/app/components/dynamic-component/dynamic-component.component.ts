@@ -163,7 +163,7 @@ export class DynamicComponentComponent implements OnInit {
       ' ' +
       (this.showContextMenu ? 'border shadow border-danger' : '') +
       ' ' +
-      ' position-relative d-block'
+      ' position-relative'
     );
   }
 

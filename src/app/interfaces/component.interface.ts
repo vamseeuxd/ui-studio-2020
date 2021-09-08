@@ -1,5 +1,7 @@
 export enum COMPONENT_TYPE {
   ALERT = 'ALERT',
+  ACCORDION = 'ACCORDION',
+  ACCORDION_GROUP = 'ACCORDION_GROUP',
 }
 
 export enum OFFSET {
@@ -153,14 +155,15 @@ export enum COL {
 export interface IComponent {
   type: COMPONENT_TYPE;
   col: COL[];
-  borderAdditive : string[],
-  borderSubtractive : string[],
-  borderColor : string[],
-  borderWidth : string[],
-  borderRadius : string[],
-  borderSize : string[],
+  borderAdditive: string[];
+  borderSubtractive: string[];
+  borderColor: string[];
+  borderWidth: string[];
+  borderRadius: string[];
+  borderSize: string[];
   offset: OFFSET[];
   id: string;
+  isGroupComponent: boolean;
   isCopied: boolean;
   isCutted: boolean;
   props?: IComponentProp[];

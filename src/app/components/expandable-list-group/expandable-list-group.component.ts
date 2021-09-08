@@ -31,6 +31,7 @@ export class ExpandableListGroupComponent implements OnInit {
     borderSize : [],
     col: [COL.LG_12],
     id: '1.1',
+    isGroupComponent: false,
     isCopied: false,
     isCutted: false,
     type: COMPONENT_TYPE.ALERT,

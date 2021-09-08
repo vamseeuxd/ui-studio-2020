@@ -1,3 +1,4 @@
+import { UIStudioComponents } from './../../utilities/mock-data';
 import { IComponent } from '../../interfaces/component.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
@@ -11,7 +12,8 @@ export class ActionContextMenuComponent implements OnInit {
   @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
   @Input() isPage = false;
   @Input() leftAlign = false;
-  @Output() action: EventEmitter<{ menu: any; event: MouseEvent }> = new EventEmitter<{ menu: any; event: MouseEvent }>();
+  @Output() action: EventEmitter<{ menu: any; event: MouseEvent }> =
+    new EventEmitter<{ menu: any; event: MouseEvent }>();
   activeMenu = '';
 
   menu: any[] = [
@@ -279,78 +281,218 @@ export class ActionContextMenuComponent implements OnInit {
           label: 'Borders',
           menu: [
             {
-                hideMenuIspage: true,
-                label: 'Border Additive',
-                menu: [
-                  { action: 'border-additive', hideMenuIspage: true, label: 'border'},
-                  { action: 'border-additive', hideMenuIspage: true, label: 'border-top'},
-                  { action: 'border-additive', hideMenuIspage: true, label: 'border-end'},
-                  { action: 'border-additive', hideMenuIspage: true, label: 'border-bottom'},
-                  { action: 'border-additive', hideMenuIspage: true, label: 'border-start'}
-                ],
+              hideMenuIspage: true,
+              label: 'Border Additive',
+              menu: [
+                {
+                  action: 'border-additive',
+                  hideMenuIspage: true,
+                  label: 'border',
+                },
+                {
+                  action: 'border-additive',
+                  hideMenuIspage: true,
+                  label: 'border-top',
+                },
+                {
+                  action: 'border-additive',
+                  hideMenuIspage: true,
+                  label: 'border-end',
+                },
+                {
+                  action: 'border-additive',
+                  hideMenuIspage: true,
+                  label: 'border-bottom',
+                },
+                {
+                  action: 'border-additive',
+                  hideMenuIspage: true,
+                  label: 'border-start',
+                },
+              ],
             },
             {
-                hideMenuIspage: true,
-                label: 'Border Subtractive',
-                menu: [
-                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-0'},
-                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-top-0'},
-                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-end-0'},
-                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-bottom-0'},
-                  { action: 'border-subtractive', hideMenuIspage: true, label: 'border-start-0'}
-                ],
+              hideMenuIspage: true,
+              label: 'Border Subtractive',
+              menu: [
+                {
+                  action: 'border-subtractive',
+                  hideMenuIspage: true,
+                  label: 'border-0',
+                },
+                {
+                  action: 'border-subtractive',
+                  hideMenuIspage: true,
+                  label: 'border-top-0',
+                },
+                {
+                  action: 'border-subtractive',
+                  hideMenuIspage: true,
+                  label: 'border-end-0',
+                },
+                {
+                  action: 'border-subtractive',
+                  hideMenuIspage: true,
+                  label: 'border-bottom-0',
+                },
+                {
+                  action: 'border-subtractive',
+                  hideMenuIspage: true,
+                  label: 'border-start-0',
+                },
+              ],
             },
             {
-                hideMenuIspage: true,
-                label: 'Border Color',
-                menu: [
-                  { action: 'border-color', hideMenuIspage: true, label: 'border-primary'},
-                  { action: 'border-color', hideMenuIspage: true, label: 'border-secondary'},
-                  { action: 'border-color', hideMenuIspage: true, label: 'border-success'},
-                  { action: 'border-color', hideMenuIspage: true, label: 'border-danger'},
-                  { action: 'border-color', hideMenuIspage: true, label: 'border-warning'},
-                  { action: 'border-color', hideMenuIspage: true, label: 'border-info'},
-                  { action: 'border-color', hideMenuIspage: true, label: 'border-light'},
-                  { action: 'border-color', hideMenuIspage: true, label: 'border-dark'},
-                  { action: 'border-color', hideMenuIspage: true, label: 'border-white'},
-                ],
+              hideMenuIspage: true,
+              label: 'Border Color',
+              menu: [
+                {
+                  action: 'border-color',
+                  hideMenuIspage: true,
+                  label: 'border-primary',
+                },
+                {
+                  action: 'border-color',
+                  hideMenuIspage: true,
+                  label: 'border-secondary',
+                },
+                {
+                  action: 'border-color',
+                  hideMenuIspage: true,
+                  label: 'border-success',
+                },
+                {
+                  action: 'border-color',
+                  hideMenuIspage: true,
+                  label: 'border-danger',
+                },
+                {
+                  action: 'border-color',
+                  hideMenuIspage: true,
+                  label: 'border-warning',
+                },
+                {
+                  action: 'border-color',
+                  hideMenuIspage: true,
+                  label: 'border-info',
+                },
+                {
+                  action: 'border-color',
+                  hideMenuIspage: true,
+                  label: 'border-light',
+                },
+                {
+                  action: 'border-color',
+                  hideMenuIspage: true,
+                  label: 'border-dark',
+                },
+                {
+                  action: 'border-color',
+                  hideMenuIspage: true,
+                  label: 'border-white',
+                },
+              ],
             },
             {
-                hideMenuIspage: true,
-                label: 'Border Width',
-                menu: [
-                  { action: 'border-width', hideMenuIspage: true, label: 'border-1'},
-                  { action: 'border-width', hideMenuIspage: true, label: 'border-2'},
-                  { action: 'border-width', hideMenuIspage: true, label: 'border-3'},
-                  { action: 'border-width', hideMenuIspage: true, label: 'border-4'},
-                  { action: 'border-width', hideMenuIspage: true, label: 'border-5'}
-                ],
+              hideMenuIspage: true,
+              label: 'Border Width',
+              menu: [
+                {
+                  action: 'border-width',
+                  hideMenuIspage: true,
+                  label: 'border-1',
+                },
+                {
+                  action: 'border-width',
+                  hideMenuIspage: true,
+                  label: 'border-2',
+                },
+                {
+                  action: 'border-width',
+                  hideMenuIspage: true,
+                  label: 'border-3',
+                },
+                {
+                  action: 'border-width',
+                  hideMenuIspage: true,
+                  label: 'border-4',
+                },
+                {
+                  action: 'border-width',
+                  hideMenuIspage: true,
+                  label: 'border-5',
+                },
+              ],
             },
             {
-                hideMenuIspage: true,
-                label: 'Border Radius',
-                menu: [
-                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded'},
-                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-top'},
-                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-end'},
-                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-bottom'},
-                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-start'},
-                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-circle'},
-                  { action: 'border-radius', hideMenuIspage: true, label: 'rounded-pill'},
-                ],
+              hideMenuIspage: true,
+              label: 'Border Radius',
+              menu: [
+                {
+                  action: 'border-radius',
+                  hideMenuIspage: true,
+                  label: 'rounded',
+                },
+                {
+                  action: 'border-radius',
+                  hideMenuIspage: true,
+                  label: 'rounded-top',
+                },
+                {
+                  action: 'border-radius',
+                  hideMenuIspage: true,
+                  label: 'rounded-end',
+                },
+                {
+                  action: 'border-radius',
+                  hideMenuIspage: true,
+                  label: 'rounded-bottom',
+                },
+                {
+                  action: 'border-radius',
+                  hideMenuIspage: true,
+                  label: 'rounded-start',
+                },
+                {
+                  action: 'border-radius',
+                  hideMenuIspage: true,
+                  label: 'rounded-circle',
+                },
+                {
+                  action: 'border-radius',
+                  hideMenuIspage: true,
+                  label: 'rounded-pill',
+                },
+              ],
             },
             {
-                hideMenuIspage: true,
-                label: 'Border Size',
-                menu: [
-                  { action: 'border-size', hideMenuIspage: true, label: 'rounded-0'},
-                  { action: 'border-size', hideMenuIspage: true, label: 'rounded-1'},
-                  { action: 'border-size', hideMenuIspage: true, label: 'rounded-2'},
-                  { action: 'border-size', hideMenuIspage: true, label: 'rounded-3'},
-                ],
+              hideMenuIspage: true,
+              label: 'Border Size',
+              menu: [
+                {
+                  action: 'border-size',
+                  hideMenuIspage: true,
+                  label: 'rounded-0',
+                },
+                {
+                  action: 'border-size',
+                  hideMenuIspage: true,
+                  label: 'rounded-1',
+                },
+                {
+                  action: 'border-size',
+                  hideMenuIspage: true,
+                  label: 'rounded-2',
+                },
+                {
+                  action: 'border-size',
+                  hideMenuIspage: true,
+                  label: 'rounded-3',
+                },
+              ],
             },
-          ]
-        }
+          ],
+        },
       ],
     },
     /* -------------------- Offset Size Menu -------------------- */
@@ -366,51 +508,21 @@ export class ActionContextMenuComponent implements OnInit {
           hideMenuIspage: true,
           action: 'add-component',
           label: 'Add Before',
-          menu: [
-            { icon: 'fa fa-exclamation-triangle', action: 'add-alert-before', label: 'Alert' },
-            { icon: 'fa fa-list', action: 'add-accordion-before', label: 'Accordion' },
-            { icon: 'fa fa-ellipsis-h', action: 'add-tab-before', label: 'Tab' },
-            { icon: 'fa fa-address-card-o', action: 'add-form-before', label: 'Form' },
-            {
-              icon: 'fa fa-table',
-              action: 'add-data-grid',
-              label: 'Data Grid',
-            },
-          ],
+          menu: UIStudioComponents('before'),
         },
         {
           icon: 'fa fa-arrow-right',
           hideMenuIspage: true,
           action: 'add-component',
           label: 'Add After',
-          menu: [
-            { icon: 'fa fa-exclamation-triangle', action: 'add-alert-after', label: 'Alert' },
-            { icon: 'fa fa-list', action: 'add-accordion-after', label: 'Accordion' },
-            { icon: 'fa fa-ellipsis-h', action: 'add-tab-after', label: 'Tab' },
-            { icon: 'fa fa-address-card-o', action: 'add-form-after', label: 'Form' },
-            {
-              icon: 'fa fa-table',
-              action: 'add-data-grid',
-              label: 'Data Grid',
-            },
-          ],
+          menu: UIStudioComponents('after'),
         },
         {
           icon: 'fa fa-arrow-down',
           hideMenuIspage: true,
           action: 'add-component',
           label: 'Add Inside',
-          menu: [
-            { icon: 'fa fa-exclamation-triangle', action: 'add-alert-inside', label: 'Alert' },
-            { icon: 'fa fa-list', action: 'add-accordion-inside', label: 'Accordion' },
-            { icon: 'fa fa-ellipsis-h', action: 'add-tab-inside', label: 'Tab' },
-            { icon: 'fa fa-address-card-o', action: 'add-form-inside', label: 'Form' },
-            {
-              icon: 'fa fa-table',
-              action: 'add-data-grid',
-              label: 'Data Grid',
-            },
-          ],
+          menu: UIStudioComponents('inside'),
         },
         {
           showIfOnlyComponent: true,
@@ -544,12 +656,20 @@ export class ActionContextMenuComponent implements OnInit {
 
     /* -------------------- Manage API Menu -------------------- */
     /* -------------------- Manage API Menu -------------------- */
-
   ];
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.component && this.component.isGroupComponent) {
+      const addMenu = this.menu.find((menu) => menu.action == 'add');
+      const addSubMenu = addMenu.menu.find(
+        (menu: { hideMenuIspage: any; label: string; }) => menu.hideMenuIspage && menu.label == 'Add Inside'
+      );
+      addSubMenu.menu = [];
+      console.log(addSubMenu);
+    }
+  }
 
   onItemClick(item: { menu: any; event: MouseEvent }): void {
     this.action.emit(item);
