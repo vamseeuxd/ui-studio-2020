@@ -66,7 +66,7 @@ export const AlertMockData = (): IComponent => {
       },
       {
         label: 'Innter Text',
-        name: 'innterText',
+        name: 'innerText',
         min: 0,
         max: 0,
         value: 'simple danger alert',
@@ -174,7 +174,7 @@ export const AccordionMockData = (): IComponent => {
       },
       {
         label: 'Innter Text',
-        name: 'innterText',
+        name: 'innerText',
         min: 0,
         max: 0,
         value: 'simple danger alert',
