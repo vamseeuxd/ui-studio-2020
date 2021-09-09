@@ -1,8 +1,8 @@
-<accordion-group heading="Static Header"ng-container>
+<accordion-group [class.cut-or-copied]="isCutOrCopied" heading="Static Header"ng-container>
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"
   >
-    <div class="container-fluid">
+    <div class="row px-2">
       <app-dynamic-component
         [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
         [componentToEdit]="componentToEdit"

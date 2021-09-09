@@ -23,37 +23,22 @@ export class WrapperComponentBase {
   @Input() componentToEdit: IComponent | null = null;
   @Input() showManagePages = false;
   @Input() isModalWindow = false;
+  @Input() isCutOrCopied = false;
   @Input() activePageId = '';
   @Input() activePage: IPage | undefined = undefined;
   @Input() app: IApplication | undefined;
-  @Output() appChange: EventEmitter<IApplication> =
-    new EventEmitter<IApplication>();
-  @Output() activePageIdChange: EventEmitter<string> =
-    new EventEmitter<string>();
+  @Output() appChange: EventEmitter<IApplication> = new EventEmitter<IApplication>();
+  @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
   @Input() lastCopiedOrCutComponent: IComponent | undefined;
-  @Output() copy: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() cut: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() editComponent: EventEmitter<{
-    component: IComponent;
-    event: MouseEvent;
-  }> = new EventEmitter<{
-    component: IComponent;
-    event: MouseEvent;
-  }>();
-  @Output() addComponent: EventEmitter<IAddComponentValueObject> =
-    new EventEmitter<IAddComponentValueObject>();
+  @Output() copy: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() cut: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() editComponent: EventEmitter<{ component: IComponent; event: MouseEvent; }> = new EventEmitter<{ component: IComponent; event: MouseEvent; }>();
+  @Output() addComponent: EventEmitter<IAddComponentValueObject> = new EventEmitter<IAddComponentValueObject>();
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
   @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
   constructor(private modalService: BsModalService) {}
