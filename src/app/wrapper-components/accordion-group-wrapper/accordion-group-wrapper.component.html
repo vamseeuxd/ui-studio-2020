@@ -1,4 +1,5 @@
-<accordion-group [class.cut-or-copied]="isCutOrCopied || showContextMenu" heading="Static Header"ng-container>
+<accordion-group [class.cut-or-copied]="isCutOrCopied || showContextMenu" [class.is-cut]="isCutInProgress"
+                 [class.is-copied]="isCopyInProgress" class="position-relative" heading="Static Header"ng-container>
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"
   >

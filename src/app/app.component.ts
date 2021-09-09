@@ -106,10 +106,7 @@ export class AppComponent {
     }
     if (this.isCutInProgress() && this.lastCopiedOrCutComponent) {
       // @ts-ignore
-      const removeIndex = window._.findIndex(this.lastCopiedOrCutParent, [
-        'id',
-        this.lastCopiedOrCutComponent.id,
-      ]);
+      const removeIndex = window._.findIndex(this.lastCopiedOrCutParent, ['id', this.lastCopiedOrCutComponent.id,]);
       // @ts-ignore
       this.lastCopiedOrCutParent.splice(removeIndex, 1);
       cloned.id = oldId;

@@ -49,6 +49,14 @@ export class WrapperComponentBase {
     return !!this.lastCopiedOrCutComponent && this.component?.id == this.lastCopiedOrCutComponent.id
   }
 
+  get isCutInProgress(): boolean {
+    return !!(this.component && this.component.isCut)
+  }
+
+  get isCopyInProgress(): boolean {
+    return !!(this.component && this.component.isCopied)
+  }
+
   ngOnInit(): void {
   }
 
