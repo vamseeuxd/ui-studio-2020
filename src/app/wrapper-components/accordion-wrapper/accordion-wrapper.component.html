@@ -1,4 +1,4 @@
-<accordion class="d-block w-100" [isAnimated]="true" [closeOthers]="true">
+<accordion [class.cut-or-copied]="isCutOrCopied || showContextMenu" class="d-block w-100" [isAnimated]="true" [closeOthers]="true">
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"
   >

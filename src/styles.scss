@@ -34,7 +34,7 @@ $antcolor: red;
   }
 }
 
-.ants {
+/*.ants {
   background-image: linear-gradient(90deg, $antcolor 50%, transparent 50%),
   linear-gradient(90deg, $antcolor 50%, transparent 50%),
   linear-gradient(0, $antcolor 50%, transparent 50%),
@@ -42,10 +42,11 @@ $antcolor: red;
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
   background-size: $antlength $antwidth, $antlength $antwidth, $antwidth $antlength, $antwidth $antlength;
   animation: marching-ants 400ms infinite linear;
-}
+}*/
 
 .cut-or-copied {
   border: 2px dotted red !important;
+  box-sizing: border-box;
 }
 
 

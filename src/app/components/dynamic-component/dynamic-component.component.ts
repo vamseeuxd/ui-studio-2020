@@ -149,20 +149,16 @@ export class DynamicComponentComponent implements OnInit {
   }
 
   getColClasses(): string {
-    return (
-      (this.component && this.component.col.join(' ')) +
-      ' ' +
-      (this.component && this.component.offset.join(' ')) +
-      ' ' +
-      (this.lastCopiedOrCutComponent &&
-      this.component?.id == this.lastCopiedOrCutComponent.id
-        ? ' ants '
-        : '') +
-      ' ' +
-      (this.showContextMenu ? 'border shadow border-danger' : '') +
-      ' ' +
-      ' position-relative'
-    );
+    return `
+    position-relative
+    ${(this.component && this.component.col.join(' '))}
+    ${(this.component && this.component.offset.join(' '))}
+    `
+    /*return (
+      (this.component && this.component.col.join(' ')) + ' ' + (this.component && this.component.offset.join(' ')) + ' ' +
+      (this.lastCopiedOrCutComponent && this.component?.id == this.lastCopiedOrCutComponent.id ? ' ants ' : '') + ' ' +
+      (this.showContextMenu ? 'border shadow border-danger' : '') + ' ' + ' position-relative'
+    );*/
   }
 
   onAction({
@@ -259,27 +255,57 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'add-alert-before':
         this.component &&
-        this.addComponent.emit({component: this.component, parent: this.parentList, where: ADD_OR_PASTE_WHERE.BEFORE_COMPONENT, componentName: 'ALERT'});
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.BEFORE_COMPONENT,
+          componentName: 'ALERT'
+        });
         break;
       case 'add-alert-after':
         this.component &&
-        this.addComponent.emit({component: this.component, parent: this.parentList, where: ADD_OR_PASTE_WHERE.AFTER_COMPONENT, componentName: 'ALERT',});
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.AFTER_COMPONENT,
+          componentName: 'ALERT',
+        });
         break;
       case 'add-alert-inside':
         this.component &&
-        this.addComponent.emit({component: this.component, parent: this.parentList, where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT, componentName: 'ALERT',});
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT,
+          componentName: 'ALERT',
+        });
         break;
       case 'add-accordion-before':
         this.component &&
-        this.addComponent.emit({component: this.component, parent: this.parentList, where: ADD_OR_PASTE_WHERE.BEFORE_COMPONENT, componentName: 'ACCORDION'});
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.BEFORE_COMPONENT,
+          componentName: 'ACCORDION'
+        });
         break;
       case 'add-accordion-after':
         this.component &&
-        this.addComponent.emit({component: this.component, parent: this.parentList, where: ADD_OR_PASTE_WHERE.AFTER_COMPONENT, componentName: 'ACCORDION',});
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.AFTER_COMPONENT,
+          componentName: 'ACCORDION',
+        });
         break;
       case 'add-accordion-inside':
         this.component &&
-        this.addComponent.emit({component: this.component, parent: this.parentList, where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT, componentName: 'ACCORDION',});
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT,
+          componentName: 'ACCORDION',
+        });
         break;
       case 'manage-pages':
         this.managePages.emit();

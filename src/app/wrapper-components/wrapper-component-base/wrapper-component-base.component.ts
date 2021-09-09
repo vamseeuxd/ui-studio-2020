@@ -1,16 +1,16 @@
-import { IPage } from '../../interfaces/page.interface';
-import { IApplication } from '../../interfaces/application.interface';
-import { ICutCopyPateValueObject } from '../../interfaces/cut-copy-paste-vo';
-import { IAddComponentValueObject } from '../../interfaces/add-component-vo';
+import {IPage} from '../../interfaces/page.interface';
+import {IApplication} from '../../interfaces/application.interface';
+import {ICutCopyPateValueObject} from '../../interfaces/cut-copy-paste-vo';
+import {IAddComponentValueObject} from '../../interfaces/add-component-vo';
 import {
   ACTION_TYPE,
   IComponent,
   IEvent,
 } from '../../interfaces/component.interface';
-import { Input, Output, EventEmitter, Component } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { DynamicPageComponent } from 'src/app/components/dynamic-page/dynamic-page.component';
-import { Subscription } from 'rxjs';
+import {Input, Output, EventEmitter, Component} from '@angular/core';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {DynamicPageComponent} from 'src/app/components/dynamic-page/dynamic-page.component';
+import {Subscription} from 'rxjs';
 
 // noinspection AngularMissingOrInvalidDeclarationInModule
 @Component({
@@ -23,7 +23,7 @@ export class WrapperComponentBase {
   @Input() componentToEdit: IComponent | null = null;
   @Input() showManagePages = false;
   @Input() isModalWindow = false;
-  @Input() isCutOrCopied = false;
+  @Input() showContextMenu = false;
   @Input() activePageId = '';
   @Input() activePage: IPage | undefined = undefined;
   @Input() app: IApplication | undefined;
@@ -41,9 +41,16 @@ export class WrapperComponentBase {
   @Output() addComponent: EventEmitter<IAddComponentValueObject> = new EventEmitter<IAddComponentValueObject>();
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
   @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private modalService: BsModalService) {}
 
-  ngOnInit(): void {}
+  constructor(private modalService: BsModalService) {
+  }
+
+  get isCutOrCopied(): boolean {
+    return !!this.lastCopiedOrCutComponent && this.component?.id == this.lastCopiedOrCutComponent.id
+  }
+
+  ngOnInit(): void {
+  }
 
   getUtilitiesClasses(): string {
     if (this.component) {

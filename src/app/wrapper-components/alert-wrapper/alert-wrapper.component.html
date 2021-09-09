@@ -1,5 +1,6 @@
 <div
   [style.width.%]="getPropValueByName('width')"
+  [class.cut-or-copied]="isCutOrCopied || showContextMenu"
   [class]="
     'mt-3 alert text-truncate ' +
     getPropValueByName('alertType') +
