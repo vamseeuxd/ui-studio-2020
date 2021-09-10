@@ -2,17 +2,21 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ModalDirective} from "ngx-bootstrap/modal";
 
+export type TransactionType = 'income' | 'expenses' | 'savings';
+
 export interface ITransaction {
+  id: string;
   title: string;
   amount: number;
   category: string;
   for: string;
   payee: string;
+  userEmail: string;
   taxDeductionSection: string;
   startYear: number;
   startMonth: number;
   startDate: number;
-  type: 'income' | 'expenses' | 'savings';
+  type: TransactionType;
   noOfTimesRepeat: number;
   paidEmi: number;
   isSettled: boolean;
@@ -33,9 +37,11 @@ export class Transaction {
   }
 
   title: string = '';
+  id: string = '';
   amount: number = 0;
   category: string = '';
   for: string = '';
+  userEmail: string = '';
   taxDeductionSection: string = '';
   payee: string = '';
   startDate: number = 0;
@@ -43,15 +49,17 @@ export class Transaction {
   startYear: number = 0;
   noOfTimesRepeat = 0;
   paidEmi: number = 0;
-  type: 'income' | 'expenses' | 'savings' = 'expenses';
+  type: TransactionType = 'expenses';
   isSettled: boolean = false;
 
   constructor(data?: ITransaction) {
     if (data) {
+      this.id = data.id;
       this.title = data.title;
       this.amount = data.amount;
       this.category = data.category;
       this.for = data.for;
+      this.userEmail = data.userEmail;
       this.taxDeductionSection = data.for;
       this.payee = data.payee;
       this.startDate = data.startDate;
@@ -78,16 +86,6 @@ export class Transaction {
     }
     return this.startDate + "th";
   }
-
-  /*private monthDiff() {
-    const date1 = new Date(this.startYear, this.startMonth - 1, this.startDate);
-    const date2 = new Date(d2);
-    let months;
-    months = (date2.getFullYear() - date1.getFullYear()) * 12;
-    months -= date1.getMonth();
-    months += date2.getMonth();
-    return months <= 0 ? 0 : (months + 1);
-  }*/
 }
 
 @Component({
@@ -99,34 +97,26 @@ export class ManageTransactionsComponent implements OnInit {
   selectedDate = new Date();
   openMenu = false;
   currencyCode = 'INR';
-  selectedTab: 'income' | 'expenses' | 'savings' = 'expenses';
-  transactionSample: Transaction = new Transaction({
-    amount: 20000,
-    noOfTimesRepeat: 10,
-    startDate: 7,
-    startYear: 2021,
-    startMonth: 1,
-    category: 'Loan',
-    paidEmi: 5,
-    title: 'Home Loan',
-    isSettled: true,
-    type: 'expenses',
-    for: 'Home at Vizag',
-    taxDeductionSection: '02',
-    payee: '01',
-  });
+  selectedTab: TransactionType = 'expenses';
+  userEmail = '';
   defaultFormOptions = {
+    id: '',
     title: '',
-    amount: null,
+    amount: 0,
     category: '',
     for: '',
     payee: '02',
     taxDeductionSection: '02',
-    startDate: null,
+    startDate: new Date(),
     isSettled: false,
     noOfTimesRepeat: 0,
   }
-  transactions = []
+  transactionIdEditing = '';
+  transactions:ITransaction[] = [
+    {"id":"00001","userEmail":"vamsi.flex@gmail.com", "amount":3999,"noOfTimesRepeat":5,"startDate":10,"startYear":2021,"startMonth":9,"category":"Loan","paidEmi":0,"title":"Test 2","isSettled":true,"type":"expenses","for":"01","taxDeductionSection":"02","payee":"02"},
+    {"id":"00002","userEmail":"vamsi.flex@gmail.com", "amount":20000,"noOfTimesRepeat":60,"startDate":7,"startYear":2021,"startMonth":9,"category":"Loan","paidEmi":0,"title":"Test","isSettled":false,"type":"expenses","for":"01","taxDeductionSection":"02","payee":"02"}
+  ];
+
   manageCollectionTitle = 'Manage Expenses Categories';
   manageCollectionPlaceHolder = 'Expenses Category';
   manageCollectionItemEdit = '';
@@ -144,7 +134,6 @@ export class ManageTransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.manageCollectionArray = this.expensesCategories;
   }
 
   showManageCollectionModal(manageCollectionModal: ModalDirective, title: string, array: IDropDownOption[]) {
@@ -161,8 +150,10 @@ export class ManageTransactionsComponent implements OnInit {
     container.setViewMode('month');
   }
 
-  saveTransaction(transactionForm: NgForm, addOrEditTransactionModal: ModalDirective) {
+  async saveTransaction(transactionForm: NgForm, addOrEditTransactionModal: ModalDirective) {
+
     const newTransaction: ITransaction = {
+      id: this.transactionIdEditing.length === 0 ? new Date().getTime().toString() : this.transactionIdEditing,
       amount: transactionForm.value.amount,
       noOfTimesRepeat: transactionForm.value.noOfTimesRepeat,
       startDate: transactionForm.value.startDate.getDate(),
@@ -175,9 +166,21 @@ export class ManageTransactionsComponent implements OnInit {
       type: this.selectedTab,
       for: transactionForm.value.for,
       taxDeductionSection: transactionForm.value.taxDeductionSection,
+      userEmail:this.userEmail,
       payee: transactionForm.value.payee,
     };
-    console.log(newTransaction);
+    if(this.transactionIdEditing.length === 0) {
+      this.transactions.unshift(newTransaction);
+    }else{
+      this.transactions = this.transactions.map(transaction=>{
+        if(transaction.id === this.transactionIdEditing){
+          return newTransaction;
+        }
+        return  transaction;
+      });
+    }
+    transactionForm.resetForm({});
+    addOrEditTransactionModal.hide();
   }
 
   editCollectionItem(item: IDropDownOption, editInput: HTMLInputElement) {
@@ -214,6 +217,41 @@ export class ManageTransactionsComponent implements OnInit {
     if (isConfirm) {
       manageCollectionArray.splice(index, 1);
     }
+  }
+
+  editTransaction(addOrEditTransactionModal: ModalDirective, transaction: ITransaction) {
+    this.transactionIdEditing = transaction.id;
+    this.defaultFormOptions = {
+      id:transaction.id,
+      title: transaction.title,
+      amount: transaction.amount,
+      category: transaction.category,
+      for: transaction.for,
+      payee: transaction.payee,
+      taxDeductionSection: transaction.taxDeductionSection,
+      startDate: new Date(transaction.startYear,transaction.startMonth -1,transaction.startDate),
+      isSettled: transaction.isSettled,
+      noOfTimesRepeat: transaction.noOfTimesRepeat,
+    }
+    addOrEditTransactionModal.show();
+  }
+
+  addNewTransaction(addOrEditTransactionModal: ModalDirective) {
+    debugger;
+    this.transactionIdEditing = '';
+    this.defaultFormOptions = {
+      id: '',
+      title: '',
+      amount: 0,
+      category: '',
+      for: '',
+      payee: '',
+      taxDeductionSection: '',
+      startDate: new Date(),
+      isSettled: false,
+      noOfTimesRepeat: 0,
+    }
+    addOrEditTransactionModal.show();
   }
 }
 
