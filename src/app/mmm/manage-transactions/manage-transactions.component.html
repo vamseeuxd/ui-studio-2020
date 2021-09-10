@@ -1,0 +1,229 @@
+<nav class="navbar fixed-top navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Money Manager</a>
+  </div>
+</nav>
+<div class="container-fluid vw-100 pt-2 bg-light position-relative"
+     style="height: calc(100vh - 56px);margin-top: 56px;">
+  <tabset [justified]="true" class="d-flex flex-column-reverse">
+    <tab (selectTab)="selectedTab = 'expenses'" class="bg-white p-2 border border-top-0 position-relative"
+         style="height: calc(100vh - 75px)" heading="Expenses">
+      <ng-container *ngTemplateOutlet="tabHeader;context:{title:'Expenses',total:20000}"></ng-container>
+
+      <ul class="list-group mt-1 rounded-0"
+          style="overflow-x: hidden;overflow-y: auto;max-height: calc(100vh - 200px);">
+        <ng-container *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]">
+          <ng-container *ngTemplateOutlet="transactionTemplate;context:{transaction:transactionSample}"></ng-container>
+        </ng-container>
+      </ul>
+
+      <button (click)="addOrEditTransactionModal.show()"
+              class="btn-secondary btn position-fixed btn-lg rounded-circle shadow"
+              style="z-index: 1000;bottom: 80px;left: 40px;">
+        <i class="fa fa-plus"></i>
+      </button>
+
+    </tab>
+    <tab (selectTab)="selectedTab = 'income'" class="bg-white p-2 border border-top-0 position-relative"
+         style="height: calc(100vh - 75px)" heading="Income" id="tab1">
+      <ng-container *ngTemplateOutlet="tabHeader;context:{title:'Income',total:20000}"></ng-container>
+      <button (click)="addOrEditTransactionModal.show()"
+              class="btn-secondary btn position-fixed btn-lg rounded-circle shadow"
+              style="z-index: 1000;bottom: 80px;left: 40px;">
+        <i class="fa fa-plus"></i>
+      </button>
+    </tab>
+    <tab (selectTab)="selectedTab = 'savings'" class="bg-white p-2 border border-top-0 position-relative"
+         style="height: calc(100vh - 75px)" heading="Savings">
+      <ng-container *ngTemplateOutlet="tabHeader;context:{title:'Savings',total:20000}"></ng-container>
+      <button (click)="addOrEditTransactionModal.show()"
+              class="btn-secondary btn position-fixed btn-lg rounded-circle shadow"
+              style="z-index: 1000;bottom: 80px;left: 40px;">
+        <i class="fa fa-plus"></i>
+      </button>
+    </tab>
+  </tabset>
+
+  <div class="modal fade" bsModal #manageCollectionModal="bs-modal" [config]="{backdrop: 'static', show: true}"
+       tabindex="-1" role="dialog"
+       aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-static-name" class="modal-title pull-left">{{manageCollectionTitle}}</h4>
+          <button type="button" class="btn-close close pull-right" aria-label="Close"
+                  (click)="manageCollectionModal.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="height: calc(100vh - 85px)">
+
+
+          <ul class="list-group rounded-0">
+            <li class="list-group-item rounded-0">
+              <ul class="list-group rounded-0">
+                <li class="list-group-item border-0 rounded-0 p-0">
+                  <div class="input-group rounded-0">
+                    <input (keyup.enter)="addCollectionItem(newInput,manageCollectionArray)" #newInput type="text" class="form-control rounded-0" [placeholder]="manageCollectionPlaceHolder">
+                    <button (click)="addCollectionItem(newInput,manageCollectionArray)" class="btn btn-outline-secondary rounded-0" type="button">Add</button>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="list-group-item rounded-0">
+              <ul class="list-group rounded-0" style="overflow: hidden auto;max-height: calc(100vh - 190px);height: calc(100vh - 190px);">
+                <li class="list-group-item rounded-0" *ngFor="let item of manageCollectionArray;let ind = index">
+                  <div class="input-group rounded-0">
+                    <input [disabled]="!(manageCollectionItemEdit == item.id)" [value]="item.label" type="text"
+                           class="form-control rounded-0 bg-white border-0 ps-0"
+                           [class.bg-white]="!(manageCollectionItemEdit == item.id)"
+                           [class.border-0]="!(manageCollectionItemEdit == item.id)"
+                           [class.ps-0]="!(manageCollectionItemEdit == item.id)"
+                           #editInput
+                           (keyup.enter)="updateCollectionItem(editInput,manageCollectionArray,item)"
+                           [placeholder]="manageCollectionPlaceHolder">
+                    <button (click)="updateCollectionItem(editInput,manageCollectionArray,item)" *ngIf="(manageCollectionItemEdit == item.id)" class="btn btn-outline-secondary rounded-0" type="button"><i class="fa fa-save"></i></button>
+                    <button (click)="manageCollectionItemEdit = ''" *ngIf="manageCollectionItemEdit == item.id" class="btn btn-outline-dark rounded-0" type="button"><i class="fa fa-close"></i></button>
+                    <button (click)="deleteCollectionItem(item,manageCollectionArray,ind)" *ngIf="!(manageCollectionItemEdit == item.id)" class="btn btn-outline-danger rounded-0" type="button"><i class="fa fa-trash"></i></button>
+                    <button (click)="editCollectionItem(item,editInput)" *ngIf="!(manageCollectionItemEdit == item.id)" class="btn btn-outline-warning rounded-0" type="button"><i class="fa fa-pencil"></i></button>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" bsModal #addOrEditTransactionModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-static-name" class="modal-title float-start text-muted">Add New {{selectedTab | titlecase}}</h4>
+          <button type="button" class="btn-close close float-end" aria-label="Close" (click)="addOrEditTransactionModal.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="max-height: calc(100vh - 160px);overflow-x: hidden;overflow-y: auto;">
+          <form #transactionForm="ngForm">
+            <div class="mb-3">
+              <label class="form-label">{{selectedTab | titlecase}} Title <code>*</code></label>
+              <input autocomplete="off" required [ngModel]="defaultFormOptions.title" name="title" type="text" class="form-control" placeholder="{{selectedTab | titlecase}} Title">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{selectedTab | titlecase}} Amount <code>*</code></label>
+              <input required type="number" [ngModel]="defaultFormOptions.amount" name="amount" class="form-control" placeholder="{{selectedTab | titlecase}} Amount">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{selectedTab | titlecase}} category <code>*</code></label>
+              <select class="form-control" [ngModel]="defaultFormOptions.category" name="category">
+                <option [ngValue]="item.id" *ngFor="let item of expensesCategories">{{item.label}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{selectedTab | titlecase}} For <code>*</code></label>
+              <select class="form-control" [ngModel]="defaultFormOptions.for" name="for">
+                <option [ngValue]="item.id" *ngFor="let item of expensesFor">{{item.label}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">To Whom Paid <code>*</code></label>
+              <select class="form-control" [ngModel]="defaultFormOptions.payee" name="payee">
+                <option [ngValue]="item.id" *ngFor="let item of payees">{{item.label}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">tax Deduction Section</label>
+              <select class="form-control" [ngModel]="defaultFormOptions.taxDeductionSection" name="taxDeductionSection">
+                <option [ngValue]="item.id" *ngFor="let item of taxDeductionSections">{{item.label}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{selectedTab | titlecase}} Start Date <code>*</code></label>
+              <input type="text" required [bsConfig]="{containerClass:'theme-default',dateInputFormat: 'DD-MMMM-YYYY'}" bsDatepicker placement="top" readonly class="form-control bg-white" [ngModel]="defaultFormOptions.startDate" name="startDate" placeholder="{{selectedTab | titlecase}} Start Date">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Is {{selectedTab | titlecase}} Settled <code>*</code></label>
+              <select required class="form-control" [ngModel]="defaultFormOptions.isSettled" name="isSettled">
+                <option [ngValue]="false">No</option>
+                <option [ngValue]="true">Yes</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">No of times to repeat</label>
+              <input type="number" class="form-control" [ngModel]="defaultFormOptions.noOfTimesRepeat" name="noOfTimesRepeat" placeholder="No of times to repeat">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button (click)="saveTransaction(transactionForm,addOrEditTransactionModal)" [disabled]="transactionForm.invalid" class="btn btn-secondary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="side-menu" (click)="openMenu = false" *ngIf="openMenu">
+  <ul class="list-group shadow text-center" (click)="$event.stopPropagation()">
+    <li class="list-group-item border-bottom-0 pb-0 fw-bold text-secondary">vamsi.flex@gmail.com</li>
+    <li class="list-group-item pt-0 text-primary text-end">
+      <button class="btn btn-outline-secondary mt-2 btn-sm">SIGN-OUT</button>
+    </li>
+  </ul>
+  <ul class="list-group shadow" style="height: calc(100vh - 97px);max-height: calc(100vh - 97px);" (click)="$event.stopPropagation()">
+    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses Categories',expensesCategories)">Manage Expenses Categories</li>
+    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Income Categories',incomeCategories)">Manage Income Categories</li>
+    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Savings Categories',savingsCategories)">Manage Savings Categories</li>
+    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Payees',payees)">Manage Payees</li>
+    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Payers',payers)">Manage Payers</li>
+    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses For',expensesFor)">Manage Expenses For</li>
+    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Tax Deduction Sections',taxDeductionSections)">Manage Tax Deduction Sections</li>
+  </ul>
+</div>
+
+<ng-template let-transaction="transaction" #transactionTemplate>
+  <li class="list-group-item rounded-0 d-flex flex-column position-relative">
+    <div class="d-flex justify-content-between">
+      <span>
+        {{transaction.title}}
+        <span class="text-uppercase badge rounded-pill bg-secondary fw-bold"
+              style="font-size: 9px;">{{transaction.category}}</span>
+      </span>
+      <span>{{transaction.amount|currency:currencyCode}}</span>
+    </div>
+    <div class="d-flex justify-content-start">
+      <!--<span class="me-1" style="font-size: 12px;">{{transaction.category}}</span>-->
+      <span class="me-1" style="font-size: 12px;">for {{transaction.for}},</span>
+      <span class="me-1" style="font-size: 12px;">due on every month {{transaction.everyMonthOn}}.</span>
+    </div>
+    <div class="d-flex justify-content-start">
+      <span class="me-1" style="font-size: 12px;">paid {{transaction.paidEmi}}</span>
+      <span class="me-1" style="font-size: 12px;">out of {{transaction.noOfEmi}},</span>
+      <span class="me-1" style="font-size: 12px;">still {{transaction.pendingEmi}} are pending.</span>
+    </div>
+
+    <div type="button" class="btn btn-link me-0 mb-0 position-absolute bottom-0 end-0">
+      <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+      <button type="button" class="btn btn-outline-secondary btn-sm ms-2"><i class="fa fa-pencil"></i></button>
+    </div>
+  </li>
+</ng-template>
+
+<ng-template let-title="title" let-total="total" #tabHeader>
+  <div class="border-bottom m-0 p-0 pb-2 d-flex flex-row justify-content-between align-items-center">
+    <div>
+      <h5 class="p-0 m-0 text-muted d-inline me-2 ps-3">{{title}}</h5>
+      <input (onShown)="onOpenCalendar($event)"
+             [bsConfig]="{containerClass:'theme-default',startView: 'month',dateInputFormat: 'MMMM-YYYY'}"
+             [(ngModel)]="selectedDate" bsDatepicker style="width: 200px"
+             class="h5 text-muted border-0 d-inline p-0 m-0" readonly placeholder="Datepicker">
+      <h5 class="p-0 m-0 text-muted d-inline me-2 ps-3">Total : {{total|currency:currencyCode}}</h5>
+    </div>
+    <button class="btn-secondary btn btn-sm me-3" (click)="openMenu = true"><i class="fa fa-th"></i></button>
+  </div>
+</ng-template>

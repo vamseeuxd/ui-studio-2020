@@ -10,6 +10,7 @@
     "directive": "ng g directive directives/alphaNumericOnly/alphaNumericOnly",
     "main-component": "ng g c manage-pages",
     "component": "ng g c components/component-properties-editor",
+    "mmm-component": "ng g c mmm/manage-transactions",
     "wraperComponent": "ng g c wraper-components/accordion-group-wraper"
   },
   "private": true,

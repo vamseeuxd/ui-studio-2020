@@ -1,0 +1,59 @@
+:host {
+  ::ng-deep
+  .nav-tabs {
+    margin-top: -42px;
+    margin-left: 1px;
+    z-index: 1;
+    outline-color: transparent !important;
+    width: calc(100% - 2px);
+
+    * {
+      outline-color: transparent !important;
+    }
+
+    .nav-item {
+      .nav-link {
+        border: 1px solid #e9ecef;
+        border-radius: 0;
+        background-color: #f3f3f3;
+        color: #a5a5a5;
+
+        &.active {
+          border-top: none !important;
+          background-color: white;
+          color: #212529;
+        }
+      }
+
+      &:first-child {
+        .nav-link {
+          border-left: none !important;
+        }
+      }
+
+      &:last-child {
+        .nav-link {
+          border-right: none !important;
+        }
+      }
+    }
+  }
+
+  .side-menu {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.01);
+    .list-group{
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 300px;
+      padding: 8px;
+      border-radius: 0;
+      background-color: #f3f3f3;
+    }
+  }
+}

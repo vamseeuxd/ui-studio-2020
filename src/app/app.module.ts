@@ -8,7 +8,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { DatepickerModule } from 'ngx-bootstrap/datepicker';
+import {BsDatepickerModule, DatepickerModule} from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
@@ -39,9 +39,10 @@ import { ComponentPropertiesEditorComponent } from './components/component-prope
 import { CodingEditorComponent } from './components/coding-editor/coding-editor.component';
 import { AccordionWrapperComponent } from './wrapper-components/accordion-wrapper/accordion-wrapper.component';
 import { AccordionGroupWrapperComponent } from './wrapper-components/accordion-group-wrapper/accordion-group-wrapper.component';
+import { ManageTransactionsComponent } from './mmm/manage-transactions/manage-transactions.component';
 
 @NgModule({
-  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWrapperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertiesEditorComponent, CodingEditorComponent, AccordionWrapperComponent, AccordionGroupWrapperComponent],
+  declarations: [AppComponent, CreateOrImportApplicationComponent, DynamicPageComponent, DynamicComponentComponent, ActionContextMenuComponent, KeepElementInViewportDirective, ExpandableListGroupComponent, ExpandableListGroupItemComponent, AlertWrapperComponent, ComponentEditorComponent, ManagePagesComponent, NumbersOnlyDirective, AlphaNumericOnlyDirective, ComponentPropertiesEditorComponent, CodingEditorComponent, AccordionWrapperComponent, AccordionGroupWrapperComponent, ManageTransactionsComponent],
   imports: [
     FormsModule,
     BrowserModule,
@@ -65,6 +66,7 @@ import { AccordionGroupWrapperComponent } from './wrapper-components/accordion-g
     TimepickerModule.forRoot(),
     BrowserAnimationsModule,
     AngularDraggableModule,
+    BsDatepickerModule.forRoot(),
   ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],
