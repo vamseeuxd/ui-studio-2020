@@ -1,28 +1,61 @@
+<!--  ***************************** APP Header *****************************  -->
 <nav class="navbar fixed-top navbar-dark bg-dark">
-  <div class="container-fluid"><a class="navbar-brand" href="#">Money Manager</a></div>
+  <div class="container-fluid">
+    <a class="navbar-brand w-100 me-0">
+      <div class="d-flex">
+        <button class="btn btn-dark btn-sm" (click)="openMenu = true"><i class="fa fa-bars"></i></button>
+        <div class="d-flex align-items-center justify-content-center my-auto w-100">
+          <span class="border pe-3 border-0 border-end me-3 border-secondary ms-1">
+            <h5 class="m-0 p-0" (click)="mainDatePicker.click()">
+              {{selectedDate|date:'MMMM'}}
+              <!--<sup>{{selectedDate|date:'YYYY'}}</sup>-->
+              {{selectedDate|date:'YYYY'}}
+            </h5>
+            <input (onShown)="onOpenCalendar($event)" #mainDatePicker [bsConfig]="{containerClass:'theme-default',startView: 'month',dateInputFormat: 'MMMM-YYYY'}" [(ngModel)]="selectedDate" bsDatepicker style="opacity:0;pointer-events: none;position: absolute;width: 100px;left: calc(50% - 50px);" readonly placeholder="Datepicker">
+          </span>
+          <span class="1234">{{selectedTab | titlecase}}</span>
+        </div>
+        <button class="btn btn-dark btn-sm ms-auto" (click)="openMenu = true"><i class="fa fa-filter"></i></button>
+      </div>
+    </a>
+  </div>
 </nav>
-<div class="container-fluid vw-100 pt-2 bg-light position-relative" style="height: calc(100vh - 56px);margin-top: 56px;">
+<!--  ***************************** APP Header *****************************  -->
+
+
+<div (panright)="onSwipeRight($event)" class="container-fluid vw-100 pt-2 bg-light position-relative" style="height: calc(100vh - 56px);margin-top: 56px;">
+
+  <!--  ***************************** Main Tab Navigator *****************************  -->
   <tabset [justified]="true" class="d-flex flex-column-reverse">
+
+    <!--  ***************************** Expenses Tab *****************************  -->
     <tab (selectTab)="selectedTab = 'expenses'" class="bg-white p-2 border border-top-0 position-relative" style="height: calc(100vh - 75px)" heading="Expenses">
       <ng-container *ngTemplateOutlet="tabHeader;context:{title:'Expenses',total:20000}"></ng-container>
-      <ul class="list-group mt-1 rounded-0" style="overflow-x: hidden;overflow-y: auto;max-height: calc(100vh - 200px);">
-        <ng-container *ngFor="let transaction of transactions">
-          <ng-container *ngTemplateOutlet="transactionTemplate;context:{transaction:transaction}"></ng-container>
-        </ng-container>
+      <ul class="list-group mt-1 rounded-0" style="overflow-x: hidden;overflow-y: auto;max-height: calc(100vh - 180px);height: calc(100vh - 180px);">
+        <ng-container *ngFor="let transaction of transactions"><ng-container *ngTemplateOutlet="transactionTemplate;context:{transaction:transaction}"></ng-container></ng-container>
       </ul>
       <button (click)="addNewTransaction(addOrEditTransactionModal)" class="btn-secondary btn position-fixed btn-lg rounded-circle shadow" style="z-index: 1000;bottom: 80px;left: 40px;"><i class="fa fa-plus"></i></button>
     </tab>
+    <!--  ***************************** Expenses Tab *****************************  -->
+
+    <!--  ***************************** Income Tab *****************************  -->
     <tab (selectTab)="selectedTab = 'income'" class="bg-white p-2 border border-top-0 position-relative" style="height: calc(100vh - 75px)" heading="Income" id="tab1">
       <ng-container *ngTemplateOutlet="tabHeader;context:{title:'Income',total:20000}"></ng-container>
       <button (click)="addNewTransaction(addOrEditTransactionModal)" class="btn-secondary btn position-fixed btn-lg rounded-circle shadow" style="z-index: 1000;bottom: 80px;left: 40px;"><i class="fa fa-plus"></i></button>
     </tab>
+    <!--  ***************************** Income Tab *****************************  -->
+
+    <!--  ***************************** Savings Tab *****************************  -->
     <tab (selectTab)="selectedTab = 'savings'" class="bg-white p-2 border border-top-0 position-relative" style="height: calc(100vh - 75px)" heading="Savings">
       <ng-container *ngTemplateOutlet="tabHeader;context:{title:'Savings',total:20000}"></ng-container>
       <button (click)="addNewTransaction(addOrEditTransactionModal)" class="btn-secondary btn position-fixed btn-lg rounded-circle shadow" style="z-index: 1000;bottom: 80px;left: 40px;"><i class="fa fa-plus"></i></button>
     </tab>
+    <!--  ***************************** Savings Tab *****************************  -->
+
   </tabset>
+  <!--  ***************************** Main Tab Navigator *****************************  -->
 
-
+  <!--  ***************************** ADD or EDIT Transaction Modal *****************************  -->
   <div class="modal fade" bsModal #addOrEditTransactionModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
     <div class="modal-dialog modal-sm" *ngIf="addOrEditTransactionModal.isShown">
       <div class="modal-content">
@@ -46,7 +79,7 @@
             <div class="mb-3">
               <label class="form-label d-flex align-items-center">
                 {{selectedTab | titlecase}} category <code>*</code>
-                <button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses Categories',expensesCategories)">Manage Categories</button>
+               <!-- <button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses Categories',expensesCategories,'Expenses Category')">Manage Categories</button>-->
               </label>
               <select class="form-control" [ngModel]="defaultFormOptions.category" name="category">
                 <option [ngValue]="item.id" *ngFor="let item of expensesCategories">{{item.label}}</option>
@@ -55,7 +88,7 @@
             <div class="mb-3">
               <label class="form-label d-flex align-items-center">
                 {{selectedTab | titlecase}} For <code>*</code>
-                <button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses For',expensesFor)">Manage Expenses For</button>
+                <!--<button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses For',expensesFor,'Expenses For')">Manage Expenses For</button>-->
               </label>
               <select class="form-control" [ngModel]="defaultFormOptions.for" name="for">
                 <option [ngValue]="item.id" *ngFor="let item of expensesFor">{{item.label}}</option>
@@ -64,7 +97,7 @@
             <div class="mb-3">
               <label class="form-label d-flex align-items-center">
                 To Whom Paid <code>*</code>
-                <button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Payees',payees)">Manage Payees</button>
+                <!--<button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Payees',payees,'Payee')">Manage Payees</button>-->
               </label>
               <select class="form-control" [ngModel]="defaultFormOptions.payee" name="payee">
                 <option [ngValue]="item.id" *ngFor="let item of payees">{{item.label}}</option>
@@ -73,7 +106,7 @@
             <div class="mb-3">
               <label class="form-label d-flex align-items-center">
                 Tax Deduction Section
-                <button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Tax Deduction Sections',taxDeductionSections)">Manage Tax Sections</button>
+                <!--<button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Tax Deduction Sections',taxDeductionSections,'Tax Deduction Section')">Manage Tax Sections</button>-->
               </label>
               <select class="form-control" [ngModel]="defaultFormOptions.taxDeductionSection" name="taxDeductionSection">
                 <option [ngValue]="item.id" *ngFor="let item of taxDeductionSections">{{item.label}}</option>
@@ -91,8 +124,8 @@
               </select>
             </div>
             <div class="mb-3">
-              <label class="form-label">No of times to repeat</label>
-              <input type="number" class="form-control" [ngModel]="defaultFormOptions.noOfTimesRepeat" name="noOfTimesRepeat" placeholder="No of times to repeat">
+              <label class="form-label">No of Months to repeat</label>
+              <input type="number" class="form-control" min="1" [ngModel]="defaultFormOptions.noOfTimesRepeat" name="noOfTimesRepeat" placeholder="No of times to repeat">
             </div>
           </form>
         </div>
@@ -104,14 +137,18 @@
       </div>
     </div>
   </div>
+  <!--  ***************************** ADD or EDIT Transaction Modal *****************************  -->
 
-
+  <!--  ***************************** Manage Collection Modal *****************************  -->
   <div class="modal fade" bsModal #manageCollectionModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
           <h4 id="dialog-static-name" class="modal-title pull-left">{{manageCollectionTitle}}</h4>
-          <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="manageCollectionModal.hide()"><span aria-hidden="true" class="visually-hidden">&times;</span></button>
+          <button type="button" class="btn-close close pull-right" aria-label="Close"
+                  (click)="manageCollectionTitle = ''; manageCollectionArray = [];manageCollectionModal.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+          </button>
         </div>
         <div class="modal-body" style="height: calc(100vh - 85px)">
           <ul class="list-group rounded-0">
@@ -145,34 +182,37 @@
       </div>
     </div>
   </div>
-
+  <!--  ***************************** Manage Collection Modal *****************************  -->
 
 </div>
 
-<div class="side-menu" (click)="openMenu = false" *ngIf="openMenu">
+<!--  ***************************** App Side-Menu *****************************  -->
+<div class="side-menu" [class.open-menu]="openMenu" (click)="closeSideMenu()">
   <ul class="list-group shadow text-center" (click)="$event.stopPropagation()">
     <li class="list-group-item border-bottom-0 pb-0 fw-bold text-secondary">vamsi.flex@gmail.com</li>
     <li class="list-group-item pt-0 text-primary text-end"><button class="btn btn-outline-secondary mt-2 btn-sm">SIGN-OUT</button></li>
   </ul>
   <ul class="list-group shadow" style="height: calc(100vh - 97px);max-height: calc(100vh - 97px);" (click)="$event.stopPropagation()">
-    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses Categories',expensesCategories)">Manage Expenses Categories</li>
-    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Income Categories',incomeCategories)">Manage Income Categories</li>
-    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Savings Categories',savingsCategories)">Manage Savings Categories</li>
-    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Payees',payees)">Manage Payees</li>
-    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Payers',payers)">Manage Payers</li>
-    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses For',expensesFor)">Manage Expenses For</li>
-    <li class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Manage Tax Deduction Sections',taxDeductionSections)">Manage Tax Deduction Sections</li>
+    <li [class.active]="manageCollectionTitle == 'Expenses Categories'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Expenses Categories',expensesCategories, 'Expenses Category')">Manage Expenses Categories</li>
+    <li [class.active]="manageCollectionTitle == 'Income Categories'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Income Categories',incomeCategories, 'Income Category')">Manage Income Categories</li>
+    <li [class.active]="manageCollectionTitle == 'Savings Categories'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Savings Categories',savingsCategories, 'Savings Category')">Manage Savings Categories</li>
+    <li [class.active]="manageCollectionTitle == 'Payees'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Payees',payees,'Payee')">Manage Payees</li>
+    <li [class.active]="manageCollectionTitle == 'Payers'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Payers',payers,'Payer')">Manage Payers</li>
+    <li [class.active]="manageCollectionTitle == 'Expenses For'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Expenses For',expensesFor,'Expenses For')">Manage Expenses For</li>
+    <li [class.active]="manageCollectionTitle == 'Tax Deduction Sections'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Tax Deduction Sections',taxDeductionSections,'Tax Deduction Section')">Manage Tax Deduction Sections</li>
   </ul>
 </div>
+<!--  ***************************** App Side-Menu *****************************  -->
 
+<!--  ***************************** Transaction ITEM Template Reference *****************************  -->
 <ng-template let-transaction="transaction" #transactionTemplate>
   <li class="list-group-item rounded-0 d-flex flex-column position-relative mb-3 border-top shadow">
     <div class="d-flex justify-content-between">
-      <span>{{transaction.title}}<span class="text-uppercase badge rounded-pill bg-secondary fw-bold ms-1" style="font-size: 9px;">{{transaction.category}}</span></span>
+      <span>{{transaction.title}}<span class="text-uppercase badge rounded-pill bg-secondary fw-bold ms-1" style="font-size: 9px;">{{getLabelByList(transaction.category,expensesCategories)}}</span></span>
       <span class="fw-bold text-muted">{{transaction.amount|currency:currencyCode}}</span>
     </div>
     <div class="d-flex justify-content-start">
-      <span class="me-1" style="font-size: 12px;">for {{transaction.for}},</span>
+      <span class="me-1" style="font-size: 12px;">for {{getLabelByList(transaction.for,expensesFor)}},</span>
       <span class="me-1" style="font-size: 12px;">due on every month {{transaction.everyMonthOn}}.</span>
     </div>
     <div class="d-flex justify-content-start">
@@ -189,18 +229,20 @@
     </div>
   </li>
 </ng-template>
+<!--  ***************************** Transaction ITEM Template Reference *****************************  -->
 
+<!--  ***************************** TAB Header Template Reference *****************************  -->
 <ng-template let-title="title" let-total="total" #tabHeader>
   <div class="border-bottom m-0 p-0 pb-2 d-flex flex-row justify-content-between align-items-center">
-    <div>
-      <h5 class="p-0 m-0 text-muted d-inline me-2 ps-3">{{title}}</h5>
-      <input (onShown)="onOpenCalendar($event)"
-             [bsConfig]="{containerClass:'theme-default',startView: 'month',dateInputFormat: 'MMMM-YYYY'}"
-             [(ngModel)]="selectedDate" bsDatepicker style="width: 200px"
-             class="h5 text-muted border-0 d-inline p-0 m-0" readonly placeholder="Datepicker">
-      <h5 class="p-0 m-0 text-muted d-inline me-2 ps-3">Total : {{total|currency:currencyCode}}</h5>
+    <div class="d-flex w-100">
+      <h5 class="text-muted ps-2" (click)="mainDatePicker.click()">
+        {{selectedDate|date:'MMMM'}}
+        <sup>{{selectedDate|date:'YYYY'}}</sup>
+      </h5>
+      <input (onShown)="onOpenCalendar($event)" #mainDatePicker [bsConfig]="{containerClass:'theme-default',startView: 'month',dateInputFormat: 'MMMM-YYYY'}" [(ngModel)]="selectedDate" bsDatepicker style="opacity:0;pointer-events: none;position: absolute;width: 100px;left: calc(50% - 50px);" readonly placeholder="Datepicker">
+      <h4 class="ms-auto pe-2 text-muted">{{total|currency:currencyCode}}</h4>
     </div>
-    <button class="btn-secondary btn btn-sm me-3" (click)="openMenu = true"><i class="fa fa-th"></i></button>
   </div>
 </ng-template>
+<!--  ***************************** TAB Header Template Reference *****************************  -->
 

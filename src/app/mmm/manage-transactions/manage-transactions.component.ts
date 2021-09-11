@@ -112,13 +112,45 @@ export class ManageTransactionsComponent implements OnInit {
     noOfTimesRepeat: 0,
   }
   transactionIdEditing = '';
-  transactions:ITransaction[] = [
-    {"id":"00001","userEmail":"vamsi.flex@gmail.com", "amount":3999,"noOfTimesRepeat":5,"startDate":10,"startYear":2021,"startMonth":9,"category":"Loan","paidEmi":0,"title":"Test 2","isSettled":true,"type":"expenses","for":"01","taxDeductionSection":"02","payee":"02"},
-    {"id":"00002","userEmail":"vamsi.flex@gmail.com", "amount":20000,"noOfTimesRepeat":60,"startDate":7,"startYear":2021,"startMonth":9,"category":"Loan","paidEmi":0,"title":"Test","isSettled":false,"type":"expenses","for":"01","taxDeductionSection":"02","payee":"02"}
+  transactions: Transaction[] = [
+    new Transaction({
+      "id": "00001",
+      "userEmail": "vamsi.flex@gmail.com",
+      "amount": 3999,
+      "noOfTimesRepeat": 5,
+      "startDate": 10,
+      "startYear": 2021,
+      "startMonth": 9,
+      "category": "Loan",
+      "paidEmi": 0,
+      "title": "Test 2",
+      "isSettled": true,
+      "type": "expenses",
+      "for": "01",
+      "taxDeductionSection": "02",
+      "payee": "02"
+    }),
+    new Transaction({
+      "id": "00002",
+      "userEmail": "vamsi.flex@gmail.com",
+      "amount": 20000,
+      "noOfTimesRepeat": 60,
+      "startDate": 7,
+      "startYear": 2021,
+      "startMonth": 9,
+      "category": "Loan",
+      "paidEmi": 0,
+      "title": "Test",
+      "isSettled": false,
+      "type": "expenses",
+      "for": "01",
+      "taxDeductionSection": "02",
+      "payee": "02"
+    }),
   ];
 
-  manageCollectionTitle = 'Manage Expenses Categories';
-  manageCollectionPlaceHolder = 'Expenses Category';
+  manageCollectionTitle = '';
+  manageCollectionPlaceHolder = '';
   manageCollectionItemEdit = '';
   manageCollectionArray: IDropDownOption[] = [];
 
@@ -136,10 +168,11 @@ export class ManageTransactionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  showManageCollectionModal(manageCollectionModal: ModalDirective, title: string, array: IDropDownOption[]) {
+  showManageCollectionModal(manageCollectionModal: ModalDirective, title: string, array: IDropDownOption[], placeHolder: string) {
     this.openMenu = false;
     this.manageCollectionTitle = title;
     this.manageCollectionArray = array;
+    this.manageCollectionPlaceHolder = placeHolder;
     manageCollectionModal.show();
   }
 
@@ -166,17 +199,17 @@ export class ManageTransactionsComponent implements OnInit {
       type: this.selectedTab,
       for: transactionForm.value.for,
       taxDeductionSection: transactionForm.value.taxDeductionSection,
-      userEmail:this.userEmail,
+      userEmail: this.userEmail,
       payee: transactionForm.value.payee,
     };
-    if(this.transactionIdEditing.length === 0) {
-      this.transactions.unshift(newTransaction);
-    }else{
-      this.transactions = this.transactions.map(transaction=>{
-        if(transaction.id === this.transactionIdEditing){
-          return newTransaction;
+    if (this.transactionIdEditing.length === 0) {
+      this.transactions.unshift(new Transaction(newTransaction));
+    } else {
+      this.transactions = this.transactions.map(transaction => {
+        if (transaction.id === this.transactionIdEditing) {
+          return new Transaction(newTransaction);
         }
-        return  transaction;
+        return new Transaction(transaction);
       });
     }
     transactionForm.resetForm({});
@@ -222,14 +255,14 @@ export class ManageTransactionsComponent implements OnInit {
   editTransaction(addOrEditTransactionModal: ModalDirective, transaction: ITransaction) {
     this.transactionIdEditing = transaction.id;
     this.defaultFormOptions = {
-      id:transaction.id,
+      id: transaction.id,
       title: transaction.title,
       amount: transaction.amount,
       category: transaction.category,
       for: transaction.for,
       payee: transaction.payee,
       taxDeductionSection: transaction.taxDeductionSection,
-      startDate: new Date(transaction.startYear,transaction.startMonth -1,transaction.startDate),
+      startDate: new Date(transaction.startYear, transaction.startMonth - 1, transaction.startDate),
       isSettled: transaction.isSettled,
       noOfTimesRepeat: transaction.noOfTimesRepeat,
     }
@@ -252,6 +285,22 @@ export class ManageTransactionsComponent implements OnInit {
       noOfTimesRepeat: 0,
     }
     addOrEditTransactionModal.show();
+  }
+
+  getLabelByList(id: string, list: IDropDownOption[]): string {
+    const item = list.find(value => value.id === id);
+    if (item) {
+      return item.label;
+    }
+    return id;
+  }
+
+  onSwipeRight($event: any) {
+    this.openMenu = true;
+  }
+
+  closeSideMenu() {
+    this.openMenu = false;
   }
 }
 

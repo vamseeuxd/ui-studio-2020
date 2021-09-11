@@ -44,10 +44,17 @@
     width: 100vw;
     height: 100vh;
     z-index: 100000;
-    left: 0;
+    left: -100vw;
+    transition: left 500ms;
     top: 0;
+
+    &.open-menu {
+      left: 0;
+    }
+
     background-color: rgba(0, 0, 0, 0.01);
-    .list-group{
+
+    .list-group {
       overflow-x: hidden;
       overflow-y: auto;
       width: 300px;
