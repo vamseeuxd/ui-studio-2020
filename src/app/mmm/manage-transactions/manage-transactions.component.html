@@ -8,7 +8,6 @@
           <span class="border pe-3 border-0 border-end me-3 border-secondary ms-1">
             <h5 class="m-0 p-0" (click)="mainDatePicker.click()">
               {{selectedDate|date:'MMMM'}}
-              <!--<sup>{{selectedDate|date:'YYYY'}}</sup>-->
               {{selectedDate|date:'YYYY'}}
             </h5>
             <input (onShown)="onOpenCalendar($event)" #mainDatePicker [bsConfig]="{containerClass:'theme-default',startView: 'month',dateInputFormat: 'MMMM-YYYY'}" [(ngModel)]="selectedDate" bsDatepicker style="opacity:0;pointer-events: none;position: absolute;width: 100px;left: calc(50% - 50px);" readonly placeholder="Datepicker">
@@ -44,13 +43,6 @@
       <button (click)="addNewTransaction(addOrEditTransactionModal)" class="btn-secondary btn position-fixed btn-lg rounded-circle shadow" style="z-index: 1000;bottom: 80px;left: 40px;"><i class="fa fa-plus"></i></button>
     </tab>
     <!--  ***************************** Income Tab *****************************  -->
-
-    <!--  ***************************** Savings Tab *****************************  -->
-    <tab (selectTab)="selectedTab = 'savings'" class="bg-white p-2 border border-top-0 position-relative" style="height: calc(100vh - 75px)" heading="Savings">
-      <ng-container *ngTemplateOutlet="tabHeader;context:{title:'Savings',total:20000}"></ng-container>
-      <button (click)="addNewTransaction(addOrEditTransactionModal)" class="btn-secondary btn position-fixed btn-lg rounded-circle shadow" style="z-index: 1000;bottom: 80px;left: 40px;"><i class="fa fa-plus"></i></button>
-    </tab>
-    <!--  ***************************** Savings Tab *****************************  -->
 
   </tabset>
   <!--  ***************************** Main Tab Navigator *****************************  -->
@@ -233,18 +225,6 @@
          </div>
        </div>
      </accordion-group>
-     <accordion-group panelClass="list-group-item pb-0 mb-1 pt-0 px-1" *ngIf="selectedTab == 'savings'" [isOpen]="true">
-       <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading type="button">Savings Categories</button>
-       <div class="d-flex justify-content-start align-items-center">
-         <div [class.bg-secondary]="filterSavingsCategories.indexOf(option.id)>=0"
-              [class.text-white]="filterSavingsCategories.indexOf(option.id)>=0"
-              (click)="toggleFilter(option.id, filterSavingsCategories)"
-              class="border border-secondary py-0 btn-sm mx-1 my-2 rounded-pill"
-              *ngFor="let option of savingsCategories">
-           {{option.label}}
-         </div>
-       </div>
-     </accordion-group>
      <accordion-group panelClass="list-group-item pb-0 mb-1 pt-0 px-1" *ngIf="selectedTab !== 'income'" [isOpen]="true">
        <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading type="button">Payees</button>
        <div class="d-flex justify-content-start align-items-center">
@@ -340,18 +320,18 @@
   <div class="m-0 p-0 pb-2 d-flex flex-row justify-content-between align-items-center">
     <div class="d-flex w-100">
       <!--<h4 class="ms-auto pe-2 text-muted">{{total|currency:currencyCode}}</h4>-->
-      <ul class="list-group list-group-horizontal row w-100 mx-0 text-center" style="font-size: 12px;">
-        <li class="list-group-item col d-flex justify-content-center align-content-center flex-column">
+      <ul class="list-group list-group-horizontal row w-100 mx-0 text-center">
+        <li class="list-group-item px-0 col d-flex justify-content-center align-content-center flex-column">
           <span>Total</span>
-          <span>{{100000000|currency:currencyCode}}</span>
+          <span class="text-truncate text-center">{{200000|currency:currencyCode}}</span>
         </li>
-        <li class="list-group-item col d-flex justify-content-center align-content-center flex-column">
+        <li class="list-group-item px-0 col d-flex justify-content-center align-content-center flex-column">
           <span>Settled</span>
-          <span>{{100000000|currency:currencyCode}}</span>
+          <span class="text-truncate text-center">{{200000|currency:currencyCode}}</span>
         </li>
-        <li class="list-group-item col d-flex justify-content-center align-content-center flex-column">
+        <li class="list-group-item px-0 col d-flex justify-content-center align-content-center flex-column">
           <span>Not Settled</span>
-          <span>{{100000000|currency:currencyCode}}</span>
+          <span class="text-truncate text-center">{{200000|currency:currencyCode}}</span>
         </li>
       </ul>
     </div>
