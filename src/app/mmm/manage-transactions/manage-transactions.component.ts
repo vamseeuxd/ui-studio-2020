@@ -24,7 +24,8 @@ export interface ITransaction {
 
 export interface IDropDownOption {
   label: string;
-  id: string
+  id: string;
+  email?: string;
 }
 
 export class Transaction {
@@ -162,9 +163,21 @@ export class ManageTransactionsComponent implements OnInit {
   filterExpensesFor: string[] = [];
   filterTaxDeductionSections: string[] = [];
 
-  expensesCategories: IDropDownOption[] = [{id: 'Loan', label: 'Loan'}, {id: 'Home', label: 'Home'}];
+  expensesCategories: IDropDownOption[] = [
+    {id: '01', label: 'Rent'},
+    {id: '02', label: 'Transportation'},
+    {id: '03', label: 'Groceries,'},
+    {id: '04', label: 'Home and utilities'},
+    {id: '05', label: 'Insurance,'},
+    {id: '06', label: 'Bills & emis'},
+    {id: '07', label: 'Education'},
+    {id: '08', label: 'Health and personal care'},
+    {id: '09', label: 'Shopping and entertainment'},
+    {id: '10', label: 'Food and dining'},
+    {id: '11', label: 'Travel'},
+    {id: '12', label: 'Memberships'},
+  ];
   incomeCategories: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
-  savingsCategories: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
   payees: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
   payers: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
   expensesFor: IDropDownOption[] = [{id: '01', label: 'Home at Vizag'}, {id: '02', label: 'Sukanya'}];
@@ -324,35 +337,6 @@ export class ManageTransactionsComponent implements OnInit {
   openRightMenuOnPanLeft() {
     this.openRightMenu = true;
     this.openMenu = false;
-  }
-
-  shortNumber(number: number, args?: any): any {
-    if (isNaN(number)) return null; // will only work value is a number
-    if (number === null) return null;
-    if (number === 0) return null;
-    let abs = Math.abs(number);
-    const rounder = Math.pow(10, 1);
-    const isNegative = number < 0; // will also work for Negetive numbers
-    let key = '';
-
-    const powers = [
-      {key: 'Q', value: Math.pow(10, 15)},
-      {key: 'T', value: Math.pow(10, 12)},
-      {key: 'B', value: Math.pow(10, 9)},
-      {key: 'M', value: Math.pow(10, 6)},
-      {key: 'K', value: 1000}
-    ];
-
-    for (let i = 0; i < powers.length; i++) {
-      let reduced = abs / powers[i].value;
-      reduced = Math.round(reduced * rounder) / rounder;
-      if (reduced >= 1) {
-        abs = reduced;
-        key = powers[i].key;
-        break;
-      }
-    }
-    return (isNegative ? '-' : '') + abs + key;
   }
 }
 

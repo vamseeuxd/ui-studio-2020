@@ -22,7 +22,7 @@
 <!--  ***************************** APP Header *****************************  -->
 
 
-<div (panright)="openRightMenu = false; openMenu = true;" (panleft)="!addOrEditTransactionModal.isShown ? openRightMenuOnPanLeft() : null" class="container-fluid vw-100 pt-2 bg-light position-relative" style="height: calc(100vh - 56px);margin-top: 56px;">
+<div (panright)="openRightMenu = false; openMenu = true;" (panleft)="(!addOrEditTransactionModal.isShown && !manageCollectionModal.isShown) ? openRightMenuOnPanLeft() : null" class="container-fluid vw-100 pt-2 bg-light position-relative" style="height: calc(100vh - 56px);margin-top: 56px;">
 
   <!--  ***************************** Main Tab Navigator *****************************  -->
   <tabset [justified]="true" class="d-flex flex-column-reverse">
@@ -187,7 +187,6 @@
   <ul class="list-group shadow" style="height: calc(100vh - 97px);max-height: calc(100vh - 97px);" (click)="$event.stopPropagation()">
     <li [class.active]="manageCollectionTitle == 'Expenses Categories'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Expenses Categories',expensesCategories, 'Expenses Category')">Manage Expenses Categories</li>
     <li [class.active]="manageCollectionTitle == 'Income Categories'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Income Categories',incomeCategories, 'Income Category')">Manage Income Categories</li>
-    <li [class.active]="manageCollectionTitle == 'Savings Categories'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Savings Categories',savingsCategories, 'Savings Category')">Manage Savings Categories</li>
     <li [class.active]="manageCollectionTitle == 'Payees'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Payees',payees,'Payee')">Manage Payees</li>
     <li [class.active]="manageCollectionTitle == 'Payers'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Payers',payers,'Payer')">Manage Payers</li>
     <li [class.active]="manageCollectionTitle == 'Expenses For'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Expenses For',expensesFor,'Expenses For')">Manage Expenses For</li>
