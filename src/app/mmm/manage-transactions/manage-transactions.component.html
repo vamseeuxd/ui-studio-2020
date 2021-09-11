@@ -130,6 +130,7 @@
           </form>
         </div>
         <div class="modal-footer">
+          <button (click)="addOrEditTransactionModal.hide()" class="btn btn-dark me-auto">Cancel</button>
           <button (click)="saveTransaction(transactionForm,addOrEditTransactionModal)" [disabled]="transactionForm.invalid" class="btn btn-secondary">
             {{transactionIdEditing.length == 0 ? 'Add Transaction' : 'Update Transaction'}}
           </button>
@@ -339,18 +340,18 @@
   <div class="m-0 p-0 pb-2 d-flex flex-row justify-content-between align-items-center">
     <div class="d-flex w-100">
       <!--<h4 class="ms-auto pe-2 text-muted">{{total|currency:currencyCode}}</h4>-->
-      <ul class="list-group list-group-horizontal row w-100 mx-0 text-center">
+      <ul class="list-group list-group-horizontal row w-100 mx-0 text-center" style="font-size: 12px;">
         <li class="list-group-item col d-flex justify-content-center align-content-center flex-column">
           <span>Total</span>
-          <span>{{10000|currency:currencyCode}}</span>
+          <span>{{100000000|currency:currencyCode}}</span>
         </li>
         <li class="list-group-item col d-flex justify-content-center align-content-center flex-column">
           <span>Settled</span>
-          <span>{{10000|currency:currencyCode}}</span>
+          <span>{{100000000|currency:currencyCode}}</span>
         </li>
         <li class="list-group-item col d-flex justify-content-center align-content-center flex-column">
           <span>Not Settled</span>
-          <span>{{10000|currency:currencyCode}}</span>
+          <span>{{100000000|currency:currencyCode}}</span>
         </li>
       </ul>
     </div>
