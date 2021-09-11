@@ -96,6 +96,7 @@ export class Transaction {
 export class ManageTransactionsComponent implements OnInit {
   selectedDate = new Date();
   openMenu = false;
+  openRightMenu = false;
   currencyCode = 'INR';
   selectedTab: TransactionType = 'expenses';
   userEmail = '';
@@ -154,12 +155,20 @@ export class ManageTransactionsComponent implements OnInit {
   manageCollectionItemEdit = '';
   manageCollectionArray: IDropDownOption[] = [];
 
+  filterExpensesCategories: string[] = [];
+  filterIncomeCategories: string[] = [];
+  filterSavingsCategories: string[] = [];
+  filterPayees: string[] = [];
+  filterPayers: string[] = [];
+  filterExpensesFor: string[] = [];
+  filterTaxDeductionSections: string[] = [];
+
   expensesCategories: IDropDownOption[] = [{id: 'Loan', label: 'Loan'}, {id: 'Home', label: 'Home'}];
   incomeCategories: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
   savingsCategories: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
   payees: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
   payers: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
-  expensesFor: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
+  expensesFor: IDropDownOption[] = [{id: '01', label: 'Home at Vizag'}, {id: '02', label: 'Sukanya'}];
   taxDeductionSections: IDropDownOption[] = [{id: '01', label: 'Option 01'}, {id: '02', label: 'Option 02'}];
 
   constructor() {
@@ -300,6 +309,21 @@ export class ManageTransactionsComponent implements OnInit {
   }
 
   closeSideMenu() {
+    this.openMenu = false;
+  }
+
+  toggleFilter(id: string, list: string[]) {
+    const index = list.indexOf(id);
+    if (index === -1) {
+      list.push(id);
+    } else {
+      list.splice(index, 1);
+    }
+    window.focus();
+  }
+
+  openRightMenuOnPanLeft() {
+    this.openRightMenu = true;
     this.openMenu = false;
   }
 }

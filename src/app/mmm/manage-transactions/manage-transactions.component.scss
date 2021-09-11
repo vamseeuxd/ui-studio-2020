@@ -44,12 +44,40 @@
     width: 100vw;
     height: 100vh;
     z-index: 100000;
-    left: -100vw;
-    transition: left 500ms;
     top: 0;
 
+    &.left {
+      left: -100vw;
+      transition: left 500ms;
+    }
+
+    &.right {
+      right: -100vw;
+      transition: right 500ms;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      align-items: flex-end;
+      align-content: flex-end;
+    }
+
+
     &.open-menu {
-      left: 0;
+      &.left {
+        left: 0;
+        transition: left 500ms;
+      }
+
+      &.right {
+        left: auto;
+        right: 0;
+        transition: right 500ms;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: flex-end;
+        align-content: flex-end;
+      }
     }
 
     background-color: rgba(0, 0, 0, 0.01);
@@ -62,5 +90,51 @@
       border-radius: 0;
       background-color: #f3f3f3;
     }
+
+    &.right {
+      ::ng-deep
+      .panel-group {
+        .panel-open {
+          .panel {
+            .panel-heading {
+              .btn-link {
+                border-bottom: 1px solid #dfdfdf;
+              }
+            }
+          }
+        }
+
+        .card-header {
+          padding: 0 !important;
+          margin-bottom: 0;
+          background-color: transparent !important;
+          border-bottom: 0px solid rgba(0, 0, 0, 0.125) !important;
+
+          .btn-link {
+            color: #212529;
+            text-decoration: none;
+            width: 100%;
+            text-align: left;
+
+            &:focus {
+              outline: 0;
+              box-shadow: none !important;
+            }
+          }
+        }
+      }
+    }
   }
+
+  /*.remove-focus:focus, .remove-focus:active {
+    box-shadow: none !important;
+    color: inherit !important;
+    background-color: inherit !important;
+
+    &.active {
+      color: #fff;
+      background-color: #6c757d;
+    }
+  }*/
+
 }
