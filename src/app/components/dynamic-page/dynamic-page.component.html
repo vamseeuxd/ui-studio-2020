@@ -1,7 +1,7 @@
 <div class="container-fluid" *ngIf="activePage">
   <div class="row">
     <app-dynamic-component
-      [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+      [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
       [component]="component"
       [componentToEdit]="componentToEdit"
       [showManagePages]="showManagePages"
@@ -27,7 +27,8 @@
 </div>
 
 <app-action-context-menu
-  [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+  [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
+  [addComponentContextMenu]="addComponentContextMenu"
   (action)="onAction($event)"
   [isPage]="true"
   [style.top.px]="contextMenuPageY"

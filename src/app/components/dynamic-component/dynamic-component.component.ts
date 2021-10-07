@@ -1,8 +1,7 @@
-import { IApplication } from '../../interfaces/application.interface';
-import { IAddComponentValueObject } from '../../interfaces/add-component-vo';
-import { ICutCopyPateValueObject } from '../../interfaces/cut-copy-paste-vo';
+import {IApplication} from '../../interfaces/application.interface';
+import {IAddComponentValueObject} from '../../interfaces/add-component-vo';
+import {ICutCopyPateValueObject} from '../../interfaces/cut-copy-paste-vo';
 import {
-  COL,
   IComponent,
   COMPONENT_TYPE,
 } from '../../interfaces/component.interface';
@@ -16,7 +15,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ADD_OR_PASTE_WHERE } from '../../interfaces/paster-where-enum';
+import {ADD_OR_PASTE_WHERE} from '../../interfaces/paster-where-enum';
 
 @Component({
   selector: 'app-dynamic-component',
@@ -35,6 +34,7 @@ export class DynamicComponentComponent implements OnInit {
   public get component(): IComponent | undefined {
     return this._component;
   }
+
   @Input()
   public set component(value: IComponent | undefined) {
     this._component = value;
@@ -42,48 +42,44 @@ export class DynamicComponentComponent implements OnInit {
   }
 
   // tslint:disable-next-line:variable-name
-  private _lastCopiedOrCuttedComponent: IComponent | undefined;
-  public get lastCopiedOrCuttedComponent(): IComponent | undefined {
-    return this._lastCopiedOrCuttedComponent;
+  private _lastCopiedOrCutComponent: IComponent | undefined;
+  public get lastCopiedOrCutComponent(): IComponent | undefined {
+    return this._lastCopiedOrCutComponent;
   }
+
   @Input()
-  public set lastCopiedOrCuttedComponent(value: IComponent | undefined) {
-    this._lastCopiedOrCuttedComponent = value;
+  public set lastCopiedOrCutComponent(value: IComponent | undefined) {
+    this._lastCopiedOrCutComponent = value;
     this.cssClass = this.getColClasses();
   }
 
   @Input() parentList: IComponent[] = [];
+  @Input() addComponentContextMenu: any;
   @Input() isChild = false;
   @Input() componentToEdit: IComponent | null = null;
   @Input() showManagePages = false;
   @Input() isModalWindow = false;
   @Input() app: IApplication | undefined;
   @Input() activePageId = '';
-  @Output() activePageIdChange: EventEmitter<string> =
-    new EventEmitter<string>();
-  @Output() copy: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() cut: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> =
-    new EventEmitter<ICutCopyPateValueObject>();
-  @Output() editComponent: EventEmitter<{
-    component: IComponent;
-    event: MouseEvent;
-  }> = new EventEmitter<{ component: IComponent; event: MouseEvent }>();
-  @Output() addComponent: EventEmitter<IAddComponentValueObject> =
-    new EventEmitter<IAddComponentValueObject>();
+  @Output() activePageIdChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() copy: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() cut: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteBefore: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteAfter: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteInside: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() pasteCancel: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() deleteComponent: EventEmitter<ICutCopyPateValueObject> = new EventEmitter<ICutCopyPateValueObject>();
+  @Output() editComponent: EventEmitter<{ component: IComponent; event: MouseEvent; }> = new EventEmitter<{ component: IComponent; event: MouseEvent }>();
+  @Output() addComponent: EventEmitter<IAddComponentValueObject> = new EventEmitter<IAddComponentValueObject>();
 
   @Output() managePages: EventEmitter<any> = new EventEmitter<any>();
   @Output() managePageProperties: EventEmitter<any> = new EventEmitter<any>();
+
+  @HostListener('click', ['$event'])
+  // tslint:disable-next-line:typedef
+  onClick($event: MouseEvent) {
+    $event.stopPropagation();
+  }
 
   @HostListener('window:mousedown', ['$event'])
   // tslint:disable-next-line:typedef
@@ -133,9 +129,11 @@ export class DynamicComponentComponent implements OnInit {
     this.updateContextMenuPosition($event);
   }
 
-  constructor(private hostElement: ElementRef) {}
+  constructor(private hostElement: ElementRef) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   updateContextMenuPosition($event: MouseEvent) {
     $event.preventDefault();
@@ -151,26 +149,22 @@ export class DynamicComponentComponent implements OnInit {
   }
 
   getColClasses(): string {
-    return (
-      (this.component && this.component.col.join(' ')) +
-      ' ' +
-      (this.component && this.component.offset.join(' ')) +
-      ' ' +
-      (this.lastCopiedOrCuttedComponent &&
-      this.component?.id == this.lastCopiedOrCuttedComponent.id
-        ? ' ants '
-        : '') +
-      ' ' +
-      (this.showContextMenu ? 'border shadow border-danger' : '') +
-      ' ' +
-      ' position-relative d-block'
-    );
+    return `
+    position-relative
+    ${(this.component && this.component.col.join(' '))}
+    ${(this.component && this.component.offset.join(' '))}
+    `
+    /*return (
+      (this.component && this.component.col.join(' ')) + ' ' + (this.component && this.component.offset.join(' ')) + ' ' +
+      (this.lastCopiedOrCutComponent && this.component?.id == this.lastCopiedOrCutComponent.id ? ' ants ' : '') + ' ' +
+      (this.showContextMenu ? 'border shadow border-danger' : '') + ' ' + ' position-relative'
+    );*/
   }
 
   onAction({
-    menu: { action, label },
-    event,
-  }: {
+             menu: {action, label},
+             event,
+           }: {
     menu: any;
     event: MouseEvent;
   }): void {
@@ -183,11 +177,11 @@ export class DynamicComponentComponent implements OnInit {
         break;
       case 'border-additive':
         this.component &&
-          this.toggelValue(this.component.borderAdditive, label);
+        this.toggleValue(this.component.borderAdditive, label);
         break;
       case 'border-subtractive':
         this.component &&
-          this.toggelValue(this.component.borderSubtractive, label);
+        this.toggleValue(this.component.borderSubtractive, label);
         break;
       case 'border-color':
         this.component && this.addOrRemove(this.component.borderColor, label);
@@ -196,7 +190,7 @@ export class DynamicComponentComponent implements OnInit {
         this.component && this.addOrRemove(this.component.borderWidth, label);
         break;
       case 'border-radius':
-        this.component && this.toggelValue(this.component.borderRadius, label);
+        this.component && this.toggleValue(this.component.borderRadius, label);
         break;
       case 'border-size':
         this.component && this.addOrRemove(this.component.borderSize, label);
@@ -204,87 +198,114 @@ export class DynamicComponentComponent implements OnInit {
       case 'copy':
         // copy functionality
         this.component &&
-          this.copy.emit({
-            component: this.component,
-            parent: this.parentList,
-          });
+        this.copy.emit({
+          component: this.component,
+          parent: this.parentList,
+        });
         break;
       case 'cut':
         // cut functionality
         this.component &&
-          this.cut.emit({ component: this.component, parent: this.parentList });
+        this.cut.emit({component: this.component, parent: this.parentList});
         break;
       case 'paste-before':
         // paste functionality
         this.component &&
-          this.pasteBefore.emit({
-            component: this.component,
-            parent: this.parentList,
-          });
+        this.pasteBefore.emit({
+          component: this.component,
+          parent: this.parentList,
+        });
         break;
       case 'paste-after':
         // paste functionality
         this.component &&
-          this.pasteAfter.emit({
-            component: this.component,
-            parent: this.parentList,
-          });
+        this.pasteAfter.emit({
+          component: this.component,
+          parent: this.parentList,
+        });
         break;
       case 'paste-inside':
         // paste functionality
         this.component &&
-          this.pasteInside.emit({
-            component: this.component,
-            parent: this.parentList,
-          });
+        this.pasteInside.emit({
+          component: this.component,
+          parent: this.parentList,
+        });
         break;
       case 'paste-cancel':
         // paste functionality
         this.component &&
-          this.pasteCancel.emit({
-            component: this.component,
-            parent: this.parentList,
-          });
+        this.pasteCancel.emit({
+          component: this.component,
+          parent: this.parentList,
+        });
         break;
       case 'delete':
         // delete functionality
         this.component &&
-          this.deleteComponent.emit({
-            component: this.component,
-            parent: this.parentList,
-          });
+        this.deleteComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+        });
         break;
       case 'edit':
         // delete functionality
         this.component &&
-          this.editComponent.emit({ component: this.component, event });
+        this.editComponent.emit({component: this.component, event});
         break;
       case 'add-alert-before':
         this.component &&
-          this.addComponent.emit({
-            component: this.component,
-            parent: this.parentList,
-            where: ADD_OR_PASTE_WHERE.BEFORE_COMPONENT,
-            componentName: 'ALERT',
-          });
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.BEFORE_COMPONENT,
+          componentName: 'ALERT'
+        });
         break;
       case 'add-alert-after':
         this.component &&
-          this.addComponent.emit({
-            component: this.component,
-            parent: this.parentList,
-            where: ADD_OR_PASTE_WHERE.AFTER_COMPONENT,
-            componentName: 'ALERT',
-          });
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.AFTER_COMPONENT,
+          componentName: 'ALERT',
+        });
         break;
       case 'add-alert-inside':
         this.component &&
-          this.addComponent.emit({
-            component: this.component,
-            parent: this.parentList,
-            where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT,
-            componentName: 'ALERT',
-          });
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT,
+          componentName: 'ALERT',
+        });
+        break;
+      case 'add-accordion-before':
+        this.component &&
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.BEFORE_COMPONENT,
+          componentName: 'ACCORDION'
+        });
+        break;
+      case 'add-accordion-after':
+        this.component &&
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.AFTER_COMPONENT,
+          componentName: 'ACCORDION',
+        });
+        break;
+      case 'add-accordion-inside':
+        this.component &&
+        this.addComponent.emit({
+          component: this.component,
+          parent: this.parentList,
+          where: ADD_OR_PASTE_WHERE.INSIDE_COMPONENT,
+          componentName: 'ACCORDION',
+        });
         break;
       case 'manage-pages':
         this.managePages.emit();
@@ -300,7 +321,7 @@ export class DynamicComponentComponent implements OnInit {
     this.component = this.component;
   }
 
-  toggelValue(array: string[], newVal: string): void {
+  toggleValue(array: string[], newVal: string): void {
     let removeIndex = -1;
     array.forEach((oldVal, index) => {
       if (oldVal === newVal) {

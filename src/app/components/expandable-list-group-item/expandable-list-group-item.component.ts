@@ -49,7 +49,7 @@ export class ExpandableListGroupItemComponent implements OnInit {
   @Input() isRootMenu = false;
   @Input() menu: any = undefined;
   @Input() menuId: string = '';
-  @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
+  @Input() lastCopiedOrCutComponent: IComponent | undefined;
   @Output() isOpenChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() itemClick: EventEmitter<{ menu: any; event: MouseEvent }> =
     new EventEmitter<{ menu: any; event: MouseEvent }>();
@@ -138,9 +138,9 @@ export class ExpandableListGroupItemComponent implements OnInit {
 
   isMenuDisabled(data: any): boolean {
     return !data?.alwaysEnabled
-      ? !!data?.lastCopiedOrCutted
-        ? !this.lastCopiedOrCuttedComponent
-        : this.lastCopiedOrCuttedComponent
+      ? !!data?.lastCopiedOrCut
+        ? !this.lastCopiedOrCutComponent
+        : this.lastCopiedOrCutComponent
         ? true
         : false
       : false;

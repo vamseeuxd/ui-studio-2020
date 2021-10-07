@@ -1,0 +1,34 @@
+<accordion-group [class.cut-or-copied]="isCutOrCopied || showContextMenu" [class.is-cut]="isCutInProgress"
+                 [class.is-copied]="isCopyInProgress" class="position-relative" heading="Static Header"ng-container>
+  <ng-container
+    *ngIf="component && component.components && component.components.length > 0"
+  >
+    <div class="row px-2">
+      <app-dynamic-component
+        [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
+        [componentToEdit]="componentToEdit"
+        [showManagePages]="showManagePages"
+        [app]="app"
+        [isModalWindow]="isModalWindow"
+        [component]="childComponent"
+        [isChild]="true"
+        [(activePageId)]="activePageId"
+        (activePageIdChange)="activePageIdChange.emit($event)"
+        (managePages)="managePages.emit()"
+        (managePageProperties)="managePageProperties.emit()"
+        [parentList]="component.components"
+        (copy)="copy.emit($event)"
+        (cut)="cut.emit($event)"
+        (pasteBefore)="pasteBefore.emit($event)"
+        (pasteAfter)="pasteAfter.emit($event)"
+        (pasteInside)="pasteInside.emit($event)"
+        (pasteCancel)="pasteCancel.emit($event)"
+        (deleteComponent)="deleteComponent.emit($event)"
+        (editComponent)="editComponent.emit($event)"
+        (addComponent)="addComponent.emit($event)"
+        *ngFor="let childComponent of component.components"
+      ></app-dynamic-component>
+    </div>
+  </ng-container>
+</accordion-group>
+

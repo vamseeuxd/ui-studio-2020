@@ -1,5 +1,7 @@
 export enum COMPONENT_TYPE {
   ALERT = 'ALERT',
+  ACCORDION = 'ACCORDION',
+  ACCORDION_GROUP = 'ACCORDION_GROUP',
 }
 
 export enum OFFSET {
@@ -153,19 +155,26 @@ export enum COL {
 export interface IComponent {
   type: COMPONENT_TYPE;
   col: COL[];
-  borderAdditive : string[],
-  borderSubtractive : string[],
-  borderColor : string[],
-  borderWidth : string[],
-  borderRadius : string[],
-  borderSize : string[],
+  borderAdditive: string[];
+  borderSubtractive: string[];
+  borderColor: string[];
+  borderWidth: string[];
+  borderRadius: string[];
+  borderSize: string[];
   offset: OFFSET[];
   id: string;
+  isGroupComponent: boolean;
   isCopied: boolean;
-  isCutted: boolean;
+  isCut: boolean;
   props?: IComponentProp[];
   events?: IEvent[];
   components: any[];
+  addComponentContextMenu?: {
+    icon: string,
+    action: string,
+    label: string,
+    menu: any[];
+  }
 }
 
 export interface IComponentProp {
@@ -177,11 +186,12 @@ export interface IComponentProp {
   propType: COMPONENT_PROP_TYPE;
   dataProvider?: { label: string; value: any }[];
 }
+
 export interface IEvent {
   name: string;
   label: string;
   description: string;
-  actions?: IACTION[];
+  actions?: IAction[];
 }
 
 export enum COMPONENT_PROP_TYPE {
@@ -190,7 +200,7 @@ export enum COMPONENT_PROP_TYPE {
   LIST = 'LIST',
 }
 
-export interface IACTION {
+export interface IAction {
   value: any;
   id: string;
   target?: '_blank' | '_self' | '_parent' | '_top';

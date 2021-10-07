@@ -1,19 +1,22 @@
 <div
   [style.width.%]="getPropValueByName('width')"
-  [class]="'mt-3 alert text-truncate ' + getPropValueByName('alertType') + ' ' + getUtilitClasses()"
+  [class.cut-or-copied]="isCutOrCopied || showContextMenu" [class.is-cut]="isCutInProgress" [class.is-copied]="isCopyInProgress"
+  [class]="
+    'alert text-truncate ' +
+    getPropValueByName('alertType') +
+    ' ' +
+    getUtilitiesClasses()
+  "
   role="alert"
   (click)="onClick($event, component?.events, 'click')"
 >
-  {{ getPropValueByName("innterText") }}
-  <!-- <pre>{{getActions() | json}}</pre> -->
-  <!-- {{component?.id}} -->
-  <!-- {{activePageId}} -->
+  {{ getPropValueByName("innerText") }}
   <ng-container
     *ngIf="component && component.components && component.components.length > 0"
   >
     <div class="row">
       <app-dynamic-component
-        [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+        [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
         [componentToEdit]="componentToEdit"
         [showManagePages]="showManagePages"
         [app]="app"
@@ -39,5 +42,3 @@
     </div>
   </ng-container>
 </div>
-
-

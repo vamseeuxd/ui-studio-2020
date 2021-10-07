@@ -1,4 +1,4 @@
-import { IPageProp } from './../../interfaces/page.interface';
+import { IPageProp } from '../../interfaces/page.interface';
 import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';

@@ -1,12 +1,13 @@
 <!--
   <pre>{{ component | json }}</pre>
 -->
-<app-alert-wraper
+<app-alert-wrapper
   [component]="component"
-  [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+  [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
   [componentToEdit]="componentToEdit"
   [showManagePages]="showManagePages"
   [app]="app"
+  [showContextMenu]="showContextMenu"
   [isModalWindow]="isModalWindow"
   [(activePageId)]="activePageId"
   (activePageIdChange)="activePageIdChange.emit($event)"
@@ -22,11 +23,60 @@
   (editComponent)="editComponent.emit($event)"
   (addComponent)="addComponent.emit($event)"
   *ngIf="component?.type === component_type.ALERT"
-></app-alert-wraper>
+></app-alert-wrapper>
+
+<app-accordion-wrapper
+  [component]="component"
+  [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
+  [componentToEdit]="componentToEdit"
+  [showManagePages]="showManagePages"
+  [app]="app"
+  [showContextMenu]="showContextMenu"
+  [isModalWindow]="isModalWindow"
+  [(activePageId)]="activePageId"
+  (activePageIdChange)="activePageIdChange.emit($event)"
+  (copy)="copy.emit($event)"
+  (cut)="cut.emit($event)"
+  (managePages)="managePages.emit()"
+  (managePageProperties)="managePageProperties.emit()"
+  (pasteBefore)="pasteBefore.emit($event)"
+  (pasteAfter)="pasteAfter.emit($event)"
+  (pasteInside)="pasteInside.emit($event)"
+  (pasteCancel)="pasteCancel.emit($event)"
+  (deleteComponent)="deleteComponent.emit($event)"
+  (editComponent)="editComponent.emit($event)"
+  (addComponent)="addComponent.emit($event)"
+  *ngIf="component?.type === component_type.ACCORDION"
+></app-accordion-wrapper>
+
+<app-accordion-group-wrapper
+  [component]="component"
+  [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
+  [componentToEdit]="componentToEdit"
+  [showManagePages]="showManagePages"
+  [app]="app"
+  [showContextMenu]="showContextMenu"
+  [isModalWindow]="isModalWindow"
+  [(activePageId)]="activePageId"
+  (activePageIdChange)="activePageIdChange.emit($event)"
+  (copy)="copy.emit($event)"
+  (cut)="cut.emit($event)"
+  (managePages)="managePages.emit()"
+  (managePageProperties)="managePageProperties.emit()"
+  (pasteBefore)="pasteBefore.emit($event)"
+  (pasteAfter)="pasteAfter.emit($event)"
+  (pasteInside)="pasteInside.emit($event)"
+  (pasteCancel)="pasteCancel.emit($event)"
+  (deleteComponent)="deleteComponent.emit($event)"
+  (editComponent)="editComponent.emit($event)"
+  (addComponent)="addComponent.emit($event)"
+  *ngIf="component?.type === component_type.ACCORDION_GROUP"
+></app-accordion-group-wrapper>
 
 <app-action-context-menu
   appKeepElementInViewport
-  [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+  [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
+  [addComponentContextMenu]="component?.addComponentContextMenu"
   [component]="component"
   [leftAlign]="contextMenuLeftAlign"
   (action)="onAction($event)"

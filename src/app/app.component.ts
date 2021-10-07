@@ -1,13 +1,12 @@
 import { IAddComponentValueObject } from './interfaces/add-component-vo';
 import { ICutCopyPateValueObject } from './interfaces/cut-copy-paste-vo';
-import { applicationMockData, AlertMockData } from './utilities/mock-data';
+import { applicationMockData, AlertMockData, AccordionMockData } from './utilities/mock-data';
 import { IApplication } from './interfaces/application.interface';
 import { Component } from '@angular/core';
 import {
   COL,
-  COMPONENT_TYPE,
   IComponent,
-  COMPONENT_PROP_TYPE,
+
 } from './interfaces/component.interface';
 import { ADD_OR_PASTE_WHERE } from './interfaces/paster-where-enum';
 
@@ -18,8 +17,8 @@ import { ADD_OR_PASTE_WHERE } from './interfaces/paster-where-enum';
 })
 export class AppComponent {
   headerHeight = '60px';
-  lastCopiedOrCuttedComponent: IComponent | undefined;
-  lastCopiedOrCuttedParent: IComponent[] | undefined;
+  lastCopiedOrCutComponent: IComponent | undefined;
+  lastCopiedOrCutParent: IComponent[] | undefined;
   componentToEdit: IComponent | null = null;
   mouseEventForComponentEdit: MouseEvent | null = null;
   app: IApplication | undefined = applicationMockData;
@@ -28,11 +27,12 @@ export class AppComponent {
   constructor() {
     if (this.app) {
       this.app.pages[0].components = [
-        AlertMockData('page_180'),
-        AlertMockData('page_180'),
-        AlertMockData('page_180'),
+        AlertMockData(),
+        AlertMockData(),
+        AlertMockData(),
+        AccordionMockData(),
       ];
-      this.app.pages[1].components = [AlertMockData('page_140')];
+      this.app.pages[1].components = [AlertMockData()];
     }
   }
   getActivePage(): any {
@@ -46,29 +46,29 @@ export class AppComponent {
   isCutInProgress(): boolean {
     // @ts-ignore
     return (
-      this.lastCopiedOrCuttedComponent &&
-      this.lastCopiedOrCuttedComponent.isCutted
+      this.lastCopiedOrCutComponent &&
+      this.lastCopiedOrCutComponent.isCut
     );
   }
   copy({ component, parent }: ICutCopyPateValueObject): void {
-    if (this.lastCopiedOrCuttedComponent) {
-      this.lastCopiedOrCuttedComponent.isCopied = false;
-      this.lastCopiedOrCuttedComponent.isCutted = false;
+    if (this.lastCopiedOrCutComponent) {
+      this.lastCopiedOrCutComponent.isCopied = false;
+      this.lastCopiedOrCutComponent.isCut = false;
     }
     component.isCopied = true;
-    component.isCutted = false;
-    this.lastCopiedOrCuttedComponent = component;
-    this.lastCopiedOrCuttedParent = parent;
+    component.isCut = false;
+    this.lastCopiedOrCutComponent = component;
+    this.lastCopiedOrCutParent = parent;
   }
   cut({ component, parent }: ICutCopyPateValueObject): void {
-    if (this.lastCopiedOrCuttedComponent) {
-      this.lastCopiedOrCuttedComponent.isCopied = false;
-      this.lastCopiedOrCuttedComponent.isCutted = false;
+    if (this.lastCopiedOrCutComponent) {
+      this.lastCopiedOrCutComponent.isCopied = false;
+      this.lastCopiedOrCutComponent.isCut = false;
     }
-    component.isCutted = true;
+    component.isCut = true;
     component.isCopied = false;
-    this.lastCopiedOrCuttedComponent = component;
-    this.lastCopiedOrCuttedParent = parent;
+    this.lastCopiedOrCutComponent = component;
+    this.lastCopiedOrCutParent = parent;
   }
 
   updateIdsForAllChildren(component: IComponent): void {
@@ -85,8 +85,8 @@ export class AppComponent {
     isAfter: boolean,
     isInside = false
   ): void {
-    const oldId = this.lastCopiedOrCuttedComponent?.id;
-    const cloned = window._.cloneDeep(this.lastCopiedOrCuttedComponent);
+    const oldId = this.lastCopiedOrCutComponent?.id;
+    const cloned = window._.cloneDeep(this.lastCopiedOrCutComponent);
     if (isInside) {
       cloned.id = window._.uniqueId('component_');
       this.updateIdsForAllChildren(cloned);
@@ -104,24 +104,21 @@ export class AppComponent {
         parent.splice(addIndex + (isAfter ? 1 : 0), 0, cloned);
       }
     }
-    if (this.isCutInProgress() && this.lastCopiedOrCuttedComponent) {
+    if (this.isCutInProgress() && this.lastCopiedOrCutComponent) {
       // @ts-ignore
-      const removeIndex = window._.findIndex(this.lastCopiedOrCuttedParent, [
-        'id',
-        this.lastCopiedOrCuttedComponent.id,
-      ]);
+      const removeIndex = window._.findIndex(this.lastCopiedOrCutParent, ['id', this.lastCopiedOrCutComponent.id,]);
       // @ts-ignore
-      this.lastCopiedOrCuttedParent.splice(removeIndex, 1);
+      this.lastCopiedOrCutParent.splice(removeIndex, 1);
       cloned.id = oldId;
       this.pasteCancel({ component, parent });
     }
   }
 
   pasteCancel({ component, parent }: ICutCopyPateValueObject): void {
-    if (this.lastCopiedOrCuttedComponent) {
-      this.lastCopiedOrCuttedComponent.isCopied = false;
-      this.lastCopiedOrCuttedComponent.isCutted = false;
-      this.lastCopiedOrCuttedComponent = undefined;
+    if (this.lastCopiedOrCutComponent) {
+      this.lastCopiedOrCutComponent.isCopied = false;
+      this.lastCopiedOrCutComponent.isCut = false;
+      this.lastCopiedOrCutComponent = undefined;
     }
   }
   deleteComponent({ component, parent }: ICutCopyPateValueObject): void {
@@ -132,10 +129,10 @@ export class AppComponent {
       if (isConfirmed) {
         const removeIndex = window._.findIndex(parent, ['id', component.id]);
         parent.splice(removeIndex, 1);
-        if (this.lastCopiedOrCuttedComponent) {
-          this.lastCopiedOrCuttedComponent.isCopied = false;
-          this.lastCopiedOrCuttedComponent.isCutted = false;
-          this.lastCopiedOrCuttedComponent = undefined;
+        if (this.lastCopiedOrCutComponent) {
+          this.lastCopiedOrCutComponent.isCopied = false;
+          this.lastCopiedOrCutComponent.isCut = false;
+          this.lastCopiedOrCutComponent = undefined;
         }
       }
     }, 50);
@@ -151,9 +148,14 @@ export class AppComponent {
     this.mouseEventForComponentEdit = event;
   }
   addComponent(value: IAddComponentValueObject): void {
+    let config: IComponent;
     switch (value.componentName) {
       case 'ALERT':
-        const config: IComponent = AlertMockData();
+        config = AlertMockData();
+        this.addNewComponent(value, config);
+        break;
+      case 'ACCORDION':
+        config = AccordionMockData();
         this.addNewComponent(value, config);
         break;
 

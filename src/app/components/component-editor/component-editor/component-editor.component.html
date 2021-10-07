@@ -166,7 +166,6 @@
                 [isAnimated]="true"
               >
                 <accordion-group
-                  #accordionGroup
                   *ngFor="let action of event.actions"
                   class="mb-1"
                 >
@@ -207,7 +206,7 @@
                       "
                     >
                       <p class="m-0 p-0 mb-2 text-muted">
-                        Selete Page to Navigate :
+                        Select Page to Navigate :
                       </p>
                       <select class="form-control" [(ngModel)]="action.value">
                         <option value="">Select Page to Navigate</option>
@@ -223,9 +222,9 @@
 
                     <!-- ************************** Modal Dialog ************************** -->
                     <ng-container *ngIf=" action.type === ActionType.MODAL && app && app.pages">
-                      <p class="m-0 p-0 mb-2 text-muted">Selete Page for Modal Dialog :</p>
+                      <p class="m-0 p-0 mb-2 text-muted">Select Page for Modal Dialog :</p>
                       <select class="form-control" [(ngModel)]="action.value">
-                        <option value="">Selete Page for Modal Dialog </option>
+                        <option value="">Select Page for Modal Dialog </option>
                         <option [value]="page.id" *ngFor="let page of app.pages"> {{ page.name }}</option>
                       </select>
 
@@ -266,7 +265,7 @@
                         class="form-control"
                         [(ngModel)]="action.value"
                       />
-                      <p>add <code>https://</code> infront of URL</p>
+                      <p>add <code>https://</code> in-front of URL</p>
                       <p class="m-0 p-0 mb-2 text-muted">Target :</p>
                       <select class="form-control" [(ngModel)]="action.target">
                         <option>_blank</option>

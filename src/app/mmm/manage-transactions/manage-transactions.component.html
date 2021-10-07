@@ -1,0 +1,340 @@
+<!--  ***************************** APP Header *****************************  -->
+<nav class="navbar fixed-top navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand w-100 me-0">
+      <div class="d-flex">
+        <button class="btn btn-dark btn-sm" (click)="openMenu = true"><i class="fa fa-bars"></i></button>
+        <div class="d-flex align-items-center justify-content-center my-auto w-100">
+          <span class="border pe-3 border-0 border-end me-3 border-secondary ms-1">
+            <h5 class="m-0 p-0" (click)="mainDatePicker.click()">
+              {{selectedDate|date:'MMMM'}}
+              {{selectedDate|date:'YYYY'}}
+            </h5>
+            <input (onShown)="onOpenCalendar($event)" #mainDatePicker [bsConfig]="{containerClass:'theme-default',startView: 'month',dateInputFormat: 'MMMM-YYYY'}" [(ngModel)]="selectedDate" bsDatepicker style="opacity:0;pointer-events: none;position: absolute;width: 100px;left: calc(50% - 50px);" readonly placeholder="Datepicker">
+          </span>
+          <span class="1234">{{selectedTab | titlecase}}</span>
+        </div>
+        <button class="btn btn-dark btn-sm ms-auto" (click)="openRightMenu = true"><i class="fa fa-filter"></i></button>
+      </div>
+    </a>
+  </div>
+</nav>
+<!--  ***************************** APP Header *****************************  -->
+
+
+<div (panright)="openRightMenu = false; openMenu = true;" (panleft)="(!addOrEditTransactionModal.isShown && !manageCollectionModal.isShown) ? openRightMenuOnPanLeft() : null" class="container-fluid vw-100 pt-2 bg-light position-relative" style="height: calc(100vh - 56px);margin-top: 56px;">
+
+  <!--  ***************************** Main Tab Navigator *****************************  -->
+  <tabset [justified]="true" class="d-flex flex-column-reverse">
+
+    <!--  ***************************** Expenses Tab *****************************  -->
+    <tab (selectTab)="selectedTab = 'expenses'" class="bg-white p-2 border border-top-0 position-relative" style="height: calc(100vh - 75px)" heading="Expenses">
+      <ng-container *ngTemplateOutlet="tabHeader;context:{title:'Expenses',total:20000}"></ng-container>
+      <ul class="list-group mt-1 rounded-0" style="overflow-x: hidden;overflow-y: auto;max-height: calc(100vh - 210px);height: calc(100vh - 210px);">
+        <ng-container *ngFor="let transaction of transactions"><ng-container *ngTemplateOutlet="transactionTemplate;context:{transaction:transaction}"></ng-container></ng-container>
+      </ul>
+      <button (click)="addNewTransaction(addOrEditTransactionModal)" class="btn-secondary btn position-fixed btn-lg rounded-circle shadow" style="z-index: 1000;bottom: 80px;left: 40px;"><i class="fa fa-plus"></i></button>
+    </tab>
+    <!--  ***************************** Expenses Tab *****************************  -->
+
+    <!--  ***************************** Income Tab *****************************  -->
+    <tab (selectTab)="selectedTab = 'income'" class="bg-white p-2 border border-top-0 position-relative" style="height: calc(100vh - 75px)" heading="Income" id="tab1">
+      <ng-container *ngTemplateOutlet="tabHeader;context:{title:'Income',total:20000}"></ng-container>
+      <button (click)="addNewTransaction(addOrEditTransactionModal)" class="btn-secondary btn position-fixed btn-lg rounded-circle shadow" style="z-index: 1000;bottom: 80px;left: 40px;"><i class="fa fa-plus"></i></button>
+    </tab>
+    <!--  ***************************** Income Tab *****************************  -->
+
+  </tabset>
+  <!--  ***************************** Main Tab Navigator *****************************  -->
+
+  <!--  ***************************** ADD or EDIT Transaction Modal *****************************  -->
+  <div class="modal fade" bsModal #addOrEditTransactionModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-sm" *ngIf="addOrEditTransactionModal.isShown">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-static-name" class="modal-title float-start text-muted">
+            {{transactionIdEditing.length == 0 ? 'Add ' : 'Update '}}
+            {{selectedTab | titlecase}}
+          </h4>
+          <button type="button" class="btn-close close float-end" aria-label="Close" (click)="addOrEditTransactionModal.hide()"><span aria-hidden="true" class="visually-hidden">&times;</span></button>
+        </div>
+        <div class="modal-body" style="max-height: calc(100vh - 160px);overflow-x: hidden;overflow-y: auto;">
+          <form #transactionForm="ngForm">
+            <div class="mb-3">
+              <label class="form-label">{{selectedTab | titlecase}} Title <code>*</code></label>
+              <input autocomplete="off" required [ngModel]="defaultFormOptions.title" name="title" type="text" class="form-control" placeholder="{{selectedTab | titlecase}} Title">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{selectedTab | titlecase}} Amount <code>*</code></label>
+              <input required type="number" [ngModel]="defaultFormOptions.amount" name="amount" class="form-control" placeholder="{{selectedTab | titlecase}} Amount">
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-flex align-items-center">
+                {{selectedTab | titlecase}} category <code>*</code>
+               <!-- <button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses Categories',expensesCategories,'Expenses Category')">Manage Categories</button>-->
+              </label>
+              <select class="form-control" [ngModel]="defaultFormOptions.category" name="category">
+                <option [ngValue]="item.id" *ngFor="let item of expensesCategories">{{item.label}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-flex align-items-center">
+                {{selectedTab | titlecase}} For <code>*</code>
+                <!--<button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Expenses For',expensesFor,'Expenses For')">Manage Expenses For</button>-->
+              </label>
+              <select class="form-control" [ngModel]="defaultFormOptions.for" name="for">
+                <option [ngValue]="item.id" *ngFor="let item of expensesFor">{{item.label}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-flex align-items-center">
+                To Whom Paid <code>*</code>
+                <!--<button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Payees',payees,'Payee')">Manage Payees</button>-->
+              </label>
+              <select class="form-control" [ngModel]="defaultFormOptions.payee" name="payee">
+                <option [ngValue]="item.id" *ngFor="let item of payees">{{item.label}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-flex align-items-center">
+                Tax Deduction Section
+                <!--<button class="btn btn-link ms-auto" (click)="showManageCollectionModal(manageCollectionModal,'Manage Tax Deduction Sections',taxDeductionSections,'Tax Deduction Section')">Manage Tax Sections</button>-->
+              </label>
+              <select class="form-control" [ngModel]="defaultFormOptions.taxDeductionSection" name="taxDeductionSection">
+                <option [ngValue]="item.id" *ngFor="let item of taxDeductionSections">{{item.label}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{selectedTab | titlecase}} Start Date <code>*</code></label>
+              <input type="text" required [bsConfig]="{containerClass:'theme-default',dateInputFormat: 'DD-MMMM-YYYY'}" bsDatepicker placement="top" readonly class="form-control bg-white" [ngModel]="defaultFormOptions.startDate" name="startDate" placeholder="{{selectedTab | titlecase}} Start Date">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Is {{selectedTab | titlecase}} Settled <code>*</code></label>
+              <select required class="form-control" [ngModel]="defaultFormOptions.isSettled" name="isSettled">
+                <option [ngValue]="false">No</option>
+                <option [ngValue]="true">Yes</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">No of Months to repeat</label>
+              <input type="number" class="form-control" min="1" [ngModel]="defaultFormOptions.noOfTimesRepeat" name="noOfTimesRepeat" placeholder="No of times to repeat">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button (click)="addOrEditTransactionModal.hide()" class="btn btn-dark me-auto">Cancel</button>
+          <button (click)="saveTransaction(transactionForm,addOrEditTransactionModal)" [disabled]="transactionForm.invalid" class="btn btn-secondary">
+            {{transactionIdEditing.length == 0 ? 'Add Transaction' : 'Update Transaction'}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  ***************************** ADD or EDIT Transaction Modal *****************************  -->
+
+  <!--  ***************************** Manage Collection Modal *****************************  -->
+  <div class="modal fade" bsModal #manageCollectionModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-static-name" class="modal-title pull-left">{{manageCollectionTitle}}</h4>
+          <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="manageCollectionTitle = ''; manageCollectionArray = [];manageCollectionModal.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="height: calc(100vh - 85px)">
+          <ul class="list-group rounded-0">
+            <li class="list-group-item rounded-0">
+              <ul class="list-group rounded-0">
+                <li class="list-group-item border-0 rounded-0 p-0">
+                  <div class="input-group rounded-0">
+                    <input (keyup.enter)="addCollectionItem(newInput,manageCollectionArray)" #newInput type="text" class="form-control rounded-0" [placeholder]="manageCollectionPlaceHolder">
+                    <button (click)="addCollectionItem(newInput,manageCollectionArray)" class="btn btn-outline-secondary rounded-0" type="button">Add</button>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="list-group-item rounded-0">
+              <ul class="list-group rounded-0" style="overflow: hidden auto;max-height: calc(100vh - 190px);height: calc(100vh - 190px);">
+                <li class="list-group-item rounded-0" *ngFor="let item of manageCollectionArray;let ind = index">
+                  <div class="input-group rounded-0">
+                    <input [disabled]="!(manageCollectionItemEdit == item.id)" [value]="item.label" type="text" class="form-control rounded-0 bg-white border-0 ps-0" [class.bg-white]="!(manageCollectionItemEdit == item.id)" [class.border-0]="!(manageCollectionItemEdit == item.id)" [class.ps-0]="!(manageCollectionItemEdit == item.id)" #editInput (keyup.enter)="updateCollectionItem(editInput,manageCollectionArray,item)" [placeholder]="manageCollectionPlaceHolder">
+                    <button (click)="updateCollectionItem(editInput,manageCollectionArray,item)" *ngIf="(manageCollectionItemEdit == item.id)" class="btn btn-outline-secondary rounded-0" type="button"><i class="fa fa-save"></i></button>
+                    <button (click)="manageCollectionItemEdit = ''" *ngIf="manageCollectionItemEdit == item.id" class="btn btn-outline-dark rounded-0" type="button"><i class="fa fa-close"></i></button>
+                    <button (click)="deleteCollectionItem(item,manageCollectionArray,ind)" *ngIf="!(manageCollectionItemEdit == item.id)" class="btn btn-outline-danger rounded-0" type="button"><i class="fa fa-trash"></i></button>
+                    <button (click)="editCollectionItem(item,editInput)" *ngIf="!(manageCollectionItemEdit == item.id)" class="btn btn-outline-warning rounded-0" type="button"><i class="fa fa-pencil"></i></button>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  ***************************** Manage Collection Modal *****************************  -->
+
+</div>
+
+<!--  ***************************** App Left-Side-Menu *****************************  -->
+<div class="side-menu left" [class.open-menu]="openMenu" (panleft)="openMenu = false" (click)="closeSideMenu()">
+  <ul class="list-group shadow text-center" (click)="$event.stopPropagation()">
+    <li class="list-group-item border-bottom-0 pb-0 fw-bold text-secondary">vamsi.flex@gmail.com</li>
+    <li class="list-group-item pt-0 text-primary text-end"><button class="btn btn-outline-secondary mt-2 btn-sm">SIGN-OUT</button></li>
+  </ul>
+  <ul class="list-group shadow" style="height: calc(100vh - 97px);max-height: calc(100vh - 97px);" (click)="$event.stopPropagation()">
+    <li [class.active]="manageCollectionTitle == 'Expenses Categories'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Expenses Categories',expensesCategories, 'Expenses Category')">Manage Expenses Categories</li>
+    <li [class.active]="manageCollectionTitle == 'Income Categories'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Income Categories',incomeCategories, 'Income Category')">Manage Income Categories</li>
+    <li [class.active]="manageCollectionTitle == 'Payees'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Payees',payees,'Payee')">Manage Payees</li>
+    <li [class.active]="manageCollectionTitle == 'Payers'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Payers',payers,'Payer')">Manage Payers</li>
+    <li [class.active]="manageCollectionTitle == 'Expenses For'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Expenses For',expensesFor,'Expenses For')">Manage Expenses For</li>
+    <li [class.active]="manageCollectionTitle == 'Tax Deduction Sections'" class="list-group-item" (click)="showManageCollectionModal(manageCollectionModal,'Tax Deduction Sections',taxDeductionSections,'Tax Deduction Section')">Manage Tax Deduction Sections</li>
+  </ul>
+</div>
+<!--  ***************************** App Left-Side-Menu *****************************  -->
+
+<!--  ***************************** App Right-Side-Menu *****************************  -->
+<div class="side-menu right" [class.open-menu]="openRightMenu" (panright)="openRightMenu = false" (click)="openRightMenu = false">
+ <ul class="list-group shadow" style="height: calc(100vh - 0px);max-height: calc(100vh - 0px);" (click)="$event.stopPropagation()">
+   <h4 class="text-muted w-100 text-center border-bottom pb-2 mb-1">Filters</h4>
+   <accordion [isAnimated]="true" class="list-group">
+     <accordion-group panelClass="list-group-item pb-0 mb-1 pt-0 px-1" *ngIf="selectedTab === 'expenses'" [isOpen]="true">
+       <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading type="button">Expenses Categories</button>
+       <div class="d-flex justify-content-start align-items-center">
+         <div [class.bg-secondary]="filterExpensesCategories.indexOf(option.id)>=0"
+              [class.text-white]="filterExpensesCategories.indexOf(option.id)>=0"
+              (click)="toggleFilter(option.id, filterExpensesCategories);"
+              class="border border-secondary py-0 btn-sm mx-1 my-2 rounded-pill"
+              *ngFor="let option of expensesCategories">
+           {{option.label}}
+         </div>
+       </div>
+     </accordion-group>
+     <accordion-group panelClass="list-group-item pb-0 mb-1 pt-0 px-1" *ngIf="selectedTab == 'income'" [isOpen]="true">
+       <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading type="button">Income Categories</button>
+       <div class="d-flex justify-content-start align-items-center">
+         <div [class.bg-secondary]="filterIncomeCategories.indexOf(option.id)>=0"
+              [class.text-white]="filterIncomeCategories.indexOf(option.id)>=0"
+              (click)="toggleFilter(option.id, filterIncomeCategories)"
+              class="border border-secondary py-0 btn-sm mx-1 my-2 rounded-pill"
+              *ngFor="let option of incomeCategories">
+           {{option.label}}
+         </div>
+       </div>
+     </accordion-group>
+     <accordion-group panelClass="list-group-item pb-0 mb-1 pt-0 px-1" *ngIf="selectedTab !== 'income'" [isOpen]="true">
+       <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading type="button">Payees</button>
+       <div class="d-flex justify-content-start align-items-center">
+         <div [class.bg-secondary]="filterPayees.indexOf(option.id)>=0"
+              [class.text-white]="filterPayees.indexOf(option.id)>=0"
+              (click)="toggleFilter(option.id, filterPayees)"
+              class="border border-secondary py-0 btn-sm mx-1 my-2 rounded-pill"
+              *ngFor="let option of payees">
+           {{option.label}}
+         </div>
+       </div>
+     </accordion-group>
+     <accordion-group panelClass="list-group-item pb-0 mb-1 pt-0 px-1" *ngIf="selectedTab == 'income'" [isOpen]="true">
+       <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading type="button">Payers</button>
+       <div class="d-flex justify-content-start align-items-center">
+         <div [class.bg-secondary]="filterPayers.indexOf(option.id)>=0"
+              [class.text-white]="filterPayers.indexOf(option.id)>=0"
+              (click)="toggleFilter(option.id, filterPayers)"
+              class="border border-secondary py-0 btn-sm mx-1 my-2 rounded-pill"
+              *ngFor="let option of payers">
+           {{option.label}}
+         </div>
+       </div>
+     </accordion-group>
+     <accordion-group panelClass="list-group-item pb-0 mb-1 pt-0 px-1" *ngIf="selectedTab == 'expenses'" [isOpen]="true">
+       <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading type="button">Expenses For</button>
+       <div class="d-flex justify-content-start align-items-center">
+         <div [class.bg-secondary]="filterExpensesFor.indexOf(option.id)>=0"
+              [class.text-white]="filterExpensesFor.indexOf(option.id)>=0"
+              (click)="toggleFilter(option.id, filterExpensesFor)"
+              class="border border-secondary py-0 btn-sm mx-1 my-2 rounded-pill"
+              *ngFor="let option of expensesFor">
+           {{option.label}}
+         </div>
+       </div>
+     </accordion-group>
+     <accordion-group panelClass="list-group-item pb-0 mb-1 pt-0 px-1" *ngIf="selectedTab == 'expenses'" [isOpen]="true">
+       <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading type="button">Tax Deduction Sections</button>
+       <div class="d-flex justify-content-start align-items-center">
+         <div [class.bg-secondary]="filterTaxDeductionSections.indexOf(option.id)>=0"
+              [class.text-white]="filterTaxDeductionSections.indexOf(option.id)>=0"
+              (click)="toggleFilter(option.id, filterTaxDeductionSections)"
+              class="border border-secondary py-0 btn-sm mx-1 my-2 rounded-pill"
+              *ngFor="let option of taxDeductionSections">
+           {{option.label}}
+         </div>
+       </div>
+     </accordion-group>
+   </accordion>
+  </ul>
+</div>
+<!--  ***************************** App Right-Side-Menu *****************************  -->
+
+<!--  ***************************** Transaction ITEM Template Reference *****************************  -->
+<ng-template let-transaction="transaction" #transactionTemplate>
+  <li class="list-group-item rounded-0 d-flex flex-column position-relative mb-3 border-top shadow">
+    <div class="d-flex justify-content-between">
+      <span class="fw-bold">{{transaction.title}}
+        <span class="text-uppercase badge rounded-pill bg-secondary fw-normal ms-1" style="font-size: 9px;">
+          {{getLabelByList(transaction.category,expensesCategories)}}
+        </span>
+        <span class="text-uppercase badge rounded-pill bg-success fw-normal ms-1" *ngIf="transaction.isSettled" style="font-size: 9px;">
+          Settled
+        </span>
+        <span class="text-uppercase badge rounded-pill bg-danger fw-normal ms-1" *ngIf="!transaction.isSettled" style="font-size: 9px;">
+          Not Settled
+        </span>
+      </span>
+      <span class="fw-bold text-muted">{{transaction.amount|currency:currencyCode}}</span>
+    </div>
+    <div class="d-flex justify-content-start">
+      <span class="me-1" style="font-size: 12px;">for {{getLabelByList(transaction.for,expensesFor)}},</span>
+      <span class="me-1" style="font-size: 12px;">due on every month {{transaction.everyMonthOn}}.</span>
+    </div>
+    <div class="d-flex justify-content-start">
+      <span class="me-1" style="font-size: 12px;">paid {{transaction.paidEmi}}</span>
+      <span class="me-1" style="font-size: 12px;">out of {{transaction.noOfEmi}},</span>
+      <span class="me-1" style="font-size: 12px;">still {{transaction.pendingEmi}} are pending.</span>
+    </div>
+
+    <div class="d-flex justify-content-between pt-2 border-top mt-2">
+      <button type="button" class="btn shadow-sm btn-danger btn-sm"><i class="col me-2 fa fa-trash"></i> Delete</button>
+      <button type="button" (click)="editTransaction(addOrEditTransactionModal,transaction)" class="col btn shadow-sm btn-secondary btn-sm ms-2"><i class="me-2 fa fa-pencil"></i>Edit</button>
+      <button type="button" *ngIf="!transaction.isSettled" style="width: 110px;" class="col btn shadow-sm btn-success btn-sm ms-2"><i class="me-2 fa fa-thumbs-up"></i>Settled</button>
+      <button type="button" *ngIf="transaction.isSettled" style="width: 110px;" class="btn shadow-sm btn-warning btn-sm ms-2"><i class="me-2 fa fa-thumbs-up"></i>Not Settled</button>
+    </div>
+  </li>
+</ng-template>
+<!--  ***************************** Transaction ITEM Template Reference *****************************  -->
+
+<!--  ***************************** TAB Header Template Reference *****************************  -->
+<ng-template let-title="title" let-total="total" #tabHeader>
+  <div class="m-0 p-0 pb-2 d-flex flex-row justify-content-between align-items-center">
+    <div class="d-flex w-100">
+      <!--<h4 class="ms-auto pe-2 text-muted">{{total|currency:currencyCode}}</h4>-->
+      <ul class="list-group list-group-horizontal row w-100 mx-0 text-center">
+        <li class="list-group-item px-0 col d-flex justify-content-center align-content-center flex-column">
+          <span>Total</span>
+          <span class="text-truncate text-center">{{200000|currency:currencyCode}}</span>
+        </li>
+        <li class="list-group-item px-0 col d-flex justify-content-center align-content-center flex-column">
+          <span>Settled</span>
+          <span class="text-truncate text-center">{{200000|currency:currencyCode}}</span>
+        </li>
+        <li class="list-group-item px-0 col d-flex justify-content-center align-content-center flex-column">
+          <span>Not Settled</span>
+          <span class="text-truncate text-center">{{200000|currency:currencyCode}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
+<!--  ***************************** TAB Header Template Reference *****************************  -->
+

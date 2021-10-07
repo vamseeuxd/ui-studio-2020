@@ -100,7 +100,7 @@
       <div class="modal-body">
         <form
           *ngIf="addNewPagePropertyModalRef.isShown"
-          #addOrEditPageProperyFormRef="ngForm"
+          #addOrEditPagePropertyFormRef="ngForm"
           class="modal-body pb-0"
         >
           <!-- ***************** Property Name ***************** -->
@@ -199,11 +199,11 @@
             <button
               (click)="
                 addNewPageProperty(
-                  addOrEditPageProperyFormRef,
+                  addOrEditPagePropertyFormRef,
                   addNewPagePropertyModalRef
                 )
               "
-              [disabled]="addOrEditPageProperyFormRef.invalid"
+              [disabled]="addOrEditPagePropertyFormRef.invalid"
               class="btn btn-outline-primary mb-3 ms-auto"
               type="button"
             >

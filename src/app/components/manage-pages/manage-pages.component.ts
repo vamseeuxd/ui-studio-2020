@@ -5,7 +5,6 @@ import { IPage } from '../../interfaces/page.interface';
 import {
   Component,
   EventEmitter,
-  HostBinding,
   Input,
   OnInit,
   Output,

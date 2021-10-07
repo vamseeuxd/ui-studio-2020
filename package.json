@@ -10,7 +10,8 @@
     "directive": "ng g directive directives/alphaNumericOnly/alphaNumericOnly",
     "main-component": "ng g c manage-pages",
     "component": "ng g c components/component-properties-editor",
-    "wraperComponent": "ng g c wraper-components/alert-wraper"
+    "mmm-component": "ng g c mmm/manage-transactions",
+    "wraperComponent": "ng g c wraper-components/accordion-group-wraper"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +29,7 @@
     "blockly": "^6.20210701.0",
     "bootstrap": "^5.1.0",
     "fontawesome-4.7": "^4.7.0",
+    "hammerjs": "^2.0.8",
     "lodash": "^4.17.21",
     "ngx-bootstrap": "^7.0.0",
     "popper": "^1.0.1",
@@ -39,6 +41,7 @@
     "@angular-devkit/build-angular": "~12.1.1",
     "@angular/cli": "~12.1.1",
     "@angular/compiler-cli": "~12.1.1",
+    "@types/hammerjs": "^2.0.40",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.7.0",

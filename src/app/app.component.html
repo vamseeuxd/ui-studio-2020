@@ -1,4 +1,4 @@
-<ng-container *ngIf="app">
+<ng-container *ngIf="app && false">
   <nav
     class="navbar fixed-top navbar-dark bg-dark shadow"
     *ngIf="app.name.length > 0"
@@ -13,7 +13,7 @@
     style="overflow-y: auto; padding-bottom: 15px"
   >
     <app-dynamic-page
-      [lastCopiedOrCuttedComponent]="lastCopiedOrCuttedComponent"
+      [lastCopiedOrCutComponent]="lastCopiedOrCutComponent"
       [componentToEdit]="componentToEdit"
       [showManagePages]="showManagePages"
       [app]="app"
@@ -70,3 +70,5 @@
 ></app-create-or-import-application>
 
 <!-- <app-coding-editor></app-coding-editor> -->
+
+<app-manage-transactions></app-manage-transactions>

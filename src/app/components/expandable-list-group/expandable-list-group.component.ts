@@ -1,4 +1,4 @@
-import { IComponent, COL, COMPONENT_TYPE } from './../../interfaces/component.interface';
+import { IComponent, COL, COMPONENT_TYPE } from '../../interfaces/component.interface';
 import {
   Component,
   OnInit,
@@ -20,7 +20,7 @@ export class ExpandableListGroupComponent implements OnInit {
   @Input() isPage = true;
   @Input() level = 1;
   @Output() itemClick: EventEmitter<{ menu: any; event: MouseEvent }> = new EventEmitter<{ menu: any; event: MouseEvent }>();
-  @Input() lastCopiedOrCuttedComponent: IComponent | undefined;
+  @Input() lastCopiedOrCutComponent: IComponent | undefined;
   @Input() component: IComponent | undefined = {
     offset: [],
     borderAdditive : [],
@@ -31,8 +31,9 @@ export class ExpandableListGroupComponent implements OnInit {
     borderSize : [],
     col: [COL.LG_12],
     id: '1.1',
+    isGroupComponent: false,
     isCopied: false,
-    isCutted: false,
+    isCut: false,
     type: COMPONENT_TYPE.ALERT,
     components: [],
   };
@@ -40,7 +41,7 @@ export class ExpandableListGroupComponent implements OnInit {
   @Input() menu: any[] = [
     {
       icon: 'fa fa-arrows-h',
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       label: 'Col Size',
       menu: [
         {
@@ -155,7 +156,7 @@ export class ExpandableListGroupComponent implements OnInit {
     },
     {
       icon: 'fa fa-long-arrow-right',
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       label: 'Offset Size',
       menu: [
         {
@@ -270,44 +271,44 @@ export class ExpandableListGroupComponent implements OnInit {
     },
     {
       alwaysEnabled: true,
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-scissors',
       action: 'cut',
       label: 'Cut',
     },
     {
       alwaysEnabled: true,
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-clone',
       action: 'copy',
       label: 'Copy',
     },
     {
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-clipboard',
-      lastCopiedOrCutted: true,
+      lastCopiedOrCut: true,
       label: 'Paste',
       menu: [
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-arrow-left',
           action: 'paste-before',
           label: 'Paste Before',
         },
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-arrow-right',
           action: 'paste-after',
           label: 'Paste After',
         },
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-arrow-down',
           action: 'paste-inside',
           label: 'Paste Inside',
         },
         {
-          lastCopiedOrCutted: true,
+          lastCopiedOrCut: true,
           icon: 'fa fa-close',
           action: 'paste-cancel',
           label: 'Cancel Paste',
@@ -315,14 +316,14 @@ export class ExpandableListGroupComponent implements OnInit {
       ],
     },
     {
-      lastCopiedOrCutted: true,
+      lastCopiedOrCut: true,
       icon: 'fa fa-close',
       action: 'paste-cancel',
       label: 'Cancel Paste',
     },
     { icon: 'fa fa-book', action: 'manage-pages', label: 'Manage Pages' },
     {
-      hideMenuIspage: true,
+      hideMenuIfPage: true,
       icon: 'fa fa-book',
       action: 'manage-event',
       label: 'Manage Event',
@@ -335,7 +336,7 @@ export class ExpandableListGroupComponent implements OnInit {
       menu: [
         {
           icon: 'fa fa-arrow-left',
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           action: 'add-component',
           label: 'Add Before',
           menu: [
@@ -351,7 +352,7 @@ export class ExpandableListGroupComponent implements OnInit {
         },
         {
           icon: 'fa fa-arrow-right',
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           action: 'add-component',
           label: 'Add After',
           menu: [
@@ -367,7 +368,7 @@ export class ExpandableListGroupComponent implements OnInit {
         },
         {
           icon: 'fa fa-arrow-down',
-          hideMenuIspage: true,
+          hideMenuIfPage: true,
           action: 'add-component',
           label: 'Add Inside',
           menu: [
@@ -425,15 +426,15 @@ export class ExpandableListGroupComponent implements OnInit {
   }
   isMenuHidden(data: any): boolean {
     return (
-      (data?.hideMenuIspage && this.isPage) ||
+      (data?.hideMenuIfPage && this.isPage) ||
       (data?.showIfOnlyComponent && !this.isPage)
     );
   }
   isMenuDisabled(data: any): boolean {
     return !data?.alwaysEnabled
-      ? !!data?.lastCopiedOrCutted
-        ? !this.lastCopiedOrCuttedComponent
-        : this.lastCopiedOrCuttedComponent
+      ? !!data?.lastCopiedOrCut
+        ? !this.lastCopiedOrCutComponent
+        : this.lastCopiedOrCutComponent
         ? true
         : false
       : false;
